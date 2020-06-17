@@ -1,0 +1,15 @@
+* 
+
+
+
+*********************************** Links which helped for errors ******************************************
+* https://stackoverflow.com/questions/57817573/createstacknavigator-has-been-moved-to-react-navigation-stack
+
+
+******************************************** Useful **************************************************
+* Facebook animated header ->  https://www.youtube.com/watch?v=y8Jy2vxXVFw
+* Facebook UI - SearchBar ->  https://www.youtube.com/watch?v=yzkTDFErTec
+* React native Chat UI - Message Bubble -> https://www.youtube.com/watch?v=KI3uOGH-PO0
+* https://www.youtube.com/watch?v=o8nXw_E6hlY -> https://www.youtube.com/watch?v=o8nXw_E6hlY
+
+
