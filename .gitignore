@@ -13,6 +13,23 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
+
+*/.expo
+*/.expo-shared
+*/npm-debug.*
+*/.jks
+*/.p8
+*/.p12
+*/.key
+*.mobileprovision
+*.orig.*
+*/web-build/
+*/web-report/
+
+# macOS
+.DS_Store
+
+
 *.log
 log.txt
 npm-debug.log*
