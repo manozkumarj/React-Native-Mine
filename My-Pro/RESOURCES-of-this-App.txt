@@ -2,6 +2,13 @@
 
 
 
+*************************** Ways to run the App after Node-Modules deletion ********************************
+* npm i
+* expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+* 
+
+
+
 *********************************** Links which helped for errors ******************************************
 * https://stackoverflow.com/questions/57817573/createstacknavigator-has-been-moved-to-react-navigation-stack
 

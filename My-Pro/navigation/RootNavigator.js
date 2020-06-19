@@ -1,10 +1,7 @@
 // import React from "react";
 import { Platform } from "react-native";
-import {
-  createStackNavigator,
-  createSwitchNavigator,
-} from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Colors from "../constants/Colors";
 
 import PostsScreen from "./../screens/PostsScreen";
