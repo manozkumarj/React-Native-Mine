@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -12,50 +12,20 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch } from "react-redux";
 
 import Colors from "./../constants/Colors";
-import * as authActions from "./../redux/actions/authActions";
 import Input from "./../components/UI/Input";
 import Card from "./../components/UI/Card";
 
-const formReducer = (state, action) => {
-  if (action.type === FORM_INPUT_UPDATE) {
-    const updatedValues = {
-      ...state.inputValues,
-      [action.input]: action.value,
-    };
-    const updatedValidities = {
-      ...state.inputValidities,
-      [action.input]: action.isValid,
-    };
-    let updatedFormIsValid = true;
-    for (const key in updatedValidities) {
-      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
-    }
-    return {
-      formIsValid: updatedFormIsValid,
-      inputValidities: updatedValidities,
-      inputValues: updatedValues,
-    };
-  }
-  return state;
-};
+import { registerAccount } from "./../redux/actionCreators";
 
 const RegisterScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [isSignup, setIsSignup] = useState(false);
-  const dispatch = useDispatch();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [disableButtons, setDisableButtons] = useState(false);
 
-  const [formState, dispatchFormState] = useReducer(formReducer, {
-    inputValues: {
-      email: "",
-      password: "",
-    },
-    inputValidities: {
-      email: false,
-      password: false,
-    },
-    formIsValid: false,
-  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
@@ -65,39 +35,18 @@ const RegisterScreen = (props) => {
 
   const authHandler = async () => {
     let action;
-    if (isSignup) {
-      action = authActions.signup(
-        formState.inputValues.email,
-        formState.inputValues.password
-      );
-    } else {
-      action = authActions.login(
-        formState.inputValues.email,
-        formState.inputValues.password
-      );
-    }
+    action = registerAccount({ fullName, email, password });
     setError(null);
     setIsLoading(true);
     try {
-      await dispatch(action);
-      props.navigation.navigate("Shop");
+      console.log(action);
+      // await dispatch(action);
+      // props.navigation.navigate("LoggedIn");
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
     }
   };
-
-  const inputChangeHandler = useCallback(
-    (inputIdentifier, inputValue, inputValidity) => {
-      dispatchFormState({
-        type: FORM_INPUT_UPDATE,
-        value: inputValue,
-        isValid: inputValidity,
-        input: inputIdentifier,
-      });
-    },
-    [dispatchFormState]
-  );
 
   return (
     <KeyboardAvoidingView
@@ -109,6 +58,19 @@ const RegisterScreen = (props) => {
         <Card style={styles.authContainer}>
           <ScrollView>
             <Input
+              id="fullName"
+              label="fullName"
+              keyboardType="default"
+              required
+              autoCapitalize="none"
+              errorText="Please enter a valid full name."
+              initialValue=""
+              onChange={(e) => {
+                setFullName(e.target.value);
+              }}
+              value={fullName}
+            />
+            <Input
               id="email"
               label="E-Mail"
               keyboardType="email-address"
@@ -116,8 +78,11 @@ const RegisterScreen = (props) => {
               email
               autoCapitalize="none"
               errorText="Please enter a valid email address."
-              onInputChange={inputChangeHandler}
               initialValue=""
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
             />
             <Input
               id="password"
@@ -128,28 +93,25 @@ const RegisterScreen = (props) => {
               minLength={5}
               autoCapitalize="none"
               errorText="Please enter a valid password."
-              onInputChange={inputChangeHandler}
               initialValue=""
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
             />
             <View style={styles.buttonContainer}>
               {isLoading ? (
                 <ActivityIndicator size="small" color={Colors.siteColor} />
               ) : (
                 <Button
-                  title={isSignup ? "Sign Up" : "Login"}
+                  title="Register"
                   color={Colors.siteColor}
                   onPress={authHandler}
                 />
               )}
             </View>
             <View style={styles.buttonContainer}>
-              <Button
-                title={`Switch to ${isSignup ? "Login" : "Sign Up"}`}
-                color={Colors.siteColor}
-                onPress={() => {
-                  setIsSignup((prevState) => !prevState);
-                }}
-              />
+              <Button title={`Switch to Login`} color={Colors.siteColor} />
             </View>
           </ScrollView>
         </Card>
@@ -159,7 +121,7 @@ const RegisterScreen = (props) => {
 };
 
 RegisterScreen.navigationOptions = {
-  headerTitle: "Authenticate",
+  headerTitle: "Register",
 };
 
 const styles = StyleSheet.create({

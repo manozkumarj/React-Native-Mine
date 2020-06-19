@@ -21,25 +21,26 @@ const defaultStackNavOptions = {
 
 const AuthNavigator = createStackNavigator(
   {
-    Register: RegisterScreen,
     Login: LoginScreen,
+    Register: RegisterScreen,
   },
   {
+    initialRouteName: "Login",
     defaultNavigationOptions: defaultStackNavOptions,
   }
 );
 
 const LoggedInNavigator = createStackNavigator(
   {
-    posts: {
+    Posts: {
       screen: PostsScreen,
     },
-    profile: {
+    Profile: {
       screen: ProfileScreen,
     },
   },
   {
-    // initialRouteName: 'Categories',
+    initialRouteName: "Posts",
     defaultNavigationOptions: defaultStackNavOptions,
   }
 );

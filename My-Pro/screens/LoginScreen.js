@@ -1,186 +1,172 @@
-import React, { useState, useEffect, useReducer, useCallback } from "react";
-import {
-  ScrollView,
-  View,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Button,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Image } from "react-native";
+import tinyLoader from "./../assets/icons/tiny-loader.gif";
 
+// import { useDispatch } from "react-redux";
 import Colors from "./../constants/Colors";
-import * as authActions from "./../redux/actions/authActions";
-import Input from "./../components/UI/Input";
-import Card from "./../components/UI/Card";
-
-const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
-
-const formReducer = (state, action) => {
-  if (action.type === FORM_INPUT_UPDATE) {
-    const updatedValues = {
-      ...state.inputValues,
-      [action.input]: action.value,
-    };
-    const updatedValidities = {
-      ...state.inputValidities,
-      [action.input]: action.isValid,
-    };
-    let updatedFormIsValid = true;
-    for (const key in updatedValidities) {
-      updatedFormIsValid = updatedFormIsValid && updatedValidities[key];
-    }
-    return {
-      formIsValid: updatedFormIsValid,
-      inputValidities: updatedValidities,
-      inputValues: updatedValues,
-    };
-  }
-  return state;
-};
+// import { loginUser } from "./../redux/actionCreators";
 
 const LoginScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
-  const [isSignup, setIsSignup] = useState(false);
-  const dispatch = useDispatch();
-
-  const [formState, dispatchFormState] = useReducer(formReducer, {
-    inputValues: {
-      email: "",
-      password: "",
-    },
-    inputValidities: {
-      email: false,
-      password: false,
-    },
-    formIsValid: false,
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [disableButtons, setDisableButtons] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    if (error) {
-      Alert.alert("An Error Occurred!", error, [{ text: "Okay" }]);
-    }
-  }, [error]);
+    console.log(props);
+    setDisableButtons(false);
+    setShowLoader(false);
+  }, [props]);
 
-  const authHandler = async () => {
-    let action;
-    if (isSignup) {
-      action = authActions.signup(
-        formState.inputValues.email,
-        formState.inputValues.password
-      );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDisableButtons(true);
+    setShowLoader(true);
+    if (email.trim()) {
+      console.log("Form submitted");
+      let loginDetails = {
+        email,
+        password,
+      };
+      console.log(loginDetails);
+      // props.loginUser(loginDetails);
     } else {
-      action = authActions.login(
-        formState.inputValues.email,
-        formState.inputValues.password
-      );
-    }
-    setError(null);
-    setIsLoading(true);
-    try {
-      await dispatch(action);
-      props.navigation.navigate("Shop");
-    } catch (err) {
-      setError(err.message);
-      setIsLoading(false);
+      setDisableButtons(false);
+      setShowLoader(false);
     }
   };
 
-  const inputChangeHandler = useCallback(
-    (inputIdentifier, inputValue, inputValidity) => {
-      dispatchFormState({
-        type: FORM_INPUT_UPDATE,
-        value: inputValue,
-        isValid: inputValidity,
-        input: inputIdentifier,
-      });
-    },
-    [dispatchFormState]
-  );
-
   return (
-    <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={50}
-      style={styles.screen}
-    >
-      <LinearGradient colors={["#ffedff", "#ffe3ff"]} style={styles.gradient}>
-        <Card style={styles.authContainer}>
-          <ScrollView>
-            <Input
-              id="email"
-              label="E-Mail"
-              keyboardType="email-address"
-              required
-              email
-              autoCapitalize="none"
-              errorText="Please enter a valid email address."
-              onInputChange={inputChangeHandler}
-              initialValue=""
-            />
-            <Input
-              id="password"
-              label="Password"
-              keyboardType="default"
-              secureTextEntry
-              required
-              minLength={5}
-              autoCapitalize="none"
-              errorText="Please enter a valid password."
-              onInputChange={inputChangeHandler}
-              initialValue=""
-            />
-            <View style={styles.buttonContainer}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color={Colors.primary} />
-              ) : (
-                <Button
-                  title={isSignup ? "Sign Up" : "Login"}
-                  color={Colors.primary}
-                  onPress={authHandler}
-                />
-              )}
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                title={`Switch to ${isSignup ? "Login" : "Sign Up"}`}
-                color={Colors.accent}
-                onPress={() => {
-                  setIsSignup((prevState) => !prevState);
+    <View style={styles.container}>
+      <View style={styles.threeDivsContainer}>
+        <View style={styles.loginMainContainer}>
+          <Text style={styles.loginTitle}>Log In to Existing Account</Text>
+
+          <View style={styles.dividableHr} />
+
+          <View style={styles.loginFormHolder}>
+            <View style={styles.loginFormFieldHolder}>
+              <TextInput
+                style={styles.loginFormField}
+                placeholder="Enter Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
                 }}
+                value={email}
               />
             </View>
-          </ScrollView>
-        </Card>
-      </LinearGradient>
-    </KeyboardAvoidingView>
+            <View style={styles.loginFormFieldHolder}>
+              <TextInput
+                style={styles.loginFormField}
+                placeholder="Enter password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+              />
+            </View>
+            <View style={styles.loginFormFieldHolder}>
+              <Button
+                style={styles.btnClasses}
+                disabled={disableButtons}
+                onPress={handleSubmit}
+                title="Log In"
+              >
+                <Image
+                  style={{ display: showLoader ? "inline" : "none" }}
+                  src={tinyLoader}
+                  alt="Loader"
+                  style={styles.tinyLoader}
+                />
+              </Button>
+            </View>
+            <View style={styles.dividableHr} />
+            <View style={styles.loginContainer}>
+              <Button
+                onPress={() => handleBtnClick("find-account")}
+                style={styles.btnClasses}
+                disabled={disableButtons}
+                title="Forgotten Account?"
+              ></Button>
+            </View>
+          </View>
+          <View style={styles.width75}>
+            <View style={styles.dividableHr} />
+          </View>
+          <View style={styles.loginFormHolder}>
+            <Button
+              onPress={() => handleBtnClick("register")}
+              style={styles.btnClasses}
+              disabled={disableButtons}
+              title="Register an Account"
+            ></Button>
+          </View>
+        </View>
+      </View>
+    </View>
   );
-};
-
-LoginScreen.navigationOptions = {
-  headerTitle: "Authenticate",
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
+  loginMainContainer: {
+    width: "50%",
+    margin: "5% auto",
+    backgroundColor: "#fff",
+    shadowColor: "black",
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 3,
+    borderColor: "#cccccc",
+    borderWidth: 2,
+    padding: "30px 15px",
   },
-  gradient: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  loginTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: Colors.siteColor,
   },
-  authContainer: {
-    width: "80%",
-    maxWidth: 400,
-    maxHeight: 400,
-    padding: 20,
+  loginFormHolder: {
+    width: "60%",
+    margin: "auto",
   },
-  buttonContainer: {
-    marginTop: 10,
+  loginFormFieldHolder: {
+    margin: "auto",
+  },
+  loginFormField: {
+    width: "93%",
+    borderColor: "#999",
+    borderWidth: 2,
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    marginVertical: 5,
+    fontSize: 16,
+  },
+  loginFormBtn: {
+    width: "99%",
+    paddingVertical: 8,
+    paddingHorizontal: 0,
+    marginVertical: 5,
+    backgroundColor: Colors.siteColor,
+    color: "#fff",
+    borderRadius: 5,
+    fontSize: 16,
+    borderColor: "transparent",
+  },
+  width75: {
+    width: "75%",
+    margin: "auto",
+  },
+  loginContainer: {
+    margin: "auto",
+    textAlign: "center",
+  },
+  loginContainer: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
