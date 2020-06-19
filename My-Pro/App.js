@@ -3,14 +3,14 @@ import { enableScreens } from "react-native-screens";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-import LoggedInNavigator from "./navigation/LoggedInNavigator";
+import RootNavigator from "./navigation/RootNavigator";
 
 enableScreens();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <LoggedInNavigator />
+      <RootNavigator />
     </Provider>
   );
 };
