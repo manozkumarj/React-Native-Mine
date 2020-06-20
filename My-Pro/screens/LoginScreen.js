@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Image } from "react-native";
-import tinyLoader from "./../assets/icons/tiny-loader.gif";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  Button,
+  Image,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+// import tinyLoader from "./../assets/icons/tiny-loader.gif";
 
 // import { useDispatch } from "react-redux";
 import Colors from "./../constants/Colors";
 // import { loginUser } from "./../redux/actionCreators";
+import Card from "./../components/UI/Card";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -12,11 +22,11 @@ const LoginScreen = (props) => {
   const [disableButtons, setDisableButtons] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
 
-  useEffect(() => {
-    console.log(props);
-    setDisableButtons(false);
-    setShowLoader(false);
-  }, [props]);
+  // useEffect(() => {
+  //   console.log(props);
+  //   setDisableButtons(false);
+  //   setShowLoader(false);
+  // }, [props]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,136 +47,51 @@ const LoginScreen = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.threeDivsContainer}>
-        <View style={styles.loginMainContainer}>
-          <Text style={styles.loginTitle}>Log In to Existing Account</Text>
-
+    <ScrollView contentContainerStyle={styles.wholeBg}>
+      <LinearGradient
+        colors={["transparent", "transparent"]}
+        style={styles.gradient}
+      >
+        <Card style={styles.loginContainer}>
+          <Text>Log In to Existing Account</Text>
           <View style={styles.dividableHr} />
-
-          <View style={styles.loginFormHolder}>
-            <View style={styles.loginFormFieldHolder}>
-              <TextInput
-                style={styles.loginFormField}
-                placeholder="Enter Email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                value={email}
-              />
-            </View>
-            <View style={styles.loginFormFieldHolder}>
-              <TextInput
-                style={styles.loginFormField}
-                placeholder="Enter password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                value={password}
-              />
-            </View>
-            <View style={styles.loginFormFieldHolder}>
-              <Button
-                style={styles.btnClasses}
-                disabled={disableButtons}
-                onPress={handleSubmit}
-                title="Log In"
-              >
-                <Image
-                  style={{ display: showLoader ? "inline" : "none" }}
-                  src={tinyLoader}
-                  alt="Loader"
-                  style={styles.tinyLoader}
-                />
-              </Button>
-            </View>
-            <View style={styles.dividableHr} />
-            <View style={styles.loginContainer}>
-              <Button
-                onPress={() => handleBtnClick("find-account")}
-                style={styles.btnClasses}
-                disabled={disableButtons}
-                title="Forgotten Account?"
-              ></Button>
-            </View>
-          </View>
-          <View style={styles.width75}>
-            <View style={styles.dividableHr} />
-          </View>
-          <View style={styles.loginFormHolder}>
-            <Button
-              onPress={() => handleBtnClick("register")}
-              style={styles.btnClasses}
-              disabled={disableButtons}
-              title="Register an Account"
-            ></Button>
-          </View>
-        </View>
-      </View>
-    </View>
+        </Card>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
+LoginScreen.navigationOptions = {
+  headerTitle: "Login",
+};
+
 const styles = StyleSheet.create({
-  loginMainContainer: {
-    width: "50%",
-    margin: "5% auto",
-    backgroundColor: "#fff",
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 3,
-    borderColor: "#cccccc",
-    borderWidth: 2,
-    padding: "30px 15px",
+  wholeBg: {
+    // backgroundColor: Colors.bgColor,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
   },
-  loginTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: Colors.siteColor,
-  },
-  loginFormHolder: {
-    width: "60%",
-    margin: "auto",
-  },
-  loginFormFieldHolder: {
-    margin: "auto",
-  },
-  loginFormField: {
-    width: "93%",
-    borderColor: "#999",
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    marginVertical: 5,
-    fontSize: 16,
-  },
-  loginFormBtn: {
-    width: "99%",
-    paddingVertical: 8,
-    paddingHorizontal: 0,
-    marginVertical: 5,
-    backgroundColor: Colors.siteColor,
-    color: "#fff",
-    borderRadius: 5,
-    fontSize: 16,
-    borderColor: "transparent",
-  },
-  width75: {
-    width: "75%",
-    margin: "auto",
+  gradient: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   loginContainer: {
-    margin: "auto",
-    textAlign: "center",
+    flex: 1,
+    // justifyContent: "center",
+    // alignContent: "center",
+    width: "80%",
+    padding: 20,
+    marginVertical: 5,
+    // maxWidth: 400,
+    maxHeight: 400,
   },
-  loginContainer: {
-    fontSize: 16,
-    fontWeight: "bold",
+  dividableHr: {
+    borderWidth: 1,
+    borderColor: Colors.siteColor,
   },
 });
 
