@@ -6,7 +6,8 @@ import {
   ScrollView,
   TextInput,
   Button,
-  Image,
+  ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 // import tinyLoader from "./../assets/icons/tiny-loader.gif";
@@ -21,6 +22,7 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState("");
   const [disableButtons, setDisableButtons] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   console.log(props);
@@ -53,8 +55,36 @@ const LoginScreen = (props) => {
         style={styles.gradient}
       >
         <Card style={styles.loginContainer}>
-          <Text>Log In to Existing Account</Text>
+          <Text style={styles.pageTitle}>Log In to Existing Account</Text>
           <View style={styles.dividableHr} />
+          <TextInput
+            placeholder="Enter Email"
+            email
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+            placeholderTextColor="#9a73ef"
+          />
+          <TextInput
+            placeholder="Enter Password"
+            password={true}
+            value={password}
+            secureTextEntry
+            placeholderTextColor="#9a73ef"
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+          />
+          <View style={styles.buttonContainer}>
+            {isLoading ? (
+              <ActivityIndicator size="small" color={{ color: "white" }} />
+            ) : (
+              <Button title="Login" color={Colors.siteColor} />
+            )}
+          </View>
+          <View style={styles.dividableHr} />
+          <View style={styles.buttonContainer}>
+            <Button title="Register" color={Colors.siteColor} />
+          </View>
         </Card>
       </LinearGradient>
     </ScrollView>
@@ -76,22 +106,40 @@ const styles = StyleSheet.create({
   gradient: {
     flex: 1,
     width: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
+    marginVertical: 30,
+  },
+  pageTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   loginContainer: {
     flex: 1,
     // justifyContent: "center",
     // alignContent: "center",
-    width: "80%",
+    width: "85%",
     padding: 20,
     marginVertical: 5,
     // maxWidth: 400,
-    maxHeight: 400,
+    maxHeight: 310,
   },
   dividableHr: {
     borderWidth: 1,
     borderColor: Colors.siteColor,
+    marginVertical: 10,
+  },
+  input: {
+    borderColor: Colors.siteColor,
+    borderWidth: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 6,
+    borderRadius: 3,
+    marginVertical: 5,
+    fontSize: 17,
+  },
+  buttonContainer: {
+    marginVertical: 5,
   },
 });
 
