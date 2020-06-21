@@ -9,11 +9,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-// import tinyLoader from "./../assets/icons/tiny-loader.gif";
 
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Colors from "./../constants/Colors";
-// import { loginUser } from "./../redux/actionCreators";
+import { registerAccount } from "./../redux/actionCreators";
 import Card from "./../components/UI/Card";
 
 const RegisterScreen = (props) => {
@@ -21,30 +20,32 @@ const RegisterScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableButtons, setDisableButtons] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
+  const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log(props);
-  //   setDisableButtons(false);
-  //   setShowLoader(false);
-  // }, [props]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const authHandler = async () => {
     setDisableButtons(true);
-    setShowLoader(true);
-    if (email.trim()) {
-      console.log("Form submitted");
-      let loginDetails = {
-        email,
-        password,
-      };
-      console.log(loginDetails);
-      // props.loginUser(loginDetails);
+    setIsLoading(true);
+    setError(null);
+    if (email.trim() && fullName.trim()) {
+      let formFields = { fullName, email, password };
+      try {
+        await dispatch(registerAccount(formFields));
+        setDisableButtons(false);
+        setIsLoading(false);
+        console.log("Registration successful...");
+        props.navigation.navigate("LoggedIn");
+      } catch (err) {
+        setDisableButtons(false);
+        setIsLoading(false);
+        console.error("Dispatch action returned an error");
+        console.error(err);
+        setError(err.message);
+      }
     } else {
       setDisableButtons(false);
-      setShowLoader(false);
+      setIsLoading(false);
     }
   };
 
@@ -85,7 +86,12 @@ const RegisterScreen = (props) => {
             {isLoading ? (
               <ActivityIndicator size="small" color={{ color: "white" }} />
             ) : (
-              <Button title="Register" color={Colors.siteColor} />
+              <Button
+                title="Register"
+                color={Colors.siteColor}
+                onPress={authHandler}
+                disabled={disableButtons}
+              />
             )}
           </View>
           <View style={styles.dividableHr} />
@@ -94,6 +100,7 @@ const RegisterScreen = (props) => {
               title="Login"
               color={Colors.siteColor}
               onPress={() => props.navigation.navigate("Login")}
+              disabled={disableButtons}
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -101,6 +108,7 @@ const RegisterScreen = (props) => {
               title="Forgotten password?"
               color={Colors.siteColor}
               onPress={() => props.navigation.navigate("ForgottenPassword")}
+              disabled={disableButtons}
             />
           </View>
         </Card>

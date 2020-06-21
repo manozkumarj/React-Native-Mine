@@ -19,14 +19,14 @@ export const registerAccount = (accountDetails) => {
   };
 
   return (dispatch) => {
-    API.post(`users`, accountDetails, { headers })
+    return API.post(`users`, accountDetails, { headers })
       .then((res) => {
         console.log(res.data);
         AsyncStorage.setItem("authToken", res.data.token);
         dispatch({ type: REGISTRATION_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
+        console.log(err);
         dispatch({ type: REGISTRATION_FAILED, payload: err.response.data.msg });
       });
   };
