@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AppLoading } from "expo";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCustomBgAndTextColorPost";
 
 const PostsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-
-  // const posts = useSelector((state) => state.centralState.fetchedPosts);
 
   const dispatch = useDispatch();
 
@@ -41,7 +41,11 @@ const PostsScreen = (props) => {
   let loopId = 1;
 
   if (isLoading) {
-    return <AppLoading />;
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
   if (posts.length === 0) {
@@ -49,10 +53,24 @@ const PostsScreen = (props) => {
   }
 
   if (posts.length > 0) {
-    return posts.map((post) => {
-      console.log("post._id --> " + post._id);
-      return <Text key={loopId++}>{post._id}</Text>;
-    });
+    return (
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item._id + loopId}
+        renderItem={(itemData) => {
+          let displayPage;
+          if (itemData.item.postTypeId === 1 || itemData.item.postTypeId === 3)
+            displayPage = (
+              <DefaultAndCustomBgAndTextColorPost
+                key={loopId++}
+                postData={itemData.item.postProperties}
+                postTypeId={itemData.item.postTypeId}
+              />
+            );
+          return displayPage;
+        }}
+      />
+    );
   } else {
     return (
       <View style={styles.container}>
