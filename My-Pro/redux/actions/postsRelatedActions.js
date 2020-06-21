@@ -156,9 +156,9 @@ export const getAllUsersPosts = () => {
       dispatch({ type: IS_LOADING_POSTS });
       return API.get(apiEndPoint, { headers })
         .then((res) => {
-          console.log(res.data);
-          return { status: "success", msg: "posts received", posts: res.data };
+          // console.log(res.data);
           dispatch({ type: FETCHED_POSTS, payload: res.data });
+          return { status: "success", msg: "posts received", posts: res.data };
         })
         .catch((err) => {
           console.log(err.response);

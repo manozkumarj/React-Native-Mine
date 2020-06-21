@@ -29,7 +29,7 @@ const PostsScreen = (props) => {
       let receivedPosts = await dispatch(getAllUsersPosts());
       console.log("Posts received...");
       console.log(receivedPosts);
-      setPosts((posts = () => receivedPosts));
+      setPosts(receivedPosts.posts);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
@@ -37,20 +37,21 @@ const PostsScreen = (props) => {
       console.log(err);
       // setError(err.message);
     }
-  }, [dispatch, posts]);
+  }, [dispatch]);
+  let loopId = 1;
 
   if (isLoading) {
     return <AppLoading />;
   }
 
-  if (!isLoading && posts && posts.length === 0) {
+  if (posts.length === 0) {
     return <Text> No posts to show </Text>;
   }
 
-  if (!isLoading && posts && posts.length > 0) {
+  if (posts.length > 0) {
     return posts.map((post) => {
       console.log("post._id --> " + post._id);
-      return <Text>{post._id}</Text>;
+      return <Text key={loopId++}>{post._id}</Text>;
     });
   } else {
     return (

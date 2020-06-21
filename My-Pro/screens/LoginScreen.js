@@ -17,8 +17,8 @@ import { loginUser } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("aaa@gmail.com");
+  const [password, setPassword] = useState("aaa@123");
   const [disableButtons, setDisableButtons] = useState(false);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
