@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { AppLoading } from "expo";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
 
 import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCustomBgAndTextColorPost";
-
+import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTextAndBorderColorPost";
+import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 const PostsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -67,7 +67,30 @@ const PostsScreen = (props) => {
                 postTypeId={itemData.item.postTypeId}
               />
             );
-          return displayPage;
+          else if (itemData.item.postTypeId === 4)
+            displayPage = (
+              <CustomBgAndTextAndBorderColorPost
+                postData={itemData.item.postProperties}
+                postTypeId={itemData.item.postTypeId}
+              />
+            );
+          else if (post.postTypeId === 5)
+            displayPage = (
+              <CustomBgAndTextAndCornerPost
+                postData={itemData.item.postProperties}
+                postTypeId={itemData.item.postTypeId}
+              />
+            );
+          return (
+            <View style={styles.singlePostContainer}>
+              <View style={styles.postNuserDetailsContainer}>
+                <View style={styles.postDpDiv}>
+                  <Text>{itemData.item.postedBy.fullName}</Text>
+                </View>
+              </View>
+              <View>{displayPage}</View>
+            </View>
+          );
         }}
       />
     );
@@ -111,6 +134,9 @@ const styles = StyleSheet.create({
   },
   logout: {
     paddingHorizontal: 10,
+  },
+  singlePostContainer: {
+    paddingVertical: 10,
   },
 });
 
