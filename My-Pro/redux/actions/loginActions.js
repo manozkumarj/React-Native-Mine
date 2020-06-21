@@ -10,15 +10,17 @@ export const loginUser = (loginDetails) => {
   };
 
   return (dispatch) => {
-    API.post(`users/authenticate`, loginDetails, { headers })
+    return API.post(`users/authenticate`, loginDetails, { headers })
       .then((res) => {
         console.log(res.data);
         AsyncStorage.setItem("authToken", res.data.token);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+        return { status: "success", msg: "Login success" };
       })
       .catch((err) => {
         console.log(err.response);
         dispatch({ type: LOGIN_FAILED, payload: err.response.data.msg });
+        return new Error(err.response.data.msg);
       });
   };
 };

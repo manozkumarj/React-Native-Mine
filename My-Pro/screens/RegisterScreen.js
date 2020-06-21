@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -24,7 +24,7 @@ const RegisterScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const authHandler = async () => {
+  const registerHandler = async () => {
     setDisableButtons(true);
     setIsLoading(true);
     setError(null);
@@ -35,7 +35,7 @@ const RegisterScreen = (props) => {
         setDisableButtons(false);
         setIsLoading(false);
         console.log("Registration successful...");
-        props.navigation.navigate("LoggedIn");
+        props.navigation.navigate("Login");
       } catch (err) {
         setDisableButtons(false);
         setIsLoading(false);
@@ -89,7 +89,7 @@ const RegisterScreen = (props) => {
               <Button
                 title="Register"
                 color={Colors.siteColor}
-                onPress={authHandler}
+                onPress={registerHandler}
                 disabled={disableButtons}
               />
             )}

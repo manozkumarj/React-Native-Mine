@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,34 +13,39 @@ import { LinearGradient } from "expo-linear-gradient";
 import Colors from "./../constants/Colors";
 import Card from "./../components/UI/Card";
 
+import { loginUser } from "./../redux/actionCreators";
+import { useDispatch } from "react-redux";
+
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableButtons, setDisableButtons] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
+  const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log(props);
-  //   setDisableButtons(false);
-  //   setShowLoader(false);
-  // }, [props]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const authHandler = async () => {
     setDisableButtons(true);
-    setShowLoader(true);
+    setIsLoading(true);
+    setError(null);
     if (email.trim()) {
-      console.log("Form submitted");
-      let loginDetails = {
-        email,
-        password,
-      };
-      console.log(loginDetails);
-      // props.loginUser(loginDetails);
+      let formFields = { email, password };
+      try {
+        await dispatch(loginUser(formFields));
+        setDisableButtons(false);
+        setIsLoading(false);
+        console.log("Login successful...");
+        props.navigation.navigate("LoggedIn");
+      } catch (err) {
+        setDisableButtons(false);
+        setIsLoading(false);
+        console.log("Dispatch action returned an error");
+        console.log(err);
+        setError(err.message);
+      }
     } else {
       setDisableButtons(false);
-      setShowLoader(false);
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +79,12 @@ const LoginScreen = (props) => {
             {isLoading ? (
               <ActivityIndicator size="small" color={{ color: "white" }} />
             ) : (
-              <Button title="Login" color={Colors.siteColor} />
+              <Button
+                title="Login"
+                color={Colors.siteColor}
+                onPress={authHandler}
+                disabled={disableButtons}
+              />
             )}
           </View>
           <View style={styles.dividableHr} />
@@ -83,6 +93,7 @@ const LoginScreen = (props) => {
               title="Register"
               color={Colors.siteColor}
               onPress={() => props.navigation.navigate("Register")}
+              disabled={disableButtons}
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -90,6 +101,7 @@ const LoginScreen = (props) => {
               title="Forgotten password?"
               color={Colors.siteColor}
               onPress={() => props.navigation.navigate("ForgottenPassword")}
+              disabled={disableButtons}
             />
           </View>
         </Card>
