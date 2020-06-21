@@ -1,25 +1,69 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { AppLoading } from "expo";
+
+import { getAllUsersPosts } from "./../redux/actionCreators";
+import { useSelector, useDispatch } from "react-redux";
 
 const PostsScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+
+  // const posts = useSelector((state) => state.centralState.fetchedPosts);
+
+  const dispatch = useDispatch();
+
   const logOutHandler = () => {
     props.navigation.navigate("Login");
   };
 
   useEffect(() => {
     props.navigation.setParams({ logout: logOutHandler });
+    fetchData();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text>This is Posts screen!</Text>
-      <Button
-        title="Profile"
-        onPress={() => props.navigation.navigate("Profile")}
-      />
-    </View>
-  );
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      let receivedPosts = await dispatch(getAllUsersPosts());
+      console.log("Posts received...");
+      console.log(receivedPosts);
+      setPosts((posts = () => receivedPosts));
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      console.log("Dispatch action returned an error");
+      console.log(err);
+      // setError(err.message);
+    }
+  }, [dispatch, posts]);
+
+  if (isLoading) {
+    return <AppLoading />;
+  }
+
+  if (!isLoading && posts && posts.length === 0) {
+    return <Text> No posts to show </Text>;
+  }
+
+  if (!isLoading && posts && posts.length > 0) {
+    return posts.map((post) => {
+      console.log("post._id --> " + post._id);
+      return <Text>{post._id}</Text>;
+    });
+  } else {
+    return (
+      <View style={styles.container}>
+        <Text>This is Posts screen!</Text>
+        <Button
+          title="Profile"
+          onPress={() => props.navigation.navigate("Profile")}
+        />
+        <Text>{posts.length}</Text>
+      </View>
+    );
+  }
 };
 
 PostsScreen.navigationOptions = (navData) => {

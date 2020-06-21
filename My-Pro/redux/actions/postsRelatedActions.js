@@ -154,9 +154,10 @@ export const getAllUsersPosts = () => {
 
     return (dispatch) => {
       dispatch({ type: IS_LOADING_POSTS });
-      API.get(apiEndPoint, { headers })
+      return API.get(apiEndPoint, { headers })
         .then((res) => {
           console.log(res.data);
+          return { status: "success", msg: "posts received", posts: res.data };
           dispatch({ type: FETCHED_POSTS, payload: res.data });
         })
         .catch((err) => {
@@ -165,6 +166,7 @@ export const getAllUsersPosts = () => {
             type: FETCHING_POSTS_ERROR,
             payload: err.response,
           });
+          return new Error(err.response);
         });
     };
   }
