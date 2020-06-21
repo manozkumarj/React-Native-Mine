@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
@@ -9,7 +9,7 @@ const PostsScreen = (props) => {
 
   useEffect(() => {
     props.navigation.setParams({ logout: submitHandler });
-  }, [submitHandler]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -28,7 +28,7 @@ PostsScreen.navigationOptions = (navData) => {
     headerTitle: "Posts",
     headerRight: () => (
       <HeaderButtons>
-        <Item title="Logout" onPress={logoutFn} />
+        <Item title="Logout" style={styles.headerItems} onPress={logoutFn} />
       </HeaderButtons>
     ),
   };
@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  headerItems: {
+    color: "#ffffff",
   },
 });
 

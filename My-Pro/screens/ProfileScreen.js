@@ -6,11 +6,17 @@ const ProfileScreen = (props) => {
     <View style={styles.container}>
       <Text>This is Profile screen!</Text>
       <Button
-        title="Profile"
+        title="Posts"
         onPress={() => props.navigation.navigate("Posts")}
       />
     </View>
   );
+};
+
+ProfileScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Profile",
+  };
 };
 
 const styles = StyleSheet.create({
