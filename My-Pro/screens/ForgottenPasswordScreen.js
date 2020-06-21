@@ -13,18 +13,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import Colors from "./../constants/Colors";
 import Card from "./../components/UI/Card";
 
-const LoginScreen = (props) => {
+const ForgottenPasswordScreen = (props) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [disableButtons, setDisableButtons] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(props);
-  //   setDisableButtons(false);
-  //   setShowLoader(false);
-  // }, [props]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +44,7 @@ const LoginScreen = (props) => {
         style={styles.gradient}
       >
         <Card style={styles.loginContainer}>
-          <Text style={styles.pageTitle}>Log In to Existing Account</Text>
+          <Text style={styles.pageTitle}>Forgotten Account</Text>
           <View style={styles.dividableHr} />
           <TextInput
             placeholder="Enter Email"
@@ -61,35 +54,26 @@ const LoginScreen = (props) => {
             style={styles.input}
             placeholderTextColor="#9a73ef"
           />
-          <TextInput
-            placeholder="Enter Password"
-            password={true}
-            value={password}
-            secureTextEntry
-            placeholderTextColor="#9a73ef"
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-          />
           <View style={styles.buttonContainer}>
             {isLoading ? (
               <ActivityIndicator size="small" color={{ color: "white" }} />
             ) : (
-              <Button title="Login" color={Colors.siteColor} />
+              <Button title="Continue" color={Colors.siteColor} />
             )}
           </View>
           <View style={styles.dividableHr} />
           <View style={styles.buttonContainer}>
             <Button
-              title="Register"
+              title="Login"
               color={Colors.siteColor}
-              onPress={() => props.navigation.navigate("Register")}
+              onPress={() => props.navigation.navigate("Login")}
             />
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              title="Forgotten password?"
+              title="Register"
               color={Colors.siteColor}
-              onPress={() => props.navigation.navigate("ForgottenPassword")}
+              onPress={() => props.navigation.navigate("Register")}
             />
           </View>
         </Card>
@@ -98,8 +82,8 @@ const LoginScreen = (props) => {
   );
 };
 
-LoginScreen.navigationOptions = {
-  headerTitle: "Login",
+ForgottenPasswordScreen.navigationOptions = {
+  headerTitle: "Forgotten Account",
 };
 
 const styles = StyleSheet.create({
@@ -146,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ForgottenPasswordScreen;

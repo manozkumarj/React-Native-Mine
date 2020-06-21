@@ -1,122 +1,111 @@
 import React, { useState, useEffect } from "react";
 import {
-  ScrollView,
   View,
-  KeyboardAvoidingView,
+  Text,
   StyleSheet,
+  ScrollView,
+  TextInput,
   Button,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useDispatch } from "react-redux";
+// import tinyLoader from "./../assets/icons/tiny-loader.gif";
 
+// import { useDispatch } from "react-redux";
 import Colors from "./../constants/Colors";
-import Input from "./../components/UI/Input";
+// import { loginUser } from "./../redux/actionCreators";
 import Card from "./../components/UI/Card";
 
-import { registerAccount } from "./../redux/actionCreators";
-
 const RegisterScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [disableButtons, setDisableButtons] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   console.log(props);
+  //   setDisableButtons(false);
+  //   setShowLoader(false);
+  // }, [props]);
 
-  useEffect(() => {
-    if (error) {
-      Alert.alert("An Error Occurred!", error, [{ text: "Okay" }]);
-    }
-  }, [error]);
-
-  const authHandler = async () => {
-    let action;
-    action = registerAccount({ fullName, email, password });
-    setError(null);
-    setIsLoading(true);
-    try {
-      console.log(action);
-      // await dispatch(action);
-      // props.navigation.navigate("LoggedIn");
-    } catch (err) {
-      setError(err.message);
-      setIsLoading(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDisableButtons(true);
+    setShowLoader(true);
+    if (email.trim()) {
+      console.log("Form submitted");
+      let loginDetails = {
+        email,
+        password,
+      };
+      console.log(loginDetails);
+      // props.loginUser(loginDetails);
+    } else {
+      setDisableButtons(false);
+      setShowLoader(false);
     }
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={50}
-      style={styles.screen}
-    >
-      <LinearGradient colors={["#ffedff", "#ffe3ff"]} style={styles.gradient}>
-        <Card style={styles.authContainer}>
-          <ScrollView>
-            <Input
-              id="fullName"
-              label="fullName"
-              keyboardType="default"
-              required
-              autoCapitalize="none"
-              errorText="Please enter a valid full name."
-              initialValue=""
-              onChange={(e) => {
-                setFullName(e.target.value);
-              }}
-              value={fullName}
+    <ScrollView contentContainerStyle={styles.wholeBg}>
+      <LinearGradient
+        colors={["transparent", "transparent"]}
+        style={styles.gradient}
+      >
+        <Card style={styles.loginContainer}>
+          <Text style={styles.pageTitle}>Register an Account</Text>
+          <View style={styles.dividableHr} />
+          <TextInput
+            placeholder="Enter Full name"
+            value={fullName}
+            onChangeText={(text) => setFullName(text)}
+            style={styles.input}
+            placeholderTextColor="#9a73ef"
+          />
+          <TextInput
+            placeholder="Enter Email"
+            email
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+            placeholderTextColor="#9a73ef"
+          />
+          <TextInput
+            placeholder="Enter Password"
+            password={true}
+            value={password}
+            secureTextEntry
+            placeholderTextColor="#9a73ef"
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+          />
+          <View style={styles.buttonContainer}>
+            {isLoading ? (
+              <ActivityIndicator size="small" color={{ color: "white" }} />
+            ) : (
+              <Button title="Register" color={Colors.siteColor} />
+            )}
+          </View>
+          <View style={styles.dividableHr} />
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Login"
+              color={Colors.siteColor}
+              onPress={() => props.navigation.navigate("Login")}
             />
-            <Input
-              id="email"
-              label="E-Mail"
-              keyboardType="email-address"
-              required
-              email
-              autoCapitalize="none"
-              errorText="Please enter a valid email address."
-              initialValue=""
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Forgotten password?"
+              color={Colors.siteColor}
+              onPress={() => props.navigation.navigate("ForgottenPassword")}
             />
-            <Input
-              id="password"
-              label="Password"
-              keyboardType="default"
-              secureTextEntry
-              required
-              minLength={5}
-              autoCapitalize="none"
-              errorText="Please enter a valid password."
-              initialValue=""
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-            />
-            <View style={styles.buttonContainer}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color={Colors.siteColor} />
-              ) : (
-                <Button
-                  title="Register"
-                  color={Colors.siteColor}
-                  onPress={authHandler}
-                />
-              )}
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button title={`Switch to Login`} color={Colors.siteColor} />
-            </View>
-          </ScrollView>
+          </View>
         </Card>
       </LinearGradient>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -125,22 +114,46 @@ RegisterScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  gradient: {
+  wholeBg: {
+    // backgroundColor: Colors.bgColor,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
-  authContainer: {
-    width: "80%",
-    maxWidth: 400,
-    maxHeight: 400,
+  gradient: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    marginVertical: 30,
+  },
+  pageTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  loginContainer: {
+    flex: 1,
+    width: "85%",
     padding: 20,
+    marginVertical: 5,
+    maxHeight: 320,
+  },
+  dividableHr: {
+    borderWidth: 1,
+    borderColor: Colors.siteColor,
+    marginVertical: 10,
+  },
+  input: {
+    borderColor: Colors.siteColor,
+    borderWidth: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 6,
+    borderRadius: 3,
+    marginVertical: 5,
+    fontSize: 17,
   },
   buttonContainer: {
-    marginTop: 10,
+    marginVertical: 5,
   },
 });
 

@@ -10,19 +10,27 @@ import ProfileScreen from "./../screens/ProfileScreen";
 import RegisterScreen from "./../screens/RegisterScreen";
 import LoginScreen from "./../screens/LoginScreen";
 import StartupScreen from "./../screens/StartupScreen";
+import ForgottenPasswordScreen from "./../screens/ForgottenPasswordScreen";
 
 const defaultStackNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.siteColor : "",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
-  headerTitle: "A Screen",
+  // headerTitle: "A Screen",
 };
 
 const AuthNavigator = createStackNavigator(
   {
     Login: LoginScreen,
-    Register: RegisterScreen,
+    Register: {
+      screen: RegisterScreen,
+      headerTitle: "Register",
+    },
+    ForgottenPassword: {
+      screen: ForgottenPasswordScreen,
+      headerTitle: "Forgotten Account",
+    },
   },
   {
     initialRouteName: "Login",
