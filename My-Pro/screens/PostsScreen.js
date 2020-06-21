@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { Ionicons } from "@expo/vector-icons";
 
 const PostsScreen = (props) => {
-  const submitHandler = () => {
+  const logOutHandler = () => {
     props.navigation.navigate("Login");
   };
 
   useEffect(() => {
-    props.navigation.setParams({ logout: submitHandler });
+    props.navigation.setParams({ logout: logOutHandler });
   }, []);
 
   return (
@@ -27,9 +27,14 @@ PostsScreen.navigationOptions = (navData) => {
   return {
     headerTitle: "Posts",
     headerRight: () => (
-      <HeaderButtons>
-        <Item title="Logout" style={styles.headerItems} onPress={logoutFn} />
-      </HeaderButtons>
+      <Ionicons
+        name="md-log-out"
+        size={25}
+        color="#fff"
+        title="Logout"
+        onPress={logoutFn}
+        style={styles.logout}
+      />
     ),
   };
 };
@@ -41,8 +46,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  headerItems: {
-    color: "#ffffff",
+  logout: {
+    paddingHorizontal: 10,
   },
 });
 
