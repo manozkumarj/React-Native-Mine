@@ -24,6 +24,104 @@ const CustomBgAndTextAndCornerPost = (props) => {
       );
     }
   }, []);
+
+  const getStyles = (property) => {
+    if (property === "topLeft") {
+      return {
+        top: 0,
+        left: 0,
+      };
+    } else if (property === "topRight") {
+      return {
+        top: 0,
+        right: 0,
+      };
+    } else if (property === "bottomLeft") {
+      return {
+        bottom: 0,
+        left: 0,
+      };
+    } else if (property === "bottomLeft") {
+      return {
+        bottom: 0,
+        right: 0,
+      };
+    }
+  };
+
+  const getTriangleStyles = (property, getColor) => {
+    if (property === "topLeft") {
+      return {
+        borderTopWidth: 20,
+        borderRightWidth: 20,
+        borderBottomWidth: 0,
+        borderLeftWidth: 0,
+        borderTopColor: "#fff",
+        borderRightColor: "transparent",
+        borderBottomColor: "#fff",
+        borderLeftColor: "transparent",
+        shadowColor: getColor,
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        elevation: 3,
+        borderBottomRightRadius: 8,
+      };
+    } else if (property === "topRight") {
+      return {
+        borderTopWidth: 0,
+        borderRightWidth: 20,
+        borderBottomWidth: 20,
+        borderLeftWidth: 0,
+        borderTopColor: "transparent",
+        borderRightColor: "#fff",
+        borderBottomColor: "transparent",
+        borderLeftColor: "transparent",
+        shadowColor: getColor,
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        elevation: 3,
+        borderBottomLeftRadius: 8,
+      };
+    }
+  };
+
+  if (
+    postData[0].cornerStyleSides === "topLeft" ||
+    postData[0].cornerStyleSides === "topRight" ||
+    postData[0].cornerStyleSides === "bottomLeft" ||
+    postData[0].cornerStyleSides === "bottomRight"
+  ) {
+    return (
+      <View style={styles.box}>
+        <View style={styles.card}>
+          <View
+            style={styles.cornerFoldcommonStyles}
+            style={getStyles(postData[0].cornerStyleSides)}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles(
+                postData[0].cornerStyleSides,
+                postData[0].backgroundColor
+              )}
+            ></View>
+          </View>
+          <Text>
+            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
+            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
+            csstricks.com is awesome.
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.postDescriptionDiv}>
       <View className={classes} style={{ backgroundColor, color: textColor }}>
@@ -46,6 +144,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "normal",
     // zoom: 1,
+  },
+  cornerFoldcommonStyles: {
+    position: "absolute",
+    width: "20px",
+    height: "20px",
+    background: "#53A3B4",
+    borderRadius: 2,
+  },
+  cornerTriangleFoldcommonStyles: {
+    position: "absolute",
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
   },
 });
 
