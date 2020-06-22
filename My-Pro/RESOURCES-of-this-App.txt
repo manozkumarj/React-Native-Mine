@@ -19,4 +19,5 @@
 * React native Chat UI - Message Bubble -> https://www.youtube.com/watch?v=KI3uOGH-PO0
 * https://www.youtube.com/watch?v=o8nXw_E6hlY -> https://www.youtube.com/watch?v=o8nXw_E6hlY
 * https://stackoverflow.com/questions/29363671/can-i-make-dynamic-styles-in-react-native
-
+* https://codepen.io/manozkumarj/pen/xxZqzjO
+* 

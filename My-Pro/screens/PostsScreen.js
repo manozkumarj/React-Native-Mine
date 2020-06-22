@@ -54,6 +54,23 @@ const PostsScreen = (props) => {
 
   if (posts.length > 0) {
     return (
+      <View style={styles.box}>
+        <View style={styles.card}>
+          <View style={styles.card__corner}>
+            <View style={styles.card__corner_triangle}></View>
+          </View>
+          <Text style={styles.para}>
+            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
+            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
+            csstricks.com is awesome.
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  if (isLoading && posts.length > 0) {
+    return (
       <FlatList
         data={posts}
         keyExtractor={(item) => item._id + loopId}
@@ -137,6 +154,55 @@ const styles = StyleSheet.create({
   },
   singlePostContainer: {
     paddingVertical: 10,
+  },
+  box: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+  },
+  card: {
+    padding: 13,
+    backgroundColor: "red",
+    marginVertical: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    width: "90%",
+    overflow: "hidden",
+    borderRadius: 3,
+  },
+  card__corner: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 30,
+    height: 30,
+    backgroundColor: "red",
+    borderRadius: 3,
+  },
+  card__corner_triangle: {
+    position: "absolute",
+    width: 0,
+    height: 0,
+    borderRightWidth: 30,
+    borderBottomWidth: 30,
+    borderTopColor: "transparent",
+    borderRightColor: "#ffffff",
+    borderTopColor: "transparent",
+    borderBottomColor: "transparent",
+    shadowColor: "red",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+
+    elevation: 3,
+  },
+  para: {
+    padding: 10,
+    color: "#fff",
   },
 });
 
