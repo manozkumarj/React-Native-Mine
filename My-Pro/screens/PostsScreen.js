@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.22,
-
     elevation: 3,
+    borderBottomLeftRadius: 8,
   },
   para: {
     padding: 10,
