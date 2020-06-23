@@ -2,28 +2,17 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const CustomBgAndTextAndCornerPost = (props) => {
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [postBackgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [borderStyleSides, setBorderStyleSides] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
-  const [classes, setClasses] = useState("cornerFold cornerFoldStyle ");
 
   const { postData } = props;
   useEffect(() => {
     // console.log(props);
     setBackgroundColor("#" + postData[0].backgroundColor);
+    setBorderStyleSides("#" + postData[0].borderStyleSides);
     setTextColor("#" + postData[0].textColor);
-    if (postData[0].cornerStyle === "cut") {
-      setClasses(
-        "cornerFold cornerFoldStyle cornerFoldAndCut_" +
-          postData[0].cornerStyleSides +
-          " remove_cornerShadow"
-      );
-    } else {
-      setClasses(
-        "cornerFold cornerFoldStyle cornerFoldAndCut_" +
-          postData[0].cornerStyleSides
-      );
-    }
-  }, []);
+  }, [postData]);
 
   const getStyles = (property) => {
     if (property === "topLeft") {
@@ -135,23 +124,30 @@ const CustomBgAndTextAndCornerPost = (props) => {
     postData[0].cornerStyleSides === "bottomLeft" ||
     postData[0].cornerStyleSides === "bottomRight"
   ) {
-    let getSides = postData[0].cornerStyleSides;
-    let getBgColor = postData[0].backgroundColor;
     return (
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={{...styles.cornerFoldCommonStyles, getStyles(getSides)}}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={{...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
-                getSides,
-                getBgColor
-              )}}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
-          <View style={styles.postDescriptionDiv}>
-            <Text style={styles.postDescription}>
+          <View style={styles.postDescriptionContainer} color={textColor}>
+            <Text
+              style={{
+                ...styles.postDescription,
+                backgroundColor: postBackgroundColor,
+                color: textColor,
+              }}
+            >
               {postData[0].postContent}
             </Text>
           </View>
@@ -163,27 +159,39 @@ const CustomBgAndTextAndCornerPost = (props) => {
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={...styles.cornerFoldCommonStyles, getStyles("topLeft")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles("topLeft", postData[0].backgroundColor)}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("bottomRight")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles(
-                "bottomRight",
-                postData[0].backgroundColor
-              )}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
-          <View style={styles.postDescriptionDiv}>
-            <Text style={styles.postDescription}>
+          <View style={styles.postDescriptionContainer} color={textColor}>
+            <Text
+              style={{
+                ...styles.postDescription,
+                backgroundColor: postBackgroundColor,
+                color: textColor,
+              }}
+            >
               {postData[0].postContent}
             </Text>
           </View>
@@ -195,28 +203,39 @@ const CustomBgAndTextAndCornerPost = (props) => {
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("topRight")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles("topRight", postData[0].backgroundColor)}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("bottomLeft")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles(
-                "bottomLeft",
-                postData[0].backgroundColor
-              )}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
-          <View style={styles.postDescriptionDiv}>
-            <Text style={styles.postDescription}>
+          <View style={styles.postDescriptionContainer} color={textColor}>
+            <Text
+              style={{
+                ...styles.postDescription,
+                backgroundColor: postBackgroundColor,
+                color: textColor,
+              }}
+            >
               {postData[0].postContent}
             </Text>
           </View>
@@ -228,42 +247,65 @@ const CustomBgAndTextAndCornerPost = (props) => {
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("topLeft")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles("topLeft", postData[0].backgroundColor)}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
           <View
-            style={...styles.cornerFoldCommonStyles, getStyles("bottomRight")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
-                "bottomRight",
-                postData[0].backgroundColor
-              )}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
           <View
-            style={...styles.cornerFoldCommonStyles, getStyles("topRight")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles("topRight", postData[0].backgroundColor)}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
           <View
-            style={...styles.cornerFoldCommonStyles, getStyles("bottomLeft")}
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles(borderStyleSides),
+            }}
           >
             <View
-              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
-                "bottomLeft",
-                postData[0].backgroundColor
-              )}
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+              }}
             ></View>
           </View>
-          <View style={styles.postDescriptionDiv}>
-            <Text style={styles.postDescription}>
+          <View style={styles.postDescriptionContainer} color={textColor}>
+            <Text
+              style={{
+                ...styles.postDescription,
+                backgroundColor: postBackgroundColor,
+                color: textColor,
+              }}
+            >
               {postData[0].postContent}
             </Text>
           </View>
@@ -273,7 +315,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
   }
 
   // return (
-  //   <View style={styles.postDescriptionDiv}>
+  //   <View style={styles.postDescription} color={textColor}>
   //     <View className={classes} style={{ backgroundColor, color: textColor }}>
   //       <Text style={styles.postDescription}>{postData[0].postContent}</Text>
   //     </View>
@@ -282,7 +324,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
 };
 
 const styles = StyleSheet.create({
-  postDescriptionDiv: {
+  postDescriptionContainer: {
     height: "auto",
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -293,12 +335,15 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 5,
     // zoom: 1,
   },
   cornerFoldCommonStyles: {
     position: "absolute",
-    width: "20px",
-    height: "20px",
+    width: 20,
+    height: 20,
     backgroundColor: "#53A3B4",
     borderRadius: 2,
   },

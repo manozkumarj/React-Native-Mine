@@ -16,18 +16,20 @@ const DefaultAndCustomBgAndTextColorPost = (props) => {
   return (
     <View
       style={{
-        ...styles.postDescriptionDiv,
-        backgroundColor,
-        color: textColor,
+        ...styles.postDescriptionContainer,
       }}
     >
-      <Text style={styles.postDescription}>{postData[0].postContent}</Text>
+      <Text
+        style={{ ...styles.postDescription, backgroundColor, color: textColor }}
+      >
+        {postData[0].postContent}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  postDescriptionDiv: {
+  postDescriptionContainer: {
     height: "auto",
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 5,
     // zoom: 1,
   },
 });

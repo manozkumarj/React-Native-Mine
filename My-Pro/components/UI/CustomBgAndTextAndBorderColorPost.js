@@ -30,30 +30,34 @@ const CustomBgAndTextAndBorderColorPost = (props) => {
   return (
     <View
       style={{
-        ...styles.postDescriptionDiv,
+        ...styles.postDescriptionContainer,
         backgroundColor,
         color: textColor,
       }}
     >
       <View
         style={{
-          ...styles.postDescriptionDiv,
+          ...styles.postDescriptionContainer,
           borderTopColor,
           borderRightColor,
           borderBottomColor,
           borderLeftColor,
           borderStyle,
           borderWidth: brdrWidth,
+          backgroundColor,
+          color: textColor,
         }}
       >
-        <Text style={styles.postDescription}>{postData[0].postContent}</Text>
+        <Text style={{ ...styles.postDescription, color: textColor }}>
+          {postData[0].postContent}
+        </Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  postDescriptionDiv: {
+  postDescriptionContainer: {
     height: "auto",
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
+    borderRadius: 5,
     // zoom: 1,
   },
 });
