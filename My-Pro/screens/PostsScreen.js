@@ -9,6 +9,7 @@ import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCus
 import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTextAndBorderColorPost";
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import PhotosPost from "./../components/UI/PhotosPost";
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
@@ -105,6 +106,13 @@ const PostsScreen = (props) => {
             else if (itemData.item.postTypeId === 4)
               displayPage = (
                 <CustomBgAndTextAndBorderColorPost
+                  postData={itemData.item.postProperties}
+                  postTypeId={itemData.item.postTypeId}
+                />
+              );
+            else if (itemData.item.postTypeId === 2)
+              displayPage = (
+                <PhotosPost
                   postData={itemData.item.postProperties}
                   postTypeId={itemData.item.postTypeId}
                 />
