@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Button, FlatList, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import defaultAvatar from "./../assets/images/avatar.png";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
@@ -10,9 +9,14 @@ import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCus
 import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTextAndBorderColorPost";
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+
+const defaultAvatar = require("./../assets/images/avatar.png");
+
 const PostsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [imagesUrl, setImagesUrl] = useState("http://localhost:8088/photo/");
+  const [imagesUrl, setImagesUrl] = useState(
+    "http://192.168.43.22:8088/photo/"
+  );
   const [posts, setPosts] = useState([]);
 
   const dispatch = useDispatch();
@@ -24,7 +28,7 @@ const PostsScreen = (props) => {
   useEffect(() => {
     props.navigation.setParams({ logout: logOutHandler });
     fetchData();
-    setImagesUrl("http://localhost:8088/photo/");
+    setImagesUrl("http://192.168.43.22:8088/photo/");
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -85,6 +89,8 @@ const PostsScreen = (props) => {
               ? imagesUrl + itemData.item.postedBy.primaryDp
               : defaultAvatar;
 
+            console.log("userPrimaryDp --> " + userPrimaryDp);
+
             if (
               itemData.item.postTypeId === 1 ||
               itemData.item.postTypeId === 3
@@ -110,20 +116,34 @@ const PostsScreen = (props) => {
                   postTypeId={itemData.item.postTypeId}
                 />
               );
+
+            let postUserImage;
+            if (itemData.item.postedBy.primaryDp) {
+              postUserImage = (
+                <Image
+                  style={styles.postUserDp}
+                  source={{ uri: imagesUrl + itemData.item.postedBy.primaryDp }}
+                />
+              );
+            } else {
+              postUserImage = (
+                <Image style={styles.postUserDp} source={defaultAvatar} />
+              );
+            }
             return (
               <View style={styles.singlePostContainer}>
                 <View style={styles.postAndUserDetailsContainer}>
-                  <View style={styles.postDpContainer}>
-                    <Image
-                      source={{ uri: userPrimaryDp }}
-                      style={styles.postUserDp}
-                    />
-                  </View>
+                  <View style={styles.postDpContainer}>{postUserImage}</View>
                   <View style={styles.postUserNameTimeContainer}>
-                    <Text>{itemData.item.postedBy.fullName}</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                      {itemData.item.postedBy.fullName}
+                    </Text>
+                    <Text style={{ color: "#000" }}>
+                      5th Jan 2017 - 08:51:25 AM
+                    </Text>
                   </View>
                 </View>
-                {/* <View>{displayPage}</View> */}
+                <View>{displayPage}</View>
               </View>
             );
           }}
@@ -165,7 +185,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: Colors.bgColor,
+    backgroundColor: "#ddd",
+    // marginBottom: 50,
     // alignItems: "center",
     // justifyContent: "center",
   },
@@ -175,15 +196,16 @@ const styles = StyleSheet.create({
   singlePostContainer: {
     flex: 1,
     width: "100%",
-    marginVertical: 10,
+    backgroundColor: "#fff",
+    marginBottom: 20,
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderTopColor: "#000",
-    borderBottomColor: "#000",
+    borderTopColor: "#999",
+    borderBottomColor: "#999",
   },
   postAndUserDetailsContainer: {
     flexDirection: "row",
-    height: 45,
+    // height: 55,
     alignItems: "center",
     padding: 5,
   },
@@ -191,8 +213,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   postUserDp: {
-    height: 45,
-    width: 45,
+    height: 50,
+    width: 50,
     borderRadius: 5,
   },
   postUserNameTimeContainer: {

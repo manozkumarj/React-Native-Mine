@@ -15,8 +15,11 @@ const DefaultAndCustomBgAndTextColorPost = (props) => {
   }, [postData]);
   return (
     <View
-      style={styles.postDescriptionDiv}
-      style={{ backgroundColor, color: textColor }}
+      style={{
+        ...styles.postDescriptionDiv,
+        backgroundColor,
+        color: textColor,
+      }}
     >
       <Text style={styles.postDescription}>{postData[0].postContent}</Text>
     </View>

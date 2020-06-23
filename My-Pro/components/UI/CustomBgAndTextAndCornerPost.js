@@ -135,26 +135,26 @@ const CustomBgAndTextAndCornerPost = (props) => {
     postData[0].cornerStyleSides === "bottomLeft" ||
     postData[0].cornerStyleSides === "bottomRight"
   ) {
+    let getSides = postData[0].cornerStyleSides;
+    let getBgColor = postData[0].backgroundColor;
     return (
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles(postData[0].cornerStyleSides)}
+            style={{...styles.cornerFoldCommonStyles, getStyles(getSides)}}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles(
-                postData[0].cornerStyleSides,
-                postData[0].backgroundColor
-              )}
+              style={{...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
+                getSides,
+                getBgColor
+              )}}
             ></View>
           </View>
-          <Text>
-            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
-            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
-            csstricks.com is awesome.
-          </Text>
+          <View style={styles.postDescriptionDiv}>
+            <Text style={styles.postDescription}>
+              {postData[0].postContent}
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -163,8 +163,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("topLeft")}
+            style={...styles.cornerFoldCommonStyles, getStyles("topLeft")}
           >
             <View
               style={styles.cornerTriangleFoldcommonStyles}
@@ -183,11 +182,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
               )}
             ></View>
           </View>
-          <Text>
-            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
-            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
-            csstricks.com is awesome.
-          </Text>
+          <View style={styles.postDescriptionDiv}>
+            <Text style={styles.postDescription}>
+              {postData[0].postContent}
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -216,11 +215,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
               )}
             ></View>
           </View>
-          <Text>
-            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
-            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
-            csstricks.com is awesome.
-          </Text>
+          <View style={styles.postDescriptionDiv}>
+            <Text style={styles.postDescription}>
+              {postData[0].postContent}
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -233,48 +232,41 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={getStyles("topLeft")}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles("topLeft", postData[0].backgroundColor)}
+              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles("topLeft", postData[0].backgroundColor)}
             ></View>
           </View>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("bottomRight")}
+            style={...styles.cornerFoldCommonStyles, getStyles("bottomRight")}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles(
+              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
                 "bottomRight",
                 postData[0].backgroundColor
               )}
             ></View>
           </View>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("topRight")}
+            style={...styles.cornerFoldCommonStyles, getStyles("topRight")}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles("topRight", postData[0].backgroundColor)}
+              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles("topRight", postData[0].backgroundColor)}
             ></View>
           </View>
           <View
-            style={styles.cornerFoldCommonStyles}
-            style={getStyles("bottomLeft")}
+            style={...styles.cornerFoldCommonStyles, getStyles("bottomLeft")}
           >
             <View
-              style={styles.cornerTriangleFoldcommonStyles}
-              style={getTriangleStyles(
+              style={...styles.cornerTriangleFoldcommonStyles, getTriangleStyles(
                 "bottomLeft",
                 postData[0].backgroundColor
               )}
             ></View>
           </View>
-          <Text>
-            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
-            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
-            csstricks.com is awesome.
-          </Text>
+          <View style={styles.postDescriptionDiv}>
+            <Text style={styles.postDescription}>
+              {postData[0].postContent}
+            </Text>
+          </View>
         </View>
       </View>
     );

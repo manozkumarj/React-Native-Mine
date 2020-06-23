@@ -29,12 +29,15 @@ const CustomBgAndTextAndBorderColorPost = (props) => {
   }, [postData]);
   return (
     <View
-      style={styles.postDescriptionDiv}
-      style={{ backgroundColor, color: textColor }}
+      style={{
+        ...styles.postDescriptionDiv,
+        backgroundColor,
+        color: textColor,
+      }}
     >
       <View
-        style={styles.postDescriptionDiv}
         style={{
+          ...styles.postDescriptionDiv,
           borderTopColor,
           borderRightColor,
           borderBottomColor,
