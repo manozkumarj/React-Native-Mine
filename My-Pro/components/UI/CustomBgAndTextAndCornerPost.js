@@ -88,6 +88,44 @@ const CustomBgAndTextAndCornerPost = (props) => {
         elevation: 3,
         borderBottomLeftRadius: 8,
       };
+    } else if (property === "bottomLeft") {
+      return {
+        borderTopWidth: 20,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderLeftWidth: 20,
+        borderTopColor: "transparent",
+        borderRightColor: "#fff",
+        borderBottomColor: "transparent",
+        borderLeftColor: "#fff",
+        shadowColor: getColor,
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        elevation: 3,
+        borderBottomLeftRadius: 8,
+      };
+    } else if (property === "bottomRight") {
+      return {
+        borderTopWidth: 20,
+        borderRightWidth: 20,
+        borderBottomWidth: 0,
+        borderLeftWidth: 0,
+        borderTopColor: "transparent",
+        borderRightColor: "#fff",
+        borderBottomColor: "transparent",
+        borderLeftColor: "#fff",
+        shadowColor: getColor,
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        elevation: 3,
+        borderBottomLeftRadius: 8,
+      };
     }
   };
 
@@ -101,7 +139,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
       <View style={styles.box}>
         <View style={styles.card}>
           <View
-            style={styles.cornerFoldcommonStyles}
+            style={styles.cornerFoldCommonStyles}
             style={getStyles(postData[0].cornerStyleSides)}
           >
             <View
@@ -120,15 +158,135 @@ const CustomBgAndTextAndCornerPost = (props) => {
         </View>
       </View>
     );
+  } else if (postData[0].cornerStyleSides === "topLeftAndBottomRight") {
+    return (
+      <View style={styles.box}>
+        <View style={styles.card}>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("topLeft")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles("topLeft", postData[0].backgroundColor)}
+            ></View>
+          </View>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("bottomRight")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles(
+                "bottomRight",
+                postData[0].backgroundColor
+              )}
+            ></View>
+          </View>
+          <Text>
+            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
+            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
+            csstricks.com is awesome.
+          </Text>
+        </View>
+      </View>
+    );
+  } else if (postData[0].cornerStyleSides === "topRightAndBottomLeft") {
+    return (
+      <View style={styles.box}>
+        <View style={styles.card}>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("topRight")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles("topRight", postData[0].backgroundColor)}
+            ></View>
+          </View>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("bottomLeft")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles(
+                "bottomLeft",
+                postData[0].backgroundColor
+              )}
+            ></View>
+          </View>
+          <Text>
+            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
+            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
+            csstricks.com is awesome.
+          </Text>
+        </View>
+      </View>
+    );
+  } else if (postData[0].cornerStyleSides === "all") {
+    return (
+      <View style={styles.box}>
+        <View style={styles.card}>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("topLeft")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles("topLeft", postData[0].backgroundColor)}
+            ></View>
+          </View>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("bottomRight")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles(
+                "bottomRight",
+                postData[0].backgroundColor
+              )}
+            ></View>
+          </View>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("topRight")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles("topRight", postData[0].backgroundColor)}
+            ></View>
+          </View>
+          <View
+            style={styles.cornerFoldCommonStyles}
+            style={getStyles("bottomLeft")}
+          >
+            <View
+              style={styles.cornerTriangleFoldcommonStyles}
+              style={getTriangleStyles(
+                "bottomLeft",
+                postData[0].backgroundColor
+              )}
+            ></View>
+          </View>
+          <Text>
+            GitHub Atom IDE Vanilla JavaScript Emmett WordPress Markdown
+            BitBucket Private Repos are FREE! LESS or SCSS Grunt vs Gulp —
+            csstricks.com is awesome.
+          </Text>
+        </View>
+      </View>
+    );
   }
 
-  return (
-    <View style={styles.postDescriptionDiv}>
-      <View className={classes} style={{ backgroundColor, color: textColor }}>
-        <Text style={styles.postDescription}>{postData[0].postContent}</Text>
-      </View>
-    </View>
-  );
+  // return (
+  //   <View style={styles.postDescriptionDiv}>
+  //     <View className={classes} style={{ backgroundColor, color: textColor }}>
+  //       <Text style={styles.postDescription}>{postData[0].postContent}</Text>
+  //     </View>
+  //   </View>
+  // );
 };
 
 const styles = StyleSheet.create({
@@ -145,11 +303,11 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     // zoom: 1,
   },
-  cornerFoldcommonStyles: {
+  cornerFoldCommonStyles: {
     position: "absolute",
     width: "20px",
     height: "20px",
-    background: "#53A3B4",
+    backgroundColor: "#53A3B4",
     borderRadius: 2,
   },
   cornerTriangleFoldcommonStyles: {
