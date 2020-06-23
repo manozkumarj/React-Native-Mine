@@ -1,23 +1,2 @@
-* 
-
-
-
-*************************** Ways to run the App after Node-Modules deletion ********************************
-* npm i
-* expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
-* 
-
-
-
-*********************************** Links which helped for errors ******************************************
-* https://stackoverflow.com/questions/57817573/createstacknavigator-has-been-moved-to-react-navigation-stack
-* https://stackoverflow.com/questions/49370747/network-error-with-axios-and-react-native
-
-******************************************** Useful **************************************************
-* Facebook animated header ->  https://www.youtube.com/watch?v=y8Jy2vxXVFw
-* Facebook UI - SearchBar ->  https://www.youtube.com/watch?v=yzkTDFErTec
-* React native Chat UI - Message Bubble -> https://www.youtube.com/watch?v=KI3uOGH-PO0
-* https://www.youtube.com/watch?v=o8nXw_E6hlY -> https://www.youtube.com/watch?v=o8nXw_E6hlY
-* https://stackoverflow.com/questions/29363671/can-i-make-dynamic-styles-in-react-native
-* https://codepen.io/manozkumarj/pen/xxZqzjO
+* https://appdividend.com/2018/08/02/react-native-modal-example-tutorial/
 * 

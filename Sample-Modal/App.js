@@ -16,6 +16,10 @@ export default class App extends Component {
     });
   }
 
+  offModal() {
+    this.setState({ display: false });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,7 +28,12 @@ export default class App extends Component {
           title="Open Modal"
           color="orange"
         ></Button>
-        <DisplayModal image={zuck} data="Krunal" display={this.state.display} />
+        <DisplayModal
+          image={zuck}
+          data="Krunal"
+          closeModal={() => this.offModal()}
+          display={this.state.display}
+        />
       </View>
     );
   }
