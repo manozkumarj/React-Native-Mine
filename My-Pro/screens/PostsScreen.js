@@ -14,6 +14,7 @@ import PhotosPost from "./../components/UI/PhotosPost";
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const PostsScreen = (props) => {
+  const [isFetching, setIsFetching] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
     "http://192.168.43.22:8088/photo/"
@@ -49,6 +50,13 @@ const PostsScreen = (props) => {
   }, [dispatch]);
   let loopId = 1;
 
+  const onRefresh = () => {
+    setIsFetching(true);
+    setTimeout(() => {
+      setIsFetching(false);
+    }, 3000);
+  };
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -83,6 +91,9 @@ const PostsScreen = (props) => {
       <View style={styles.container}>
         <FlatList
           data={posts}
+          refreshing={isFetching}
+          onRefresh={() => onRefresh()}
+          tintColor="red"
           keyExtractor={(item) => item._id + loopId}
           renderItem={(itemData) => {
             let displayPage;

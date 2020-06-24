@@ -12,6 +12,13 @@
 *********************************** Links which helped for errors ******************************************
 * https://stackoverflow.com/questions/57817573/createstacknavigator-has-been-moved-to-react-navigation-stack
 * https://stackoverflow.com/questions/49370747/network-error-with-axios-and-react-native
+* https://stackoverflow.com/questions/39497211/react-native-image-height-full-width
+* 
+
+
+* https://stackoverflow.com/questions/47570998/implement-pull-to-refresh-flatlist
+* https://stackoverflow.com/questions/45659610/how-to-set-refresh-indicator-of-flatlist-in-react-native
+* 
 
 ******************************************** Useful **************************************************
 * Facebook animated header ->  https://www.youtube.com/watch?v=y8Jy2vxXVFw
