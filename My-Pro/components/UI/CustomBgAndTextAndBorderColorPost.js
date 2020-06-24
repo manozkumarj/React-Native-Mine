@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const CustomBgAndTextAndBorderColorPost = (props) => {
+  const { postData } = props;
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
   const [borderTopColor, setBorderTopColor] = useState("transparent");
   const [borderRightColor, setBorderRightColor] = useState("transparent");
   const [borderBottomColor, setBorderBottomColor] = useState("transparent");
   const [borderLeftColor, setBorderLeftColor] = useState("transparent");
-  const [borderStyle, setBorderStyle] = useState("solid");
+  const [borderStyle, setBorderStyle] = useState(null);
   const [brdrWidth, setBrdrWidth] = useState(2);
   // const [borderStyleSides, setBorderStyleSides] = useState("all");
 
-  const { postData } = props;
   useEffect(() => {
     // console.log(props);
     setBackgroundColor("#" + postData[0].backgroundColor);
@@ -24,7 +24,10 @@ const CustomBgAndTextAndBorderColorPost = (props) => {
     setBorderStyle(postData[0].borderStyle);
     // setBorderStyleSides(postData[0].borderStyleSides);
     if (postData[0].borderStyle === "double") {
-      setBrdrWidth(4);
+      setBorderStyle("dashed");
+      setBrdrWidth(2);
+    } else {
+      setBorderStyle(postData[0].borderStyle);
     }
   }, [postData]);
   return (
@@ -42,10 +45,14 @@ const CustomBgAndTextAndBorderColorPost = (props) => {
           borderRightColor,
           borderBottomColor,
           borderLeftColor,
+          borderTopWidth: brdrWidth,
+          borderRightWidth: brdrWidth,
+          borderBottomWidth: brdrWidth,
+          borderLeftWidth: brdrWidth,
           borderStyle,
-          borderWidth: brdrWidth,
           backgroundColor,
           color: textColor,
+          borderRadius: 1,
         }}
       >
         <Text style={{ ...styles.postDescription, color: textColor }}>

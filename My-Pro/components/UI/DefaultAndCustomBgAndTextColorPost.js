@@ -31,8 +31,8 @@ const DefaultAndCustomBgAndTextColorPost = (props) => {
 const styles = StyleSheet.create({
   postDescriptionContainer: {
     height: "auto",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    // paddingVertical: 12,
+    // paddingHorizontal: 10,
     borderTopWidth: 1,
     borderTopColor: "#ccc",
   },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     paddingVertical: 12,
     paddingHorizontal: 10,
-    borderRadius: 5,
+    // borderRadius: 5,
     // zoom: 1,
   },
 });

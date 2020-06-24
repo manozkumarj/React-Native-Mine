@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const CustomBgAndTextAndCornerPost = (props) => {
   const [postBackgroundColor, setBackgroundColor] = useState("#ffffff");
   const [cornerStyleSides, setCornerStyleSides] = useState("all");
+  const [cornerStyle, setCornerStyle] = useState("cut");
   const [textColor, setTextColor] = useState("#000000");
 
   const { postData } = props;
@@ -11,8 +12,15 @@ const CustomBgAndTextAndCornerPost = (props) => {
     // console.log(props);
     setBackgroundColor("#" + postData[0].backgroundColor);
     setCornerStyleSides(postData[0].cornerStyleSides);
+    setCornerStyle(postData[0].cornerStyle);
     setTextColor("#" + postData[0].textColor);
   }, [postData]);
+
+  const getCornerStyle = (property) => {
+    if (property === "cut") {
+      return { shadowOffset: {}, shadowColor: "transparent" };
+    }
+  };
 
   const getStyles = (property) => {
     if (property === "topLeft") {
@@ -49,14 +57,15 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderRightColor: getColor,
         borderBottomColor: "#fff",
         borderLeftColor: getColor,
-        shadowColor: getColor,
+        shadowColor: "#000",
         backgroundColor: getColor,
         shadowOffset: {
           width: 0,
-          height: 1,
+          height: 11,
         },
-        shadowOpacity: 5,
-        elevation: 20,
+        shadowOpacity: 0.57,
+        shadowRadius: 15.19,
+        elevation: 23,
         borderBottomRightRadius: 8,
       };
     } else if (property === "topRight") {
@@ -69,14 +78,15 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderRightColor: "#fff",
         borderBottomColor: getColor,
         borderLeftColor: getColor,
-        shadowColor: getColor,
+        shadowColor: "#000",
         backgroundColor: getColor,
         shadowOffset: {
           width: 0,
-          height: 1,
+          height: 11,
         },
-        shadowOpacity: 5,
-        elevation: 20,
+        shadowOpacity: 0.57,
+        shadowRadius: 15.19,
+        elevation: 23,
         borderBottomLeftRadius: 8,
       };
     } else if (property === "bottomLeft") {
@@ -89,14 +99,15 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderRightColor: "#fff",
         borderBottomColor: getColor,
         borderLeftColor: "#fff",
-        shadowColor: getColor,
+        shadowColor: "#000",
         backgroundColor: getColor,
         shadowOffset: {
           width: 0,
-          height: 1,
+          height: 11,
         },
-        shadowOpacity: 5,
-        elevation: 20,
+        shadowOpacity: 0.57,
+        shadowRadius: 15.19,
+        elevation: 23,
         borderTopRightRadius: 8,
       };
     } else if (property === "bottomRight") {
@@ -109,24 +120,25 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderRightColor: "#fff",
         borderBottomColor: getColor,
         borderLeftColor: "#fff",
-        shadowColor: getColor,
+        shadowColor: "#000",
         backgroundColor: getColor,
         shadowOffset: {
           width: 0,
-          height: 1,
+          height: 11,
         },
-        shadowOpacity: 5,
-        elevation: 20,
+        shadowOpacity: 0.57,
+        shadowRadius: 15.19,
+        elevation: 23,
         borderTopLeftRadius: 8,
       };
     }
   };
 
   if (
-    postData[0].cornerStyleSides === "topLeft" ||
-    postData[0].cornerStyleSides === "topRight" ||
-    postData[0].cornerStyleSides === "bottomLeft" ||
-    postData[0].cornerStyleSides === "bottomRight"
+    cornerStyleSides === "topLeft" ||
+    cornerStyleSides === "topRight" ||
+    cornerStyleSides === "bottomLeft" ||
+    cornerStyleSides === "bottomRight"
   ) {
     return (
       <View style={styles.box}>
@@ -142,6 +154,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
                 ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -161,34 +174,39 @@ const CustomBgAndTextAndCornerPost = (props) => {
         </View>
       </View>
     );
-  } else if (postData[0].cornerStyleSides === "topLeftAndBottomRight") {
+  } else if (cornerStyleSides === "topLeftAndBottomRight") {
     return (
       <View style={styles.box}>
         <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
-            }}
-          >
-            <View
-              style={{
-                ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
-              }}
-            ></View>
-          </View>
-          <View
-            style={{
-              ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
+              ...getStyles("topLeft"),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getTriangleStyles("topLeft", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
+              }}
+            ></View>
+          </View>
+          <View
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles("bottomRight"),
+              backgroundColor: postBackgroundColor,
+            }}
+          >
+            <View
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles("bottomRight", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
@@ -207,34 +225,39 @@ const CustomBgAndTextAndCornerPost = (props) => {
         </View>
       </View>
     );
-  } else if (postData[0].cornerStyleSides === "topRightAndBottomLeft") {
+  } else if (cornerStyleSides === "topRightAndBottomLeft") {
     return (
       <View style={styles.box}>
         <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
-            }}
-          >
-            <View
-              style={{
-                ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
-              }}
-            ></View>
-          </View>
-          <View
-            style={{
-              ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
+              ...getStyles("topRight"),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getTriangleStyles("topRight", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
+              }}
+            ></View>
+          </View>
+          <View
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles("bottomLeft"),
+              backgroundColor: postBackgroundColor,
+            }}
+          >
+            <View
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles("bottomLeft", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
@@ -253,62 +276,71 @@ const CustomBgAndTextAndCornerPost = (props) => {
         </View>
       </View>
     );
-  } else if (postData[0].cornerStyleSides === "all") {
+  } else if (cornerStyleSides === "all") {
     return (
       <View style={styles.box}>
         <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
-            }}
-          >
-            <View
-              style={{
-                ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
-              }}
-            ></View>
-          </View>
-          <View
-            style={{
-              ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
+              ...getStyles("topLeft"),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getTriangleStyles("topLeft", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
+              ...getStyles("bottomRight"),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getTriangleStyles("bottomRight", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(cornerStyleSides),
+              ...getStyles("topRight"),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                ...getTriangleStyles("topRight", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
+              }}
+            ></View>
+          </View>
+          <View
+            style={{
+              ...styles.cornerFoldCommonStyles,
+              ...getStyles("bottomLeft"),
+              backgroundColor: postBackgroundColor,
+            }}
+          >
+            <View
+              style={{
+                ...styles.cornerTriangleFoldcommonStyles,
+                ...getTriangleStyles("bottomLeft", postBackgroundColor),
+                ...getCornerStyle(cornerStyle),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
@@ -360,8 +392,7 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    padding: 3,
     borderRadius: 5,
     // zoom: 1,
   },
@@ -375,6 +406,10 @@ const styles = StyleSheet.create({
   cornerTriangleFoldcommonStyles: {
     position: "absolute",
     borderStyle: "solid",
+  },
+  removeCornerShadow: {
+    shadowOffset: {},
+    shadowColor: "transparent",
   },
 });
 
