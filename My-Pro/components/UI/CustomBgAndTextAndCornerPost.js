@@ -126,7 +126,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
   ) {
     return (
       <View style={styles.box}>
-        <View style={styles.card}>
+        <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
@@ -158,7 +158,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
   } else if (postData[0].cornerStyleSides === "topLeftAndBottomRight") {
     return (
       <View style={styles.box}>
-        <View style={styles.card}>
+        <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
@@ -204,7 +204,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
   } else if (postData[0].cornerStyleSides === "topRightAndBottomLeft") {
     return (
       <View style={styles.box}>
-        <View style={styles.card}>
+        <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
@@ -250,7 +250,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
   } else if (postData[0].cornerStyleSides === "all") {
     return (
       <View style={styles.box}>
-        <View style={styles.card}>
+        <View style={{ ...styles.card, backgroundColor: postBackgroundColor }}>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
@@ -336,6 +336,18 @@ const styles = StyleSheet.create({
   box: {
     borderTopWidth: 1,
     borderTopColor: "#ccc",
+    paddingHorizontal: 10,
+  },
+  card: {
+    padding: 13,
+    backgroundColor: "red",
+    marginVertical: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    width: "90%",
+    overflow: "hidden",
+    borderRadius: 3,
   },
   postDescriptionContainer: {
     height: "auto",
@@ -346,23 +358,39 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    // paddingVertical: 12,
+    // paddingHorizontal: 10,
     borderRadius: 5,
     // zoom: 1,
   },
   cornerFoldCommonStyles: {
     position: "absolute",
-    width: 20,
-    height: 20,
-    backgroundColor: "#53A3B4",
-    borderRadius: 2,
+    top: 0,
+    right: 0,
+    width: 30,
+    height: 30,
+    backgroundColor: "red",
+    borderRadius: 3,
+    padding: 10,
   },
   cornerTriangleFoldcommonStyles: {
     position: "absolute",
     width: 0,
     height: 0,
-    borderStyle: "solid",
+    borderRightWidth: 30,
+    borderBottomWidth: 30,
+    borderTopColor: "transparent",
+    borderRightColor: "#ffffff",
+    borderTopColor: "transparent",
+    borderBottomColor: "transparent",
+    shadowColor: "red",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    elevation: 3,
+    borderBottomLeftRadius: 8,
   },
 });
 
