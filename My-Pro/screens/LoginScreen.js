@@ -75,6 +75,7 @@ const LoginScreen = (props) => {
 
     // Get the token that uniquely identifies this device
     let getToken = await Notifications.getExpoPushTokenAsync();
+    // getToken = getToken + "manoz";
     const storeToken = await AsyncStorage.setItem("notifyToken", getToken);
     if (getToken) {
       console.log("Notify token stored");

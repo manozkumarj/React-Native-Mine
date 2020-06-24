@@ -1,6 +1,5 @@
-* Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0
-
-
+* Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0 && https://medium.com/@Laurens_Lang/local-notifications-in-expo-867e2af1ca97
+* 
 
 *************************** Ways to run the App after Node-Modules deletion ********************************
 * npm i
@@ -21,6 +20,7 @@
 * 
 
 ******************************************** Useful **************************************************
+* https://docs.expo.io/guides/push-notifications/
 * Facebook animated header ->  https://www.youtube.com/watch?v=y8Jy2vxXVFw
 * Facebook UI - SearchBar ->  https://www.youtube.com/watch?v=yzkTDFErTec
 * React native Chat UI - Message Bubble -> https://www.youtube.com/watch?v=KI3uOGH-PO0

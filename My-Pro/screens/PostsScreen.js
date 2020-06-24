@@ -8,8 +8,10 @@ import {
   Image,
   RefreshControl,
   AsyncStorage,
+  Vibration,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Notifications } from "expo";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
@@ -40,6 +42,9 @@ const PostsScreen = (props) => {
     props.navigation.setParams({ logout: logOutHandler });
     fetchData();
     setImagesUrl("http://192.168.43.22:8088/photo/");
+    let _notificationSubscription = Notifications.addListener(
+      _handleNotification
+    );
     sendPushNotification();
   }, []);
 
@@ -48,7 +53,7 @@ const PostsScreen = (props) => {
       setIsLoading(true);
       let receivedPosts = await dispatch(getAllUsersPosts());
       console.log("Posts received...");
-      console.log(receivedPosts);
+      // console.log(receivedPosts);
       setPosts(receivedPosts.posts);
       setIsLoading(false);
     } catch (err) {
@@ -59,24 +64,46 @@ const PostsScreen = (props) => {
     }
   }, [dispatch]);
 
+  const _handleNotification = (notification) => {
+    Vibration.vibrate();
+    console.log(notification);
+  };
+
   const sendPushNotification = async () => {
     const notifyToken = await AsyncStorage.getItem("notifyToken");
     console.log("notifyToken --> " + notifyToken);
     if (notifyToken) {
       console.log("Notify token stored");
 
-      let response = fetch("https://exp.host/--/api/v2/push/send", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const message = [
+        {
           to: notifyToken,
           sound: "default",
           title: "Demo",
           body: "Demo notificaiton",
-        }),
+          priority: "high",
+          data: { data: "goes here" },
+          _displayInForeground: true,
+        },
+        {
+          to: notifyToken,
+          sound: "default",
+          title: "Demo - 2",
+          body: "Demo notificaiton - 2",
+          priority: "high",
+          data: { data: "goes here - 2" },
+          _displayInForeground: true,
+        },
+      ];
+
+      let response = fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Accept-encoding": "gzip, deflate",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(message),
       });
     } else {
       console.log("Notify token not stored");
