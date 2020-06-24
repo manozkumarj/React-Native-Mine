@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, Button, FlatList, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  FlatList,
+  Image,
+  RefreshControl,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
@@ -91,9 +99,15 @@ const PostsScreen = (props) => {
       <View style={styles.container}>
         <FlatList
           data={posts}
-          refreshing={isFetching}
-          onRefresh={() => onRefresh()}
-          tintColor="red"
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetching}
+              onRefresh={() => onRefresh()}
+              tintColor="red"
+              colors={["red", "green", "blue"]}
+              title="Refreshing..."
+            />
+          }
           keyExtractor={(item) => item._id + loopId}
           renderItem={(itemData) => {
             let displayPage;
