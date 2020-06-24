@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
   RefreshControl,
+  AsyncStorage,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -39,6 +40,7 @@ const PostsScreen = (props) => {
     props.navigation.setParams({ logout: logOutHandler });
     fetchData();
     setImagesUrl("http://192.168.43.22:8088/photo/");
+    sendPushNotification();
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -56,9 +58,37 @@ const PostsScreen = (props) => {
       // setError(err.message);
     }
   }, [dispatch]);
+
+  const sendPushNotification = async () => {
+    const notifyToken = await AsyncStorage.getItem("notifyToken");
+    console.log("notifyToken --> " + notifyToken);
+    if (notifyToken) {
+      console.log("Notify token stored");
+
+      let response = fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: notifyToken,
+          sound: "default",
+          title: "Demo",
+          body: "Demo notificaiton",
+        }),
+      });
+    } else {
+      console.log("Notify token not stored");
+      alert("Notify token not stored");
+      props.navigation.navigate("LoggedIn");
+    }
+  };
+
   let loopId = 1;
 
   const onRefresh = () => {
+    sendPushNotification();
     setIsFetching(true);
     setTimeout(() => {
       setIsFetching(false);

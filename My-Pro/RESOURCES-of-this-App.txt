@@ -1,4 +1,4 @@
-* 
+* Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0
 
 
 
@@ -24,6 +24,7 @@
 * Facebook animated header ->  https://www.youtube.com/watch?v=y8Jy2vxXVFw
 * Facebook UI - SearchBar ->  https://www.youtube.com/watch?v=yzkTDFErTec
 * React native Chat UI - Message Bubble -> https://www.youtube.com/watch?v=KI3uOGH-PO0
+* https://docs.expo.io/versions/latest/sdk/notifications/
 * https://www.youtube.com/watch?v=o8nXw_E6hlY -> https://www.youtube.com/watch?v=o8nXw_E6hlY
 * https://stackoverflow.com/questions/29363671/can-i-make-dynamic-styles-in-react-native
 * https://codepen.io/manozkumarj/pen/xxZqzjO

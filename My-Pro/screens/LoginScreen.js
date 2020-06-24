@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ActivityIndicator,
+  AsyncStorage,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -15,6 +16,8 @@ import Card from "./../components/UI/Card";
 
 import { loginUser } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("aaa@gmail.com");
@@ -35,7 +38,7 @@ const LoginScreen = (props) => {
         setDisableButtons(false);
         setIsLoading(false);
         console.log("Login successful...");
-        props.navigation.navigate("LoggedIn");
+        registerForPushNotificationsAsync();
       } catch (err) {
         setDisableButtons(false);
         setIsLoading(false);
@@ -46,6 +49,40 @@ const LoginScreen = (props) => {
     } else {
       setDisableButtons(false);
       setIsLoading(false);
+    }
+  };
+
+  const registerForPushNotificationsAsync = async () => {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== "granted") {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== "granted") {
+      console.log("Permission denies");
+      return;
+    }
+
+    // Get the token that uniquely identifies this device
+    let getToken = await Notifications.getExpoPushTokenAsync();
+    const storeToken = await AsyncStorage.setItem("notifyToken", getToken);
+    if (getToken) {
+      console.log("Notify token stored");
+      props.navigation.navigate("LoggedIn");
+    } else {
+      console.log("Notify token not stored");
+      alert("Notify token not stored");
+      props.navigation.navigate("LoggedIn");
     }
   };
 
