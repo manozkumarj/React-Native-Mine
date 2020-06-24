@@ -3,14 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 
 const CustomBgAndTextAndCornerPost = (props) => {
   const [postBackgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [borderStyleSides, setBorderStyleSides] = useState("#ffffff");
+  const [cornerStyleSides, setCornerStyleSides] = useState("all");
   const [textColor, setTextColor] = useState("#000000");
 
   const { postData } = props;
   useEffect(() => {
     // console.log(props);
     setBackgroundColor("#" + postData[0].backgroundColor);
-    setBorderStyleSides("#" + postData[0].borderStyleSides);
+    setCornerStyleSides(postData[0].cornerStyleSides);
     setTextColor("#" + postData[0].textColor);
   }, [postData]);
 
@@ -30,7 +30,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
         bottom: 0,
         left: 0,
       };
-    } else if (property === "bottomLeft") {
+    } else if (property === "bottomRight") {
       return {
         bottom: 0,
         right: 0,
@@ -41,79 +41,83 @@ const CustomBgAndTextAndCornerPost = (props) => {
   const getTriangleStyles = (property, getColor) => {
     if (property === "topLeft") {
       return {
-        borderTopWidth: 20,
-        borderRightWidth: 20,
+        borderTopWidth: 25,
+        borderRightWidth: 25,
         borderBottomWidth: 0,
         borderLeftWidth: 0,
         borderTopColor: "#fff",
-        borderRightColor: "transparent",
+        borderRightColor: getColor,
         borderBottomColor: "#fff",
-        borderLeftColor: "transparent",
+        borderLeftColor: getColor,
         shadowColor: getColor,
+        backgroundColor: getColor,
         shadowOffset: {
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.22,
-        elevation: 3,
+        shadowOpacity: 5,
+        elevation: 20,
         borderBottomRightRadius: 8,
       };
     } else if (property === "topRight") {
       return {
         borderTopWidth: 0,
-        borderRightWidth: 20,
-        borderBottomWidth: 20,
+        borderRightWidth: 25,
+        borderBottomWidth: 25,
         borderLeftWidth: 0,
-        borderTopColor: "transparent",
+        borderTopColor: getColor,
         borderRightColor: "#fff",
-        borderBottomColor: "transparent",
-        borderLeftColor: "transparent",
+        borderBottomColor: getColor,
+        borderLeftColor: getColor,
         shadowColor: getColor,
+        backgroundColor: getColor,
         shadowOffset: {
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.22,
-        elevation: 3,
+        shadowOpacity: 5,
+        elevation: 20,
         borderBottomLeftRadius: 8,
       };
     } else if (property === "bottomLeft") {
       return {
-        borderTopWidth: 20,
+        borderTopWidth: 25,
         borderRightWidth: 0,
         borderBottomWidth: 0,
-        borderLeftWidth: 20,
-        borderTopColor: "transparent",
+        borderLeftWidth: 25,
+        borderTopColor: getColor,
         borderRightColor: "#fff",
-        borderBottomColor: "transparent",
+        borderBottomColor: getColor,
         borderLeftColor: "#fff",
         shadowColor: getColor,
+        backgroundColor: getColor,
         shadowOffset: {
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.22,
-        elevation: 3,
-        borderBottomLeftRadius: 8,
+        shadowOpacity: 5,
+        elevation: 20,
+        borderTopRightRadius: 8,
       };
     } else if (property === "bottomRight") {
       return {
-        borderTopWidth: 20,
-        borderRightWidth: 20,
+        borderTopWidth: 25,
+        borderRightWidth: 25,
         borderBottomWidth: 0,
         borderLeftWidth: 0,
-        borderTopColor: "transparent",
+        borderTopColor: getColor,
         borderRightColor: "#fff",
-        borderBottomColor: "transparent",
+        borderBottomColor: getColor,
         borderLeftColor: "#fff",
         shadowColor: getColor,
+        backgroundColor: getColor,
         shadowOffset: {
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.22,
-        elevation: 3,
-        borderBottomLeftRadius: 8,
+        shadowOpacity: 5,
+        elevation: 20,
+        borderTopLeftRadius: 8,
       };
     }
   };
@@ -130,14 +134,15 @@ const CustomBgAndTextAndCornerPost = (props) => {
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
+                backgroundColor: postBackgroundColor,
               }}
             ></View>
           </View>
@@ -150,6 +155,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
               }}
             >
               {postData[0].postContent}
+              {cornerStyleSides}
             </Text>
           </View>
         </View>
@@ -162,28 +168,27 @@ const CustomBgAndTextAndCornerPost = (props) => {
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
-              backgroundColor: postBackgroundColor,
+              ...getStyles(cornerStyleSides),
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
@@ -196,6 +201,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
               }}
             >
               {postData[0].postContent}
+              {cornerStyleSides}
             </Text>
           </View>
         </View>
@@ -208,28 +214,27 @@ const CustomBgAndTextAndCornerPost = (props) => {
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
-              backgroundColor: postBackgroundColor,
+              ...getStyles(cornerStyleSides),
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
@@ -242,6 +247,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
               }}
             >
               {postData[0].postContent}
+              {cornerStyleSides}
             </Text>
           </View>
         </View>
@@ -254,56 +260,55 @@ const CustomBgAndTextAndCornerPost = (props) => {
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
-              backgroundColor: postBackgroundColor,
+              ...getStyles(cornerStyleSides),
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
           <View
             style={{
               ...styles.cornerFoldCommonStyles,
-              ...getStyles(borderStyleSides),
+              ...getStyles(cornerStyleSides),
               backgroundColor: postBackgroundColor,
             }}
           >
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(borderStyleSides, postBackgroundColor),
+                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
               }}
             ></View>
           </View>
@@ -316,6 +321,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
               }}
             >
               {postData[0].postContent}
+              {cornerStyleSides}
             </Text>
           </View>
         </View>
@@ -339,13 +345,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   card: {
-    padding: 13,
-    backgroundColor: "red",
-    marginVertical: 5,
-    alignItems: "center",
-    justifyContent: "center",
+    marginVertical: 10,
+    padding: 12,
     position: "relative",
-    width: "90%",
     overflow: "hidden",
     borderRadius: 3,
   },
@@ -358,39 +360,21 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
-    // paddingVertical: 12,
-    // paddingHorizontal: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
     borderRadius: 5,
     // zoom: 1,
   },
   cornerFoldCommonStyles: {
     position: "absolute",
-    top: 0,
-    right: 0,
-    width: 30,
-    height: 30,
-    backgroundColor: "red",
-    borderRadius: 3,
-    padding: 10,
+    width: 25,
+    height: 25,
+    backgroundColor: "#fff",
+    borderRadius: 2,
   },
   cornerTriangleFoldcommonStyles: {
     position: "absolute",
-    width: 0,
-    height: 0,
-    borderRightWidth: 30,
-    borderBottomWidth: 30,
-    borderTopColor: "transparent",
-    borderRightColor: "#ffffff",
-    borderTopColor: "transparent",
-    borderBottomColor: "transparent",
-    shadowColor: "red",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    elevation: 3,
-    borderBottomLeftRadius: 8,
+    borderStyle: "solid",
   },
 });
 
