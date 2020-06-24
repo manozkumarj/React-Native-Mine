@@ -6,7 +6,8 @@ const PhotosPost = (props) => {
     "http://192.168.43.22:8088/photo/"
   );
   const [firstPhotoSrc, setfirstPhotoSrc] = useState(null);
-  const win = Dimensions.get("window");
+  const [imgWidth, setImgWidth] = useState(0);
+  const [imgHeight, setImgHeight] = useState(0);
 
   const { postData } = props;
   let photosCount = postData[0]["photos"].length;
@@ -14,6 +15,15 @@ const PhotosPost = (props) => {
   useEffect(() => {
     setImagesUrl("http://192.168.43.22:8088/photo/");
     setfirstPhotoSrc(imagesUrl + firstPhoto);
+
+    Image.getSize(imagesUrl + firstPhoto, (width, height) => {
+      // calculate image width and height
+      const screenWidth = Dimensions.get("window").width;
+      const scaleFactor = width / screenWidth;
+      const imageHeight = height / scaleFactor;
+      setImgWidth(screenWidth);
+      setImgHeight(imageHeight);
+    });
   }, [postData]);
 
   console.log("logging first photo url");
@@ -28,7 +38,7 @@ const PhotosPost = (props) => {
       <View style={styles.postPictureDiv}>
         <Image
           source={{ uri: imagesUrl + firstPhoto }}
-          style={styles.postPhoto}
+          style={{ width: imgWidth, height: imgHeight }}
         />
         {/* {photosCount > 1 && (
           <Text style={styles.absoluteBottomRight}>1 of {photosCount}</Text>
@@ -44,8 +54,7 @@ const styles = StyleSheet.create({
   },
   postDescriptionContainer: {
     height: "auto",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    padding: 3,
     borderTopWidth: 1,
     borderTopColor: "#ccc",
   },
@@ -53,18 +62,12 @@ const styles = StyleSheet.create({
     // wordWrap: "break-word",
     fontSize: 15,
     fontWeight: "normal",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    padding: 5,
     borderRadius: 5,
     // zoom: 1,
   },
   postPictureDiv: {
     flex: 1,
-  },
-  postPhoto: {
-    width: Dimensions.get("window").width,
-    height: 500,
-    resizeMode: "contain",
   },
   absoluteBottomRight: {
     position: "absolute",
