@@ -16,12 +16,6 @@ const CustomBgAndTextAndCornerPost = (props) => {
     setTextColor("#" + postData[0].textColor);
   }, [postData]);
 
-  const getCornerStyle = (property) => {
-    if (property === "cut") {
-      return { shadowOffset: {}, shadowColor: "transparent" };
-    }
-  };
-
   const getStyles = (property) => {
     if (property === "topLeft") {
       return {
@@ -46,9 +40,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
     }
   };
 
-  const getTriangleStyles = (property, getColor) => {
+  const getTriangleStyles = (property, getColor, cornerStyle) => {
+    let set1;
+    let set2;
     if (property === "topLeft") {
-      return {
+      set1 = {
         borderTopWidth: 25,
         borderRightWidth: 25,
         borderBottomWidth: 0,
@@ -59,17 +55,22 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderLeftColor: getColor,
         shadowColor: "#000",
         backgroundColor: getColor,
-        shadowOffset: {
-          width: 0,
-          height: 11,
-        },
-        shadowOpacity: 0.57,
-        shadowRadius: 15.19,
-        elevation: 23,
-        borderBottomRightRadius: 8,
       };
+      if (cornerStyle === "fold") {
+        set2 = {
+          shadowOffset: {
+            width: 0,
+            height: 11,
+          },
+          shadowOpacity: 0.57,
+          shadowRadius: 15.19,
+          elevation: 23,
+          // borderBottomRightRadius: 8,
+        };
+      }
+      return { ...set1, ...set2 };
     } else if (property === "topRight") {
-      return {
+      set1 = {
         borderTopWidth: 0,
         borderRightWidth: 25,
         borderBottomWidth: 25,
@@ -80,17 +81,23 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderLeftColor: getColor,
         shadowColor: "#000",
         backgroundColor: getColor,
-        shadowOffset: {
-          width: 0,
-          height: 11,
-        },
-        shadowOpacity: 0.57,
-        shadowRadius: 15.19,
-        elevation: 23,
-        borderBottomLeftRadius: 8,
       };
+
+      if (cornerStyle === "fold") {
+        set2 = {
+          shadowOffset: {
+            width: 0,
+            height: 11,
+          },
+          shadowOpacity: 0.57,
+          shadowRadius: 15.19,
+          elevation: 23,
+          // borderBottomLeftRadius: 8,
+        };
+      }
+      return { ...set1, ...set2 };
     } else if (property === "bottomLeft") {
-      return {
+      set1 = {
         borderTopWidth: 25,
         borderRightWidth: 0,
         borderBottomWidth: 0,
@@ -101,17 +108,23 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderLeftColor: "#fff",
         shadowColor: "#000",
         backgroundColor: getColor,
-        shadowOffset: {
-          width: 0,
-          height: 11,
-        },
-        shadowOpacity: 0.57,
-        shadowRadius: 15.19,
-        elevation: 23,
-        borderTopRightRadius: 8,
       };
+
+      if (cornerStyle === "fold") {
+        set2 = {
+          shadowOffset: {
+            width: 0,
+            height: 11,
+          },
+          shadowOpacity: 0.57,
+          shadowRadius: 15.19,
+          elevation: 23,
+          // borderTopRightRadius: 8,
+        };
+      }
+      return { ...set1, ...set2 };
     } else if (property === "bottomRight") {
-      return {
+      set1 = {
         borderTopWidth: 25,
         borderRightWidth: 25,
         borderBottomWidth: 0,
@@ -122,15 +135,21 @@ const CustomBgAndTextAndCornerPost = (props) => {
         borderLeftColor: "#fff",
         shadowColor: "#000",
         backgroundColor: getColor,
-        shadowOffset: {
-          width: 0,
-          height: 11,
-        },
-        shadowOpacity: 0.57,
-        shadowRadius: 15.19,
-        elevation: 23,
-        borderTopLeftRadius: 8,
       };
+
+      if (cornerStyle === "fold") {
+        set2 = {
+          shadowOffset: {
+            width: 0,
+            height: 11,
+          },
+          shadowOpacity: 0.57,
+          shadowRadius: 15.19,
+          elevation: 23,
+          // borderBottomRightRadius: 8,
+        };
+      }
+      return { ...set1, ...set2 };
     }
   };
 
@@ -153,8 +172,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles(cornerStyleSides, postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  cornerStyleSides,
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -169,6 +191,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             >
               {postData[0].postContent}
               {cornerStyleSides}
+              {cornerStyle}
             </Text>
           </View>
         </View>
@@ -188,8 +211,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("topLeft", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "topLeft",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -204,8 +230,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("bottomRight", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "bottomRight",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -239,8 +268,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("topRight", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "topRight",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -255,8 +287,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("bottomLeft", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "bottomLeft",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -290,8 +325,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("topLeft", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "topLeft",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -306,8 +344,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("bottomRight", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "bottomRight",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -322,8 +363,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("topRight", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "topRight",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
@@ -338,8 +382,11 @@ const CustomBgAndTextAndCornerPost = (props) => {
             <View
               style={{
                 ...styles.cornerTriangleFoldcommonStyles,
-                ...getTriangleStyles("bottomLeft", postBackgroundColor),
-                ...getCornerStyle(cornerStyle),
+                ...getTriangleStyles(
+                  "bottomLeft",
+                  postBackgroundColor,
+                  cornerStyle
+                ),
                 backgroundColor: postBackgroundColor,
               }}
             ></View>
