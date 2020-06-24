@@ -131,6 +131,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -162,6 +163,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -175,6 +177,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -206,6 +209,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -219,6 +223,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -250,6 +255,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -263,6 +269,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -276,6 +283,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -289,6 +297,7 @@ const CustomBgAndTextAndCornerPost = (props) => {
             style={{
               ...styles.cornerFoldCommonStyles,
               ...getStyles(borderStyleSides),
+              backgroundColor: postBackgroundColor,
             }}
           >
             <View
@@ -324,12 +333,14 @@ const CustomBgAndTextAndCornerPost = (props) => {
 };
 
 const styles = StyleSheet.create({
+  box: {
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+  },
   postDescriptionContainer: {
     height: "auto",
     paddingVertical: 12,
     paddingHorizontal: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ccc",
   },
   postDescription: {
     // wordWrap: "break-word",
