@@ -33,11 +33,13 @@ export default class ModalTester extends Component {
           isVisible={this.state.isModalVisible}
           deviceWidth={deviceWidth}
           // deviceHeight={300}
-          style={{ backgroundColor: "#fff", marginVertical: 50 }}
-          propagateSwipe={true}
-          Swipeable={true}
+          style={{ backgroundColor: "#fff", marginTop: 100 }}
+          // propagateSwipe={true}
+          // Swipeable={true}
           Scrollable={true}
           onBackdropPress={this.toggleModal}
+          swipeDirection={["down", "up"]}
+          onSwipeComplete={this.toggleModal}
         >
           <ScrollView style={{ flex: 1 }}>
             <Text>Hello!</Text>
