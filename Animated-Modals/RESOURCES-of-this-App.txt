@@ -1,2 +1,3 @@
-* https://appdividend.com/2018/08/02/react-native-modal-example-tutorial/
+* For ModalTester.js --> https://appdividend.com/2018/08/02/react-native-modal-example-tutorial/
+* For ScrollAndSwipeable.js --> https://snack.expo.io/@manozkumarj/modal-swipeable
 * 
