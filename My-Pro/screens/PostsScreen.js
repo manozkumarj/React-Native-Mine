@@ -65,7 +65,7 @@ const PostsScreen = (props) => {
   }, [dispatch]);
 
   const _handleNotification = (notification) => {
-    Vibration.vibrate();
+    // Vibration.vibrate();
     console.log(notification);
   };
 

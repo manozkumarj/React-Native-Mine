@@ -1,4 +1,9 @@
-* Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0 && https://medium.com/@Laurens_Lang/local-notifications-in-expo-867e2af1ca97
+* While using Expo, make sure that Notifications, Float Notifications & sound permissions are granted
+* 
+
+
+
+* Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0 && https://www.youtube.com/watch?v=XCk31D5vY0U && https://medium.com/@Laurens_Lang/local-notifications-in-expo-867e2af1ca97 
 * 
 
 *************************** Ways to run the App after Node-Modules deletion ********************************
