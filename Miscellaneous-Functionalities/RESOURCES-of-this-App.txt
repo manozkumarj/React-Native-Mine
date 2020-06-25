@@ -1,0 +1,2 @@
+* https://aboutreact.com/example-of-onlongpress-on-touchableopacity-in-react-native/
+* 
