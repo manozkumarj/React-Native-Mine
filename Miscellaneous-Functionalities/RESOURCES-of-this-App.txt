@@ -1,2 +1,3 @@
 * https://aboutreact.com/example-of-onlongpress-on-touchableopacity-in-react-native/
+* https://snack.expo.io/@manozkumarj/horizontal-flatlist-with-percentage-render-item
 * 
