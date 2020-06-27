@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   //Common Style
   appTitle: {
-    fontSize: 22,
+    fontSize: 23,
     color: "snow",
   },
   headerBackgroundColor: {
