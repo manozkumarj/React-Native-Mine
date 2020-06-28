@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCustomBgAndTextColorPost";
 import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTextAndBorderColorPost";
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
+import PostReactions from "./../components/UI/PostReactions";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import PhotosPost from "./../components/UI/PhotosPost";
 
@@ -45,7 +46,7 @@ const PostsScreen = (props) => {
     let _notificationSubscription = Notifications.addListener(
       _handleNotification
     );
-    sendPushNotification();
+    // sendPushNotification();
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -115,7 +116,7 @@ const PostsScreen = (props) => {
   let loopId = 1;
 
   const onRefresh = () => {
-    sendPushNotification();
+    // sendPushNotification();
     setIsFetching(true);
     setTimeout(() => {
       setIsFetching(false);
@@ -234,6 +235,7 @@ const PostsScreen = (props) => {
                   </View>
                 </View>
                 <View>{displayPage}</View>
+                <PostReactions postDetails={itemData.item} />
               </View>
             );
           }}
