@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { upsertReaction } from "./../../redux/actionCreators";
 import Colors from "./../../constants/Colors";
 
 const loveHeartsEyesEmoji = require("./../../assets/emojis/love-hearts-eyes-emoji-50.png");
@@ -30,6 +31,8 @@ const PostReactions = (props) => {
   const [postReactions, setPostReactions] = useState(
     props.postDetails.reactions
   );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setPostReactions(props.postDetails.reactions);
@@ -73,42 +76,105 @@ const PostReactions = (props) => {
       "handleReactionRemover --> " + post._id + " -- " + showReactions
     );
     setIsReactedToThisPost(false);
+    doUpsertReaction("delete", null);
   };
 
   const handleLikeReaction = () => {
     setShowReactions(false);
+    setReactedTypeInText("Like");
+    setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
-  };
-
-  const handleLoveReaction = () => {
-    setShowReactions(false);
-    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
-  };
-
-  const handleWowReaction = () => {
-    setShowReactions(false);
-    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
-  };
-
-  const handleLaughReaction = () => {
-    setShowReactions(false);
-    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
-  };
-
-  const handleCryReaction = () => {
-    setShowReactions(false);
-    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
-  };
-
-  const handleAngerReaction = () => {
-    setShowReactions(false);
-    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 1);
   };
 
   const handleDislikeReaction = () => {
     setShowReactions(false);
+    setReactedTypeInText("Dislike");
+    setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 2);
   };
+
+  const handleLoveReaction = () => {
+    setShowReactions(false);
+    setReactedTypeInText("Love");
+    setIsReactedToThisPost(true);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 3);
+  };
+
+  const handleWowReaction = () => {
+    setShowReactions(false);
+    setReactedTypeInText("Wow");
+    setIsReactedToThisPost(true);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 4);
+  };
+
+  const handleLaughReaction = () => {
+    setShowReactions(false);
+    setReactedTypeInText("Laugh");
+    setIsReactedToThisPost(true);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 5);
+  };
+
+  const handleCryReaction = () => {
+    setShowReactions(false);
+    setReactedTypeInText("Cry");
+    setIsReactedToThisPost(true);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 6);
+  };
+
+  const handleAngerReaction = () => {
+    setShowReactions(false);
+    setReactedTypeInText("Anger");
+    setIsReactedToThisPost(true);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
+    doUpsertReaction("add", 7);
+  };
+
+  const doUpsertReaction = (actionType, reactionTypeId) => {
+    if (actionType === "add") {
+      let filterPostReactions = postReactions.filter(
+        (reaction) => reaction.reactedBy !== loggedInUserId
+      );
+      // setPostReactions(filterPostReactions);
+
+      let addUserToReactions = {
+        reactedBy: loggedInUserId,
+        reactionTypeId,
+      };
+      // let addd = postReactions.push(addUserToReactions);
+      // console.log(postReactions);
+      // console.log(addd);
+      setPostReactions([...filterPostReactions, addUserToReactions]);
+      setIsReactedToThisPost(true);
+    } else if (actionType === "delete") {
+      let filterPostReactions = postReactions.filter(
+        (reaction) => reaction.reactedBy !== loggedInUserId
+      );
+      setPostReactions(filterPostReactions);
+      setIsReactedToThisPost(false);
+    }
+    executeUpsertReaction(post._id, actionType, reactionTypeId);
+  };
+
+  const executeUpsertReaction = useCallback(
+    async (postId, actionType, reactionTypeId) => {
+      try {
+        let upsertReactionResponse = await dispatch(
+          upsertReaction(postId, actionType, reactionTypeId)
+        );
+        console.log("upsertReaction succeeded");
+      } catch (err) {
+        console.log("upsertReaction failed");
+        console.log(err);
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <View style={styles.wrapper}>

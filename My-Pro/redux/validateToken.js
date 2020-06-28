@@ -8,7 +8,7 @@ const validateToken = async () => {
   // Get the token from header
   const tempToken = await AsyncStorage.getItem("authToken");
   console.log("tempToken -->" + tempToken);
-  console.log(JSON.stringify(tempToken));
+  // console.log(JSON.stringify(tempToken));
 
   // Check if not token
   if (!tempToken) {

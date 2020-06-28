@@ -144,13 +144,13 @@ export const createPost = (
 // All types of post creation handler -- Ends
 
 // Fetching individual user's posts handler -- Starts
-export const getAllUsersPosts = () => {
-  let authToken = AsyncStorage.getItem("authToken");
-  const tokenUserDetails = validateToken();
+export const getAllUsersPosts = async () => {
+  let authToken = await AsyncStorage.getItem("authToken");
+  const tokenUserDetails = await validateToken();
   // console.log(tokenUserDetails);
   if (tokenUserDetails) {
     apiEndPoint = `posts`;
-    headers["x-auth-token"] = authToken;
+    headers["x-auth-token"] = JSON.parse(authToken);
 
     return (dispatch) => {
       dispatch({ type: IS_LOADING_POSTS });
@@ -372,8 +372,8 @@ export const deleteComment = (postId, uniqueCommentId) => {
 // Fetching individual post's comment deletion handler -- Ends
 
 // Fetching individual posts's reaction handler -- Starts
-export const upsertReaction = (postId, actionType, reactionTypeId) => {
-  let authToken = AsyncStorage.getItem("authToken");
+export const upsertReaction = async (postId, actionType, reactionTypeId) => {
+  let authToken = await AsyncStorage.getItem("authToken");
   const tokenUserDetails = validateToken();
   // console.log(tokenUserDetails);
   // let userId;
@@ -388,13 +388,14 @@ export const upsertReaction = (postId, actionType, reactionTypeId) => {
     } else {
       apiEndPoint = `posts/deleteReaction`;
     }
-    headers["x-auth-token"] = authToken;
+    headers["x-auth-token"] = JSON.parse(authToken);
 
     return (dispatch) => {
-      API.put(apiEndPoint, obj, { headers })
+      return API.put(apiEndPoint, obj, { headers })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           dispatch({ type: IS_REACTION_UPSERTED });
+          return { status: "success", msg: "posts received", posts: res.data };
         })
         .catch((err) => {
           console.log(err.response);
@@ -402,6 +403,7 @@ export const upsertReaction = (postId, actionType, reactionTypeId) => {
             type: REACTION_UPSERTION_ERROR,
             payload: err.response,
           });
+          return new Error(err.response);
         });
     };
   }
