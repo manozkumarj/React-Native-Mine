@@ -12,12 +12,13 @@ const StartupScreen = (props) => {
   useEffect(() => {
     const tryLogin = async () => {
       const authToken = await AsyncStorage.getItem("authToken");
+      console.log("authToken from StartUpScreen -->" + authToken);
       if (!authToken) {
         props.navigation.navigate("Auth");
         // props.navigation.navigate("LoggedIn");
-        return;
+      } else {
+        props.navigation.navigate("LoggedIn");
       }
-      props.navigation.navigate("LoggedIn");
     };
 
     tryLogin();

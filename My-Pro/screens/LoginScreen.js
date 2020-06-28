@@ -20,8 +20,8 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState("aaa@gmail.com");
-  const [password, setPassword] = useState("aaa@123");
+  const [email, setEmail] = useState("manoj@gmail.com");
+  const [password, setPassword] = useState("manoj123");
   const [disableButtons, setDisableButtons] = useState(false);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);

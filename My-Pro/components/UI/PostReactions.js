@@ -18,20 +18,61 @@ const wowEmoji = require("./../../assets/emojis/wow-emoji-50.png");
 const cryingEmoji = require("./../../assets/emojis/crying-emoji-50.png");
 
 const PostReactions = (props) => {
-  const [post, setPost] = useState(props.postDetails);
-  const [showReactions, setShowReactions] = useState(false);
-  const [loggedInUserId, setLoggedInUserId] = useState(null);
-
   let currentLoggedInUserId = useSelector(
     (state) => state.centralState.loggedInUserId
   );
-  console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
 
-  // useEffect(() => {}, []);
+  const [post, setPost] = useState(props.postDetails);
+  const [showReactions, setShowReactions] = useState(false);
+  const [loggedInUserId, setLoggedInUserId] = useState(currentLoggedInUserId);
+  const [isReactedToThisPost, setIsReactedToThisPost] = useState(false);
+  const [reactedTypeInText, setReactedTypeInText] = useState("Like");
+  const [postReactions, setPostReactions] = useState(
+    props.postDetails.reactions
+  );
+
+  useEffect(() => {
+    setPostReactions(props.postDetails.reactions);
+    console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
+    // setLoggedInUserId(currentLoggedInUserId);
+
+    if (postReactions && postReactions.length > 0) {
+      let getIndex = postReactions.findIndex(
+        (user) => user.reactedBy === loggedInUserId
+      );
+      console.log("loggedInUserId --> " + loggedInUserId);
+      console.log("getIndex --> " + getIndex);
+
+      if (getIndex > -1) {
+        setIsReactedToThisPost(true);
+        reactedTypeId = postReactions[getIndex]["reactionTypeId"];
+        // console.log("reactedTypeId --> " + reactedTypeId);
+        // console.log(postReactions[getIndex]["reactionTypeId"]);
+
+        if (reactedTypeId === 1) setReactedTypeInText("Like");
+        else if (reactedTypeId === 2) setReactedTypeInText("Dislike");
+        else if (reactedTypeId === 3) setReactedTypeInText("Love");
+        else if (reactedTypeId === 4) setReactedTypeInText("Wow");
+        else if (reactedTypeId === 5) setReactedTypeInText("Laugh");
+        else if (reactedTypeId === 6) setReactedTypeInText("Cry");
+        else if (reactedTypeId === 7) setReactedTypeInText("Angry");
+        else setReactedTypeInText("Like");
+
+        // console.log("reactedTypeInText --> " + reactedTypeInText);
+      }
+    }
+  }, [props.postDetails]);
 
   const handleLongPress = () => {
     setShowReactions(!showReactions);
     // alert("handleLongPress --> " + post._id + " -- " + showReactions);
+  };
+
+  const handleReactionRemover = () => {
+    console.log(
+      "handleReactionRemover --> " + post._id + " -- " + showReactions
+    );
+    setIsReactedToThisPost(false);
   };
 
   const handleLikeReaction = () => {
@@ -120,13 +161,27 @@ const PostReactions = (props) => {
         </View>
       ) : null}
       <View style={styles.postReactableItemsHolder}>
-        <Text
-          style={styles.postReactableItem}
-          onPress={handleLikeReaction}
-          onLongPress={handleLongPress}
-        >
-          Like
-        </Text>
+        {!isReactedToThisPost ? (
+          <Text
+            style={styles.postReactableItem}
+            onPress={handleLikeReaction}
+            onLongPress={handleLongPress}
+          >
+            Like
+          </Text>
+        ) : (
+          <Text
+            style={{
+              ...styles.postReactableItem,
+              color: Colors.siteColor,
+              fontSize: 25,
+            }}
+            onPress={handleReactionRemover}
+            onLongPress={handleLongPress}
+          >
+            {reactedTypeInText}
+          </Text>
+        )}
         <Text style={styles.postReactableItem}> Comment </Text>
         <Text style={styles.postReactableItem}> Share </Text>
       </View>
