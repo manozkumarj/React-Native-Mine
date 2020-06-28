@@ -43,8 +43,13 @@ import {
 import validateToken from "./../validateToken";
 
 let token = AsyncStorage.getItem("authToken");
-const tokenUserDetails = validateToken();
-// console.log(tokenUserDetails);
+let tokenUserDetails;
+const doValidate = async () => {
+  tokenUserDetails = await validateToken();
+  console.log("tokenUserDetails is below");
+  console.log(tokenUserDetails);
+};
+doValidate();
 let userId;
 let username;
 if (tokenUserDetails) {

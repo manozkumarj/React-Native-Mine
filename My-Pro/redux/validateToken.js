@@ -1,4 +1,4 @@
-import { jwt } from "react-native-pure-jwt";
+import JWT from "expo-jwt";
 import { AsyncStorage } from "react-native";
 
 const jwtSecret =
@@ -17,20 +17,20 @@ const validateToken = async () => {
   }
 
   if (!tempToken.includes("@@")) {
-    console.log("Token is not valid, Authorization denied");
+    console.log("Token is not valid, Authorization denied - 1");
     return false;
   }
   let splitToken = tempToken.split("@@");
   const token = splitToken[1];
 
   try {
-    const decoded = jwt.verify(token, jwtSecret);
+    const decoded = JWT.decode(token, jwtSecret);
 
     // console.log(decoded.data);
     const userDetails = decoded.data;
     return userDetails;
   } catch (error) {
-    console.log("Token is not valid, Authorization denied");
+    console.log("Token is not valid, Authorization denied - 2");
     // window.location.reload();
     return false;
   }

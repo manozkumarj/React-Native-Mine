@@ -11,10 +11,10 @@ import Colors from "../constants/Colors";
 const StartupScreen = (props) => {
   useEffect(() => {
     const tryLogin = async () => {
-      const userData = await AsyncStorage.getItem("userData");
-      if (!userData) {
-        // props.navigation.navigate("Auth");
-        props.navigation.navigate("LoggedIn");
+      const authToken = await AsyncStorage.getItem("authToken");
+      if (!authToken) {
+        props.navigation.navigate("Auth");
+        // props.navigation.navigate("LoggedIn");
         return;
       }
       props.navigation.navigate("LoggedIn");

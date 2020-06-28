@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from "react-native";
+import { useSelector } from "react-redux";
 import Colors from "./../../constants/Colors";
 
 const loveHeartsEyesEmoji = require("./../../assets/emojis/love-hearts-eyes-emoji-50.png");
@@ -19,6 +20,14 @@ const cryingEmoji = require("./../../assets/emojis/crying-emoji-50.png");
 const PostReactions = (props) => {
   const [post, setPost] = useState(props.postDetails);
   const [showReactions, setShowReactions] = useState(false);
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
+
+  let currentLoggedInUserId = useSelector(
+    (state) => state.centralState.loggedInUserId
+  );
+  console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
+
+  // useEffect(() => {}, []);
 
   const handleLongPress = () => {
     setShowReactions(!showReactions);

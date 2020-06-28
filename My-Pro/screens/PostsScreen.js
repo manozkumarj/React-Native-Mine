@@ -36,6 +36,13 @@ const PostsScreen = (props) => {
   const dispatch = useDispatch();
 
   const logOutHandler = () => {
+    const tryLogOut = async () => {
+      const remover = await AsyncStorage.removeItem("authToken");
+      props.navigation.navigate("Auth");
+      return;
+    };
+
+    tryLogOut();
     props.navigation.navigate("Login");
   };
 
