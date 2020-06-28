@@ -5,8 +5,8 @@ import {
   Image,
   StyleSheet,
   TouchableHighlight,
-  TouchableWithoutFeedback,
 } from "react-native";
+import Colors from "./../../constants/Colors";
 
 const loveHeartsEyesEmoji = require("./../../assets/emojis/love-hearts-eyes-emoji-50.png");
 const likeThumbEmoji = require("./../../assets/emojis/like-thumb-emoji-50.png");
@@ -61,7 +61,7 @@ const PostReactions = (props) => {
   };
 
   return (
-    <View>
+    <View style={styles.wrapper}>
       {showReactions === true ? (
         <View style={styles.reactableEmojisMainHolder}>
           <View style={styles.reactableEmojisHolder}>
@@ -126,21 +126,33 @@ const PostReactions = (props) => {
 };
 
 const styles = StyleSheet.create({
-  postReactableItemsHolder: {
-    flexDirection: "row",
-    height: 50,
-    // justifyContent: "center",
-    alignItems: "center",
+  wrapper: {
     borderTopWidth: 1,
-    borderTopColor: "#ccc",
+    borderTopColor: "#999",
+  },
+  postReactableItemsHolder: {
+    height: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    // borderTopWidth: 1,
+    // borderTopColor: "#ccc",
   },
   postReactableItem: {
     flex: 1,
-    alignSelf: "center",
+    height: 50,
+    lineHeight: 50,
     textAlign: "center",
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    alignSelf: "center",
     color: "#000",
     fontSize: 15,
     fontWeight: "bold",
+    // borderColor: "red",
+    // borderWidth: 1,
   },
   reactableEmojisMainHolder: {
     position: "relative",
@@ -149,7 +161,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#fff",
     zIndex: 10,
-    borderColor: "red",
+    borderColor: Colors.siteColor,
     borderWidth: 2,
     height: 60,
     borderRadius: 50,
