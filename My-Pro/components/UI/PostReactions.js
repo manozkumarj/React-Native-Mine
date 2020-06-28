@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 const loveHeartsEyesEmoji = require("./../../assets/emojis/love-hearts-eyes-emoji-50.png");
 const likeThumbEmoji = require("./../../assets/emojis/like-thumb-emoji-50.png");
@@ -20,80 +27,87 @@ const PostReactions = (props) => {
 
   const handleLikeReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleLoveReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleWowReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleLaughReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleCryReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleAngerReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   const handleDislikeReaction = () => {
     setShowReactions(false);
+    console.log("handleLongPress --> " + post._id + " -- " + showReactions);
   };
 
   return (
     <View>
       {showReactions === true ? (
         <View style={styles.reactableEmojisMainHolder}>
-          <Text style={styles.reactableEmojisHolder}>
-            <Image
+          <View style={styles.reactableEmojisHolder}>
+            <TouchableHighlight
               onPress={handleLikeReaction}
-              source={likeThumbEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={likeThumbEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleLoveReaction}
-              source={loveHeartsEyesEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={loveHeartsEyesEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleLaughReaction}
-              source={laugherEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={laugherEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleWowReaction}
-              source={wowEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={wowEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleAngerReaction}
-              source={angryEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={angryEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleCryReaction}
-              source={cryingEmoji}
-              height="14"
-              width="14"
-            />
-            <Image
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={cryingEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={handleDislikeReaction}
-              source={dislikeThumbEmoji}
-              height="14"
-              width="14"
-            />
-          </Text>
+              style={styles.singleTouchableEmoji}
+            >
+              <Image source={dislikeThumbEmoji} style={styles.singleEmoji} />
+            </TouchableHighlight>
+          </View>
         </View>
       ) : null}
       <View style={styles.postReactableItemsHolder}>
@@ -117,6 +131,8 @@ const styles = StyleSheet.create({
     height: 50,
     // justifyContent: "center",
     alignItems: "center",
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
   },
   postReactableItem: {
     flex: 1,
@@ -128,17 +144,33 @@ const styles = StyleSheet.create({
   },
   reactableEmojisMainHolder: {
     position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
     backgroundColor: "#fff",
+    zIndex: 10,
+    borderColor: "red",
+    borderWidth: 2,
+    height: 60,
+    borderRadius: 50,
+    marginVertical: 5,
   },
   reactableEmojisHolder: {
     position: "absolute",
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    height: 120,
-    top: -72,
-    borderRadius: 20,
+    // borderRadius: 20,
+    zIndex: 20,
+    borderRadius: 50,
+  },
+  singleEmoji: {
+    height: 40,
+    width: 40,
+    borderRadius: 50,
+  },
+  singleTouchableEmoji: {
+    padding: 5,
   },
 });
 
