@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { upsertReaction } from "./../../redux/actionCreators";
 import Colors from "./../../constants/Colors";
 
+import Toast from "react-native-tiny-toast";
+
 const loveHeartsEyesEmoji = require("./../../assets/emojis/love-hearts-eyes-emoji-50.png");
 const likeThumbEmoji = require("./../../assets/emojis/like-thumb-emoji-50.png");
 const dislikeThumbEmoji = require("./../../assets/emojis/dislike-thumb-emoji-50.png");
@@ -168,9 +170,29 @@ const PostReactions = (props) => {
           upsertReaction(postId, actionType, reactionTypeId)
         );
         console.log("upsertReaction succeeded");
+        Toast.show("upsertReaction succeeded", {
+          containerStyle: {
+            // backgroundColor: "rgba(220,220,221,.80)",
+            backgroundColor: Colors.siteColor,
+            paddingHorizontal: 15,
+            borderRadius: 20,
+          },
+          textColor: "#fff",
+          duration: 1000,
+        });
       } catch (err) {
         console.log("upsertReaction failed");
         console.log(err);
+        Toast.show("upsertReaction failed", {
+          containerStyle: {
+            // backgroundColor: "rgba(220,220,221,.80)",
+            backgroundColor: "red",
+            paddingHorizontal: 15,
+            borderRadius: 20,
+          },
+          textColor: "#fff",
+          duration: 1000,
+        });
       }
     },
     [dispatch]

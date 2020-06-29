@@ -144,16 +144,16 @@ export const createPost = (
 // All types of post creation handler -- Ends
 
 // Fetching individual user's posts handler -- Starts
-export const getAllUsersPosts = async () => {
-  let authToken = await AsyncStorage.getItem("authToken");
-  const tokenUserDetails = await validateToken();
-  // console.log(tokenUserDetails);
-  if (tokenUserDetails) {
-    apiEndPoint = `posts`;
-    headers["x-auth-token"] = JSON.parse(authToken);
+export const getAllUsersPosts = () => {
+  return async (dispatch) => {
+    let authToken = await AsyncStorage.getItem("authToken");
+    const tokenUserDetails = await validateToken();
+    // console.log(tokenUserDetails);
+    if (tokenUserDetails) {
+      apiEndPoint = `posts`;
+      headers["x-auth-token"] = authToken;
 
-    return (dispatch) => {
-      dispatch({ type: IS_LOADING_POSTS });
+      // dispatch({ type: IS_LOADING_POSTS });
       return API.get(apiEndPoint, { headers })
         .then((res) => {
           // console.log(res.data);
@@ -168,8 +168,10 @@ export const getAllUsersPosts = async () => {
           });
           return new Error(err.response);
         });
-    };
-  }
+    } else {
+      return new Error("Something went wrong");
+    }
+  };
 };
 // Fetching individual user's posts handler -- Ends
 
@@ -372,25 +374,25 @@ export const deleteComment = (postId, uniqueCommentId) => {
 // Fetching individual post's comment deletion handler -- Ends
 
 // Fetching individual posts's reaction handler -- Starts
-export const upsertReaction = async (postId, actionType, reactionTypeId) => {
-  let authToken = await AsyncStorage.getItem("authToken");
-  const tokenUserDetails = validateToken();
-  // console.log(tokenUserDetails);
-  // let userId;
-  if (tokenUserDetails) {
-    let obj = {
-      postId,
-      reactionTypeId,
-    };
-    // console.log("userId --> " + userId);
-    if (actionType === "add") {
-      apiEndPoint = `posts/addReaction`;
-    } else {
-      apiEndPoint = `posts/deleteReaction`;
-    }
-    headers["x-auth-token"] = JSON.parse(authToken);
+export const upsertReaction = (postId, actionType, reactionTypeId) => {
+  return async (dispatch) => {
+    let authToken = await AsyncStorage.getItem("authToken");
+    const tokenUserDetails = await validateToken();
+    // console.log(tokenUserDetails);
+    // let userId;
+    if (tokenUserDetails) {
+      let obj = {
+        postId,
+        reactionTypeId,
+      };
+      // console.log("userId --> " + userId);
+      if (actionType === "add") {
+        apiEndPoint = `posts/addReaction`;
+      } else {
+        apiEndPoint = `posts/deleteReaction`;
+      }
+      headers["x-auth-token"] = authToken;
 
-    return (dispatch) => {
       return API.put(apiEndPoint, obj, { headers })
         .then((res) => {
           // console.log(res.data);
@@ -405,7 +407,9 @@ export const upsertReaction = async (postId, actionType, reactionTypeId) => {
           });
           return new Error(err.response);
         });
-    };
-  }
+    } else {
+      return new Error("Something went wrong");
+    }
+  };
 };
 // Fetching individual posts's reaction handler -- Ends
