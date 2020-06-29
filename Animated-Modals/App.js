@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 // import ModalTester from "./components/ModalTester";
 // import ScrollAndSwipeable from "./components/ScrollAndSwipeable";
-// import FbStyleModal from "./components/FbStyleModal";
-import { Dummy } from "./components/Dummy";
+// import Dummy from "./components/Dummy";
+import FbStyleModal from "./components/FbStyleModal";
 
 export default function App() {
   return (
@@ -11,8 +11,8 @@ export default function App() {
       {/* <Text>Open up App.js to start working on your app!</Text> */}
       {/* <ModalTester /> */}
       {/* <ScrollAndSwipeable /> */}
-      {/* <FbStyleModal /> */}
-      <Dummy />
+      {/* <Dummy /> */}
+      <FbStyleModal />
     </View>
   );
 }

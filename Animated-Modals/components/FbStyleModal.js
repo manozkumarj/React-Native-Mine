@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 
-export const FbStyleModal = () => {
+const FbStyleModal = () => {
   const modalizeRef = useRef(null);
 
   const onOpen = () => {
@@ -215,3 +215,5 @@ const s = StyleSheet.create({
     // marginLeft: 150,
   },
 });
+
+export default FbStyleModal;
