@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 // import ModalTester from "./components/ModalTester";
 // import ScrollAndSwipeable from "./components/ScrollAndSwipeable";
 // import Dummy from "./components/Dummy";
-import FbStyleModal from "./components/FbStyleModal";
+// import FbStyleModal from "./components/FbStyleModal";
+import ContentHeightModal from "./components/ContentHeightModal";
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
       {/* <ModalTester /> */}
       {/* <ScrollAndSwipeable /> */}
       {/* <Dummy /> */}
-      <FbStyleModal />
+      {/* <FbStyleModal /> */}
+      <ContentHeightModal />
     </View>
   );
 }
