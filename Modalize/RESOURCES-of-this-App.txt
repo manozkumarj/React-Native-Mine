@@ -1,0 +1,4 @@
+* https://reactnativeexample.com/a-modal-that-loves-scrollable-content/
+* Need to install all these packages from this package.json file --> https://github.com/jeremybarbet/react-native-modalize/tree/master/examples/expo
+* https://reactnativeexample.com/react-native-smart-tip-including-toast-modal-snackbar/
+* 

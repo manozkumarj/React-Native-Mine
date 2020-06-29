@@ -1,5 +1,5 @@
 * https://aboutreact.com/example-of-onlongpress-on-touchableopacity-in-react-native/
 * https://snack.expo.io/@manozkumarj/horizontal-flatlist-with-percentage-render-item
 * Wallpaper App - https://www.youtube.com/watch?v=4VKynwqAMp0&list=PLy9JCsy2u97mGklzG1Ynbe-f-5Fq8FVpi
-* Back button handler - https://snack.expo.io/@manozkumarj/e572c7
+* Back button handler - https://snack.expo.io/@manozkumarj/e572c7 && https://stackoverflow.com/questions/45031085/react-native-device-back-button-handling
 * 
