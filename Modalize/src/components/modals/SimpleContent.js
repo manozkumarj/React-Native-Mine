@@ -1,9 +1,9 @@
-import React, { useRef, forwardRef } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
-import { Modalize } from 'react-native-modalize';
-import faker from 'faker';
+import React, { useRef, forwardRef } from "react";
+import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import { Modalize } from "react-native-modalize";
+import faker from "faker";
 
-import { useCombinedRefs } from '../../utils/use-combined-refs';
+import { useCombinedRefs } from "../../utils/use-combined-refs";
 
 export const SimpleContent = forwardRef((_, ref) => {
   const modalizeRef = useRef(null);
@@ -17,7 +17,9 @@ export const SimpleContent = forwardRef((_, ref) => {
 
     <View style={s.content__inside} key="1">
       <Text style={s.content__paragraph}>{faker.lorem.paragraphs(4)}</Text>
-      <Text style={[s.content__subheading, { marginTop: 30 }]}>Horizontal ScrollView</Text>
+      <Text style={[s.content__subheading, { marginTop: 30 }]}>
+        Horizontal ScrollView
+      </Text>
 
       <ScrollView style={s.content__scrollview} horizontal>
         {Array(5)
@@ -55,7 +57,7 @@ const s = StyleSheet.create({
     padding: 15,
     paddingBottom: 0,
 
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
@@ -64,15 +66,15 @@ const s = StyleSheet.create({
     marginBottom: 2,
 
     fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
 
   content__subheading: {
     marginBottom: 20,
 
     fontSize: 16,
-    color: '#ccc',
+    color: "#ccc",
   },
 
   content__inside: {
@@ -81,9 +83,9 @@ const s = StyleSheet.create({
 
   content__paragraph: {
     fontSize: 15,
-    fontWeight: '200',
+    fontWeight: "200",
     lineHeight: 22,
-    color: '#666',
+    color: "#666",
   },
 
   content__scrollview: {
@@ -96,18 +98,18 @@ const s = StyleSheet.create({
 
     marginRight: 20,
 
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
   },
 
   content__input: {
     paddingVertical: 15,
     marginBottom: 10,
 
-    width: '100%',
+    width: "100%",
 
     borderWidth: 1,
-    borderColor: 'transparent',
-    borderBottomColor: '#cdcdcd',
+    borderColor: "transparent",
+    borderBottomColor: "#cdcdcd",
     borderRadius: 6,
   },
 });
