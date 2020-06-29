@@ -44,7 +44,7 @@ export default class ScrollAndSwipeable extends Component {
               So, here we have added one Button, and also, we have imported the
               image file.
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity activeOpacity={1} style={{ zIndex: 100 }}>
               <ScrollView>
                 <Text style={styles.text}>
                   So, here we have added one Button, and also, we have imported
