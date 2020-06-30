@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   Button,
+  ScrollView,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 
@@ -60,9 +61,197 @@ const ContentHeightModal = () => {
 
   return (
     <>
-      <TouchableOpacity onPress={onOpen}>
+      <ScrollView>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
         <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
-      </TouchableOpacity>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Button onPress={onOpen} title="Open Modal" color="orange"></Button>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={s.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+      </ScrollView>
 
       <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
         {renderContent()}

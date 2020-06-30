@@ -10,7 +10,7 @@ import {
   AsyncStorage,
   Vibration,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Notifications } from "expo";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
@@ -20,12 +20,15 @@ import DefaultAndCustomBgAndTextColorPost from "./../components/UI/DefaultAndCus
 import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTextAndBorderColorPost";
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 import PostReactions from "./../components/UI/PostReactions";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import PhotosPost from "./../components/UI/PhotosPost";
+import ContentHeightModal from "./../components/UI/ContentHeightModal";
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const PostsScreen = (props) => {
+  const [displayContentHeightModal, setDisplayContentHeightModal] = useState(
+    false
+  );
   const [isFetching, setIsFetching] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
@@ -44,6 +47,10 @@ const PostsScreen = (props) => {
 
     tryLogOut();
     props.navigation.navigate("Login");
+  };
+
+  closeModals = () => {
+    setDisplayContentHeightModal(false);
   };
 
   useEffect(() => {
@@ -240,12 +247,26 @@ const PostsScreen = (props) => {
                       5th Jan 2017 - 08:51:25 AM
                     </Text>
                   </View>
+                  <View>
+                    <Text>
+                      <Entypo
+                        name="dots-three-horizontal"
+                        size={24}
+                        color="black"
+                        onPress={() => setDisplayContentHeightModal(true)}
+                      />
+                    </Text>
+                  </View>
                 </View>
                 <View>{displayPage}</View>
                 <PostReactions postDetails={itemData.item} />
               </View>
             );
           }}
+        />
+        <ContentHeightModal
+          display={displayContentHeightModal}
+          closeModal={() => closeModals()}
         />
       </View>
     );
@@ -317,6 +338,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   postUserNameTimeContainer: {
+    flex: 2,
     marginHorizontal: 10,
   },
   // box: {

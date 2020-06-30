@@ -4,8 +4,8 @@ import { StyleSheet, Text, View } from "react-native";
 // import ScrollAndSwipeable from "./components/ScrollAndSwipeable";
 // import Dummy from "./components/Dummy";
 // import FbStyleModal from "./components/FbStyleModal";
-// import ContentHeightModal from "./components/ContentHeightModal";
-import ReactionsShowableModal from "./components/ReactionsShowableModal";
+import ContentHeightModal from "./components/ContentHeightModal";
+// import ReactionsShowableModal from "./components/ReactionsShowableModal";
 
 export default function App() {
   return (
@@ -15,8 +15,8 @@ export default function App() {
       {/* <ScrollAndSwipeable /> */}
       {/* <Dummy /> */}
       {/* <FbStyleModal /> */}
-      {/* <ContentHeightModal /> */}
-      <ReactionsShowableModal />
+      {/* <ReactionsShowableModal /> */}
+      <ContentHeightModal />
     </View>
   );
 }
