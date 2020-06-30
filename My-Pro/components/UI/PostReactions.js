@@ -36,6 +36,10 @@ const PostReactions = (props) => {
 
   const dispatch = useDispatch();
 
+  const triggerFullModal = () => {
+    props.triggerParentFullModal(post._id);
+  };
+
   useEffect(() => {
     setPostReactions(props.postDetails.reactions);
     console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
@@ -271,7 +275,10 @@ const PostReactions = (props) => {
           </Text>
         )}
         <Text style={styles.postReactableItem}> Comment </Text>
-        <Text style={styles.postReactableItem}> Share </Text>
+        <Text style={styles.postReactableItem} onPress={triggerFullModal}>
+          {" "}
+          Share{" "}
+        </Text>
       </View>
     </View>
   );

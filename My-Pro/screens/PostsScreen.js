@@ -7,6 +7,8 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  ScrollView,
+  TextInput,
   RefreshControl,
   AsyncStorage,
   Vibration,
@@ -28,6 +30,7 @@ const defaultAvatar = require("./../assets/images/avatar.png");
 
 const PostsScreen = (props) => {
   const [isFetching, setIsFetching] = useState(false);
+  const [showablePostId, setShowablePostId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
     "http://192.168.43.22:8088/photo/"
@@ -37,11 +40,13 @@ const PostsScreen = (props) => {
   const reactionsModalizeRef = useRef(null);
   const [toggle, setToggle] = useState(true);
 
-  const onContentHeightModalOpen = () => {
+  const onContentHeightModalOpen = (postId) => {
+    setShowablePostId(postId);
     modalizeRef.current?.open();
   };
 
-  const onReactionsShowableModalOpen = () => {
+  const onReactionsShowableModalOpen = (postId) => {
+    setShowablePostId(postId);
     reactionsModalizeRef.current?.open();
   };
 
@@ -147,7 +152,9 @@ const PostsScreen = (props) => {
       <Text style={styles.content__subheading}>
         {"Last step".toUpperCase()}
       </Text>
-      <Text style={styles.content__heading}>Send the message?</Text>
+      <Text style={styles.content__heading}>
+        Send the message? - {showablePostId}
+      </Text>
       <Text style={styles.content__description}>
         <Text style={styles.text}>
           So, here we have added one Button, and also, we have imported the
@@ -181,7 +188,9 @@ const PostsScreen = (props) => {
 
   const renderReactionsModalizeContent = () => [
     <View style={styles.content__header} key="0">
-      <Text style={styles.content__heading}>Article title</Text>
+      <Text style={styles.content__heading}>
+        Article title - {showablePostId}
+      </Text>
       <Text style={styles.content__subheading}>November 11st 2018</Text>
     </View>,
 
@@ -228,7 +237,7 @@ const PostsScreen = (props) => {
           and ultimately we control the Modal.
         </Text>
       </Text>
-      <Text style={[s.content__subheading, { marginTop: 30 }]}>
+      <Text style={[styles.content__subheading, { marginTop: 30 }]}>
         Horizontal ScrollView
       </Text>
 
@@ -403,10 +412,7 @@ const PostsScreen = (props) => {
               <View style={styles.singlePostContainer}>
                 <View style={styles.postAndUserDetailsContainer}>
                   <View style={styles.postDpContainer}>{postUserImage}</View>
-                  <View
-                    style={styles.postUserNameTimeContainer}
-                    onPress={onReactionsShowableModalOpen}
-                  >
+                  <View style={styles.postUserNameTimeContainer}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                       {itemData.item.postedBy.fullName}
                     </Text>
@@ -420,20 +426,25 @@ const PostsScreen = (props) => {
                         name="dots-three-horizontal"
                         size={24}
                         color="black"
-                        onPress={onContentHeightModalOpen}
+                        onPress={() =>
+                          onContentHeightModalOpen(itemData.item._id)
+                        }
                       />
                     </Text>
                   </View>
                 </View>
                 <View>{displayPage}</View>
-                <PostReactions postDetails={itemData.item} />
+                <PostReactions
+                  postDetails={itemData.item}
+                  triggerParentFullModal={onReactionsShowableModalOpen}
+                />
               </View>
             );
           }}
         />
-        {/* <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
+        <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
           {renderContent()}
-        </Modalize> */}
+        </Modalize>
 
         <Modalize
           ref={reactionsModalizeRef}
