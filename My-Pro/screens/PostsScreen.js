@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -6,12 +6,14 @@ import {
   Button,
   FlatList,
   Image,
+  TouchableOpacity,
   RefreshControl,
   AsyncStorage,
   Vibration,
 } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Notifications } from "expo";
+import { Modalize } from "react-native-modalize";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
@@ -21,20 +23,28 @@ import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTex
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 import PostReactions from "./../components/UI/PostReactions";
 import PhotosPost from "./../components/UI/PhotosPost";
-import ContentHeightModal from "./../components/UI/ContentHeightModal";
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const PostsScreen = (props) => {
-  const [displayContentHeightModal, setDisplayContentHeightModal] = useState(
-    false
-  );
   const [isFetching, setIsFetching] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
     "http://192.168.43.22:8088/photo/"
   );
   const [posts, setPosts] = useState([]);
+  const modalizeRef = useRef(null);
+  const [toggle, setToggle] = useState(true);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
+  const handleClose = () => {
+    if (modalizeRef.current) {
+      modalizeRef.current.close();
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -126,6 +136,43 @@ const PostsScreen = (props) => {
       props.navigation.navigate("LoggedIn");
     }
   };
+
+  const renderContent = () => (
+    <View style={styles.content}>
+      <Text style={styles.content__subheading}>
+        {"Last step".toUpperCase()}
+      </Text>
+      <Text style={styles.content__heading}>Send the message?</Text>
+      <Text style={styles.content__description}>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+      </Text>
+
+      <TouchableOpacity
+        style={styles.content__description}
+        activeOpacity={0.75}
+        onPress={() => setToggle(!toggle)}
+      >
+        <Text>adjustToContentHeight {JSON.stringify(toggle)}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.content__button}
+        activeOpacity={0.75}
+        onPress={handleClose}
+      >
+        <Text style={styles.content__buttonText}>{"Send".toUpperCase()}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   let loopId = 1;
 
@@ -247,13 +294,13 @@ const PostsScreen = (props) => {
                       5th Jan 2017 - 08:51:25 AM
                     </Text>
                   </View>
-                  <View>
+                  <View style={styles.hrDots}>
                     <Text>
                       <Entypo
                         name="dots-three-horizontal"
                         size={24}
                         color="black"
-                        onPress={() => setDisplayContentHeightModal(true)}
+                        onPress={onOpen}
                       />
                     </Text>
                   </View>
@@ -264,10 +311,9 @@ const PostsScreen = (props) => {
             );
           }}
         />
-        <ContentHeightModal
-          display={displayContentHeightModal}
-          closeModal={() => closeModals()}
-        />
+        <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
+          {renderContent()}
+        </Modalize>
       </View>
     );
   } else {
@@ -340,6 +386,63 @@ const styles = StyleSheet.create({
   postUserNameTimeContainer: {
     flex: 2,
     marginHorizontal: 10,
+  },
+  content__header: {
+    padding: 15,
+    paddingBottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+
+  content__heading: {
+    marginBottom: 2,
+    fontSize: 24,
+    fontWeight: "600",
+    color: "#333",
+  },
+
+  content__subheading: {
+    marginBottom: 20,
+    fontSize: 16,
+    color: "#ccc",
+  },
+
+  content__inside: {
+    padding: 15,
+  },
+
+  content__paragraph: {
+    fontSize: 15,
+    fontWeight: "200",
+    lineHeight: 22,
+    color: "#666",
+  },
+
+  content__scrollview: {
+    marginVertical: 20,
+  },
+
+  content__block: {
+    width: 200,
+    height: 80,
+    marginRight: 20,
+    backgroundColor: "#ccc",
+  },
+
+  content__input: {
+    paddingVertical: 15,
+    marginBottom: 10,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "transparent",
+    borderBottomColor: "#cdcdcd",
+    borderRadius: 6,
+  },
+  hrDots: {
+    paddingHorizontal: 5,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   // box: {
   //   backgroundColor: "#fff",
