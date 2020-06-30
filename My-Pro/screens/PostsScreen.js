@@ -34,10 +34,15 @@ const PostsScreen = (props) => {
   );
   const [posts, setPosts] = useState([]);
   const modalizeRef = useRef(null);
+  const reactionsModalizeRef = useRef(null);
   const [toggle, setToggle] = useState(true);
 
-  const onOpen = () => {
+  const onContentHeightModalOpen = () => {
     modalizeRef.current?.open();
+  };
+
+  const onReactionsShowableModalOpen = () => {
+    reactionsModalizeRef.current?.open();
   };
 
   const handleClose = () => {
@@ -174,6 +179,118 @@ const PostsScreen = (props) => {
     </View>
   );
 
+  const renderReactionsModalizeContent = () => [
+    <View style={styles.content__header} key="0">
+      <Text style={styles.content__heading}>Article title</Text>
+      <Text style={styles.content__subheading}>November 11st 2018</Text>
+    </View>,
+
+    <View style={styles.content__inside} key="1">
+      <Text style={styles.content__paragraph}>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+      </Text>
+      <Text style={[s.content__subheading, { marginTop: 30 }]}>
+        Horizontal ScrollView
+      </Text>
+
+      <ScrollView style={styles.content__scrollview} horizontal>
+        {Array(5)
+          .fill(0)
+          .map((_, i) => (
+            <View key={i} style={styles.content__block} />
+          ))}
+      </ScrollView>
+
+      <Text style={styles.content__paragraph}>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button, Modal will pop
+          up otherwise it will not pop up, and we can’t see it. So, now we
+          import one more component and pass the Image and Text as a prop to
+          that component. Also, by default Modal is always open, so we need to
+          handle it our way. That is why we need the state which we can control,
+          and ultimately we control the Modal.
+        </Text>
+      </Text>
+
+      <TextInput
+        style={styles.content__input}
+        placeholder="Type your username"
+        clearButtonMode="while-editing"
+      />
+    </View>,
+  ];
+
   let loopId = 1;
 
   const onRefresh = () => {
@@ -286,7 +403,10 @@ const PostsScreen = (props) => {
               <View style={styles.singlePostContainer}>
                 <View style={styles.postAndUserDetailsContainer}>
                   <View style={styles.postDpContainer}>{postUserImage}</View>
-                  <View style={styles.postUserNameTimeContainer}>
+                  <View
+                    style={styles.postUserNameTimeContainer}
+                    onPress={onReactionsShowableModalOpen}
+                  >
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                       {itemData.item.postedBy.fullName}
                     </Text>
@@ -300,7 +420,7 @@ const PostsScreen = (props) => {
                         name="dots-three-horizontal"
                         size={24}
                         color="black"
-                        onPress={onOpen}
+                        onPress={onContentHeightModalOpen}
                       />
                     </Text>
                   </View>
@@ -311,8 +431,18 @@ const PostsScreen = (props) => {
             );
           }}
         />
-        <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
+        {/* <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
           {renderContent()}
+        </Modalize> */}
+
+        <Modalize
+          ref={reactionsModalizeRef}
+          scrollViewProps={{
+            showsVerticalScrollIndicator: false,
+            stickyHeaderIndices: [0],
+          }}
+        >
+          {renderReactionsModalizeContent()}
         </Modalize>
       </View>
     );
