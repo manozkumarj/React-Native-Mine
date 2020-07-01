@@ -13,14 +13,6 @@ import {
   AsyncStorage,
   Vibration,
 } from "react-native";
-import {
-  Container,
-  Header,
-  Content,
-  Tab,
-  Tabs,
-  ScrollableTab,
-} from "native-base";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Notifications } from "expo";
 import { Modalize } from "react-native-modalize";
@@ -34,6 +26,14 @@ import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndC
 import PostReactions from "./../components/UI/PostReactions";
 import PhotosPost from "./../components/UI/PhotosPost";
 import Colors from "./../constants/Colors";
+
+const loveHeartsEyesEmoji = require("./../assets/emojis/love-hearts-eyes-emoji-50.png");
+const likeThumbEmoji = require("./../assets/emojis/like-thumb-emoji-50.png");
+const dislikeThumbEmoji = require("./../assets/emojis/dislike-thumb-emoji-50.png");
+const laugherEmoji = require("./../assets/emojis/face-with-tears-of-joy-emoji-50.png");
+const angryEmoji = require("./../assets/emojis/angry-emoji-50.png");
+const wowEmoji = require("./../assets/emojis/wow-emoji-50.png");
+const cryingEmoji = require("./../assets/emojis/crying-emoji-50.png");
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
@@ -297,6 +297,18 @@ const PostsScreen = (props) => {
             );
           }
 
+          let reactionEmoji;
+
+          if (reaction.reactionTypeId === 1) reactionEmoji = likeThumbEmoji;
+          else if (reaction.reactionTypeId === 2)
+            reactionEmoji = dislikeThumbEmoji;
+          else if (reaction.reactionTypeId === 3)
+            reactionEmoji = loveHeartsEyesEmoji;
+          else if (reaction.reactionTypeId === 4) reactionEmoji = wowEmoji;
+          else if (reaction.reactionTypeId === 5) reactionEmoji = laugherEmoji;
+          else if (reaction.reactionTypeId === 6) reactionEmoji = cryingEmoji;
+          else if (reaction.reactionTypeId === 7) reactionEmoji = angryEmoji;
+
           return (
             <View style={styles.singlePostContainer} key={reaction._id}>
               <View style={styles.postAndUserDetailsContainer}>
@@ -308,11 +320,7 @@ const PostsScreen = (props) => {
                 </View>
                 <View style={styles.hrDots}>
                   <Text>
-                    <Entypo
-                      name="dots-three-horizontal"
-                      size={24}
-                      color="black"
-                    />
+                    <Image source={reactionEmoji} style={styles.singleEmoji} />
                   </Text>
                 </View>
               </View>
@@ -613,6 +621,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  singleEmoji: {
+    height: 30,
+    width: 30,
   },
   // box: {
   //   backgroundColor: "#fff",
