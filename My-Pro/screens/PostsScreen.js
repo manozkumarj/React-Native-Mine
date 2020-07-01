@@ -13,6 +13,14 @@ import {
   AsyncStorage,
   Vibration,
 } from "react-native";
+import {
+  Container,
+  Header,
+  Content,
+  Tab,
+  Tabs,
+  ScrollableTab,
+} from "native-base";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Notifications } from "expo";
 import { Modalize } from "react-native-modalize";
@@ -25,6 +33,7 @@ import CustomBgAndTextAndBorderColorPost from "./../components/UI/CustomBgAndTex
 import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndCornerPost";
 import PostReactions from "./../components/UI/PostReactions";
 import PhotosPost from "./../components/UI/PhotosPost";
+import Colors from "./../constants/Colors";
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
@@ -263,25 +272,80 @@ const PostsScreen = (props) => {
           })
         )
       ) : (
-        <Text style={styles.content__paragraph}>
-          <Text style={styles.text}>
-            So, here we have added one Button, and also, we have imported the
-            image file. Right now, we have not used it yet, but we will use it
-            in a minute. Our goal is when the user clicks the button, Modal will
-            pop up otherwise it will not pop up, and we can’t see it. So, now we
-            import one more component and pass the Image and Text as a prop to
-            that component. Also, by default Modal is always open, so we need to
-            handle it our way. That is why we need the state which we can
-            control, and ultimately we control the Modal.
-          </Text>
-        </Text>
+        <View style={styles.content__paragraph}>
+          <Container>
+            <Tabs renderTabBar={() => <ScrollableTab />} initialPage={1}>
+              <Tab heading="Tab1">
+                <Text style={styles.text}>
+                  Tab1 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute. Our goal is when the user
+                  clicks the button, Modal will pop up otherwise it will not pop
+                  up, and we can’t see it. So, now we import one more component
+                  and pass the Image and Text as a prop to that component. Also,
+                  by default Modal is always open, so we need to handle it our
+                  way. That is why we need the state which we can control, and
+                  ultimately we control the Modal.
+                </Text>
+              </Tab>
+              <Tab heading="Tab2">
+                <Text style={styles.text}>
+                  Tab2 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute. Our goal is when the user
+                  clicks the button, Modal will pop up otherwise it will not pop
+                  up, and we can’t see it. So, now we import one more component
+                  and pass the Image and Text as a prop to that component. Also,
+                  by default Modal is always open, so we need to handle it our
+                  way. That is why we need the state which we can control, and
+                  ultimately we control the Modal.
+                </Text>
+              </Tab>
+              <Tab heading="Tab3">
+                <Text style={styles.text}>
+                  Tab3 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute.
+                </Text>
+              </Tab>
+              <Tab heading="Tab4">
+                <Text style={styles.text}>
+                  Tab4 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute.
+                </Text>
+              </Tab>
+              <Tab heading="Tab5">
+                <Text style={styles.text}>
+                  Tab5 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute.
+                </Text>
+              </Tab>
+              <Tab heading="Tab6">
+                <Text style={styles.text}>
+                  Tab6 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute.
+                </Text>
+              </Tab>
+              <Tab heading="Tab7">
+                <Text style={styles.text}>
+                  Tab7 - So, here we have added one Button, and also, we have
+                  imported the image file. Right now, we have not used it yet,
+                  but we will use it in a minute.
+                </Text>
+              </Tab>
+            </Tabs>
+          </Container>
+        </View>
       )}
 
-      <TextInput
+      {/* <TextInput
         style={styles.content__input}
         placeholder="Type your comment"
         clearButtonMode="while-editing"
-      />
+      /> */}
     </View>,
   ];
 
@@ -514,16 +578,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   content__header: {
-    padding: 15,
+    padding: 10,
     paddingBottom: 0,
-    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    backgroundColor: Colors.siteColor,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
 
   content__heading: {
     marginBottom: 2,
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "600",
     color: "#333",
   },
