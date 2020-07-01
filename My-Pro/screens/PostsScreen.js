@@ -31,6 +31,15 @@ const defaultAvatar = require("./../assets/images/avatar.png");
 const PostsScreen = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [showablePostId, setShowablePostId] = useState(0);
+  const [showableContentTypeInPopup, setShowableContentTypeInPopup] = useState(
+    null
+  );
+  const [showablePostReactionsArray, setShowablePostReactionsArray] = useState(
+    []
+  );
+  const [showablePostCommentsArray, setShowablePostCommentsArray] = useState(
+    []
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
     "http://192.168.43.22:8088/photo/"
@@ -45,8 +54,14 @@ const PostsScreen = (props) => {
     modalizeRef.current?.open();
   };
 
-  const onReactionsShowableModalOpen = (postId) => {
+  const onReactionsShowableModalOpen = (postId, contentType, contentArray) => {
     setShowablePostId(postId);
+    setShowableContentTypeInPopup(contentType);
+    if (contentType === "reactions") {
+      setShowablePostReactionsArray(contentArray);
+    } else if (contentType === "comments") {
+      setShowablePostCommentsArray(contentArray);
+    }
     reactionsModalizeRef.current?.open();
   };
 
@@ -189,12 +204,17 @@ const PostsScreen = (props) => {
   const renderReactionsModalizeContent = () => [
     <View style={styles.content__header} key="0">
       <Text style={styles.content__heading}>
-        Article title - {showablePostId}
+        Article title - {showablePostId} - {showableContentTypeInPopup}
       </Text>
       <Text style={styles.content__subheading}>November 11st 2018</Text>
     </View>,
 
     <View style={styles.content__inside} key="1">
+      <Text>
+        {showableContentTypeInPopup === "comments"
+          ? JSON.stringify(showablePostCommentsArray)
+          : JSON.stringify(showablePostReactionsArray)}
+      </Text>
       <Text style={styles.content__paragraph}>
         <Text style={styles.text}>
           So, here we have added one Button, and also, we have imported the
