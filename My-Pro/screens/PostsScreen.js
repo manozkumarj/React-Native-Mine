@@ -212,9 +212,15 @@ const PostsScreen = (props) => {
 
   const renderReactionsModalizeContent = () => [
     <View style={styles.content__header} key="0">
-      <Text style={styles.content__heading}>
-        Total {showableContentTypeInPopup} - {showablePostCommentsArray.length}
-      </Text>
+      {showableContentTypeInPopup === "comments" ? (
+        <Text style={styles.content__heading}>
+          Total Comments - {showablePostCommentsArray.length}
+        </Text>
+      ) : (
+        <Text style={styles.content__heading}>
+          Total Reactions - {showablePostReactionsArray.length}
+        </Text>
+      )}
     </View>,
 
     <View style={styles.content__inside} key="1">
@@ -271,74 +277,48 @@ const PostsScreen = (props) => {
             );
           })
         )
+      ) : showablePostReactionsArray.length === 0 ? (
+        <Text>No Reactions</Text>
       ) : (
-        <View style={styles.content__paragraph}>
-          <Container>
-            <Tabs renderTabBar={() => <ScrollableTab />} initialPage={1}>
-              <Tab heading="Tab1">
-                <Text style={styles.text}>
-                  Tab1 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute. Our goal is when the user
-                  clicks the button, Modal will pop up otherwise it will not pop
-                  up, and we can’t see it. So, now we import one more component
-                  and pass the Image and Text as a prop to that component. Also,
-                  by default Modal is always open, so we need to handle it our
-                  way. That is why we need the state which we can control, and
-                  ultimately we control the Modal.
-                </Text>
-              </Tab>
-              <Tab heading="Tab2">
-                <Text style={styles.text}>
-                  Tab2 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute. Our goal is when the user
-                  clicks the button, Modal will pop up otherwise it will not pop
-                  up, and we can’t see it. So, now we import one more component
-                  and pass the Image and Text as a prop to that component. Also,
-                  by default Modal is always open, so we need to handle it our
-                  way. That is why we need the state which we can control, and
-                  ultimately we control the Modal.
-                </Text>
-              </Tab>
-              <Tab heading="Tab3">
-                <Text style={styles.text}>
-                  Tab3 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute.
-                </Text>
-              </Tab>
-              <Tab heading="Tab4">
-                <Text style={styles.text}>
-                  Tab4 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute.
-                </Text>
-              </Tab>
-              <Tab heading="Tab5">
-                <Text style={styles.text}>
-                  Tab5 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute.
-                </Text>
-              </Tab>
-              <Tab heading="Tab6">
-                <Text style={styles.text}>
-                  Tab6 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute.
-                </Text>
-              </Tab>
-              <Tab heading="Tab7">
-                <Text style={styles.text}>
-                  Tab7 - So, here we have added one Button, and also, we have
-                  imported the image file. Right now, we have not used it yet,
-                  but we will use it in a minute.
-                </Text>
-              </Tab>
-            </Tabs>
-          </Container>
-        </View>
+        showablePostReactionsArray.map((reaction) => {
+          let reactedUserFullname = reaction.reactedBy.fullName;
+
+          let reactedUserImage;
+          if (reaction.reactedBy.primaryDp) {
+            reactedUserImage = (
+              <Image
+                style={styles.postUserDp}
+                source={{ uri: imagesUrl + reaction.reactedBy.primaryDp }}
+              />
+            );
+          } else {
+            reactedUserImage = (
+              <Image style={styles.postUserDp} source={defaultAvatar} />
+            );
+          }
+
+          return (
+            <View style={styles.singlePostContainer} key={reaction._id}>
+              <View style={styles.postAndUserDetailsContainer}>
+                <View style={styles.postDpContainer}>{reactedUserImage}</View>
+                <View style={styles.postUserNameTimeContainer}>
+                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                    {reactedUserFullname} - {reaction.reactionTypeId}
+                  </Text>
+                </View>
+                <View style={styles.hrDots}>
+                  <Text>
+                    <Entypo
+                      name="dots-three-horizontal"
+                      size={24}
+                      color="black"
+                    />
+                  </Text>
+                </View>
+              </View>
+            </View>
+          );
+        })
       )}
 
       {/* <TextInput
@@ -409,7 +389,7 @@ const PostsScreen = (props) => {
               ? imagesUrl + itemData.item.postedBy.primaryDp
               : defaultAvatar;
 
-            console.log("userPrimaryDp --> " + userPrimaryDp);
+            // console.log("userPrimaryDp --> " + userPrimaryDp);
 
             if (
               itemData.item.postTypeId === 1 ||
@@ -589,7 +569,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     fontSize: 18,
     fontWeight: "600",
-    color: "#333",
+    color: "#fff",
   },
 
   content__subheading: {

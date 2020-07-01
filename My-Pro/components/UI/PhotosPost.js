@@ -26,8 +26,8 @@ const PhotosPost = (props) => {
     });
   }, [postData]);
 
-  console.log("logging first photo url");
-  console.log(firstPhotoSrc);
+  // console.log("logging first photo url");
+  // console.log(firstPhotoSrc);
   return (
     <View style={styles.postDescriptionAndPicContainer}>
       <View style={styles.postDescriptionContainer}>

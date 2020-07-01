@@ -48,14 +48,16 @@ const PostReactions = (props) => {
   useEffect(() => {
     setPostReactions(props.postDetails.reactions);
     setPostComments(props.postDetails.comments);
-    console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
+    // console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
     // setLoggedInUserId(currentLoggedInUserId);
+    console.log("postReactions are showing below");
+    console.log(postReactions);
 
     if (postReactions && postReactions.length > 0) {
       let getIndex = postReactions.findIndex(
-        (user) => user.reactedBy === loggedInUserId
+        (user) => user.reactedBy._id === loggedInUserId
       );
-      console.log("loggedInUserId --> " + loggedInUserId);
+      // console.log("loggedInUserId --> " + loggedInUserId);
       console.log("getIndex --> " + getIndex);
 
       if (getIndex > -1) {
