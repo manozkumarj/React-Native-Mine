@@ -204,117 +204,82 @@ const PostsScreen = (props) => {
   const renderReactionsModalizeContent = () => [
     <View style={styles.content__header} key="0">
       <Text style={styles.content__heading}>
-        Article title - {showablePostId} - {showableContentTypeInPopup}
+        Total {showableContentTypeInPopup} - {showablePostCommentsArray.length}
       </Text>
-      <Text style={styles.content__subheading}>November 11st 2018</Text>
     </View>,
 
     <View style={styles.content__inside} key="1">
-      <Text>
+      {/* <Text>
         {showableContentTypeInPopup === "comments"
           ? JSON.stringify(showablePostCommentsArray)
           : JSON.stringify(showablePostReactionsArray)}
-      </Text>
-      <Text style={styles.content__paragraph}>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-      </Text>
-      <Text style={[styles.content__subheading, { marginTop: 30 }]}>
-        Horizontal ScrollView
-      </Text>
+      </Text> */}
 
-      <ScrollView style={styles.content__scrollview} horizontal>
-        {Array(5)
-          .fill(0)
-          .map((_, i) => (
-            <View key={i} style={styles.content__block} />
-          ))}
-      </ScrollView>
+      {showableContentTypeInPopup === "comments" ? (
+        showablePostCommentsArray.length === 0 ? (
+          <Text>No comments</Text>
+        ) : (
+          showablePostCommentsArray.map((comment) => {
+            let commentedUserFullname = comment.commentedBy.fullName;
 
-      <Text style={styles.content__paragraph}>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
+            let commentUserImage;
+            if (comment.commentedBy.primaryDp) {
+              commentUserImage = (
+                <Image
+                  style={styles.postUserDp}
+                  source={{ uri: imagesUrl + comment.commentedBy.primaryDp }}
+                />
+              );
+            } else {
+              commentUserImage = (
+                <Image style={styles.postUserDp} source={defaultAvatar} />
+              );
+            }
+            return (
+              <View style={styles.singlePostContainer} key={comment._id}>
+                <View style={styles.postAndUserDetailsContainer}>
+                  <View style={styles.postDpContainer}>{commentUserImage}</View>
+                  <View style={styles.postUserNameTimeContainer}>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                      {commentedUserFullname}
+                    </Text>
+                    <Text style={{ color: "#000" }}>
+                      5th Jan 2017 - 08:51:25 AM
+                    </Text>
+                  </View>
+                  <View style={styles.hrDots}>
+                    <Text>
+                      <Entypo
+                        name="dots-three-horizontal"
+                        size={24}
+                        color="black"
+                      />
+                    </Text>
+                  </View>
+                </View>
+                <Text>{comment.comment}</Text>
+              </View>
+            );
+          })
+        )
+      ) : (
+        <Text style={styles.content__paragraph}>
+          <Text style={styles.text}>
+            So, here we have added one Button, and also, we have imported the
+            image file. Right now, we have not used it yet, but we will use it
+            in a minute. Our goal is when the user clicks the button, Modal will
+            pop up otherwise it will not pop up, and we can’t see it. So, now we
+            import one more component and pass the Image and Text as a prop to
+            that component. Also, by default Modal is always open, so we need to
+            handle it our way. That is why we need the state which we can
+            control, and ultimately we control the Modal.
+          </Text>
         </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button, Modal will pop
-          up otherwise it will not pop up, and we can’t see it. So, now we
-          import one more component and pass the Image and Text as a prop to
-          that component. Also, by default Modal is always open, so we need to
-          handle it our way. That is why we need the state which we can control,
-          and ultimately we control the Modal.
-        </Text>
-      </Text>
+      )}
 
       <TextInput
         style={styles.content__input}
-        placeholder="Type your username"
+        placeholder="Type your comment"
         clearButtonMode="while-editing"
       />
     </View>,
