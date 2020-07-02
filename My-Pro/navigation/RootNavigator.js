@@ -11,6 +11,8 @@ import RegisterScreen from "./../screens/RegisterScreen";
 import LoginScreen from "./../screens/LoginScreen";
 import StartupScreen from "./../screens/StartupScreen";
 import ForgottenPasswordScreen from "./../screens/ForgottenPasswordScreen";
+import ReactionsScreen from "./../screens/ReactionsScreen";
+import CommentsScreen from "./../screens/CommentsScreen";
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -45,6 +47,12 @@ const LoggedInNavigator = createStackNavigator(
     },
     Profile: {
       screen: ProfileScreen,
+    },
+    Reactions: {
+      screen: ReactionsScreen,
+    },
+    Comments: {
+      screen: CommentsScreen,
     },
   },
   {

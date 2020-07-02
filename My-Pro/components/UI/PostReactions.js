@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { upsertReaction } from "./../../redux/actionCreators";
+import { useNavigation } from "@react-navigation/native";
 import Colors from "./../../constants/Colors";
 
 import Toast from "react-native-tiny-toast";
@@ -36,14 +37,7 @@ const PostReactions = (props) => {
   const [postComments, setPostComments] = useState(props.postDetails.comments);
 
   const dispatch = useDispatch();
-
-  const triggerFullModalForReactions = () => {
-    props.triggerParentFullModal(post._id, "reactions", postReactions);
-  };
-
-  const triggerFullModalForComments = () => {
-    props.triggerParentFullModal(post._id, "comments", postComments);
-  };
+  const navigation = useNavigation();
 
   useEffect(() => {
     setPostReactions(props.postDetails.reactions);
@@ -210,6 +204,23 @@ const PostReactions = (props) => {
     [dispatch]
   );
 
+  const selectItemHandler = (type) => {
+    let pageName;
+    if (type === "comments") {
+      pageName = "Comments";
+      navigation.navigate(pageName, {
+        postId: post._id,
+        commentsArray: postComments,
+      });
+    } else {
+      pageName = "Reactions";
+      navigation.navigate(pageName, {
+        postId: post._id,
+        reactionsArray: postReactions,
+      });
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       {showReactions === true ? (
@@ -284,13 +295,13 @@ const PostReactions = (props) => {
         )}
         <Text
           style={styles.postReactableItem}
-          onPress={triggerFullModalForComments}
+          onPress={() => selectItemHandler("comments")}
         >
           Comment
         </Text>
         <Text
           style={styles.postReactableItem}
-          onPress={triggerFullModalForReactions}
+          onPress={() => selectItemHandler("reactions")}
         >
           Share
         </Text>
