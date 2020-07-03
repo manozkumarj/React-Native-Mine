@@ -1,15 +1,52 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import Colors from "./../constants/Colors";
+import { Modalize } from "react-native-modalize";
 
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const CommentsScreen = (props) => {
+  const modalizeRef = useRef(null);
+  const [toggle, setToggle] = useState(true);
   const { postId, commentsArray } = props.route.params;
   const imagesUrl = "http://192.168.43.22:8088/photo/";
   // console.log("postId -> " + postId);
   // console.log("commentsArray -> " + JSON.stringify(commentsArray));
+
+  const showTinyModal = (postId) => {
+    modalizeRef.current?.open();
+  };
+
+  const renderContent = () => (
+    <View style={styles.content}>
+      <Text style={styles.content__subheading}>
+        {"Last step".toUpperCase()}
+      </Text>
+      <Text style={styles.content__heading}>Send the message?</Text>
+      <Text style={styles.content__description}>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+        <Text style={styles.text}>
+          So, here we have added one Button, and also, we have imported the
+          image file. Right now, we have not used it yet, but we will use it in
+          a minute. Our goal is when the user clicks the button
+        </Text>
+      </Text>
+
+      <TouchableOpacity
+        style={styles.content__description}
+        activeOpacity={0.75}
+      ></TouchableOpacity>
+
+      <TouchableOpacity style={styles.content__button} activeOpacity={0.75}>
+        <Text style={styles.content__buttonText}>{"Send".toUpperCase()}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -46,15 +83,14 @@ const CommentsScreen = (props) => {
                     5th Jan 2017 - 08:51:25 AM
                   </Text>
                 </View>
-                <View style={styles.hrDots}>
-                  <Text>
-                    <Entypo
-                      name="dots-three-horizontal"
-                      size={24}
-                      color="black"
-                    />
-                  </Text>
-                </View>
+                <TouchableOpacity style={styles.hrDots} activeOpacity={0.75}>
+                  <Entypo
+                    name="dots-three-horizontal"
+                    size={24}
+                    color="black"
+                    onPress={() => showTinyModal()}
+                  />
+                </TouchableOpacity>
               </View>
               <View style={styles.commentContentContainer}>
                 <Text style={styles.comment}>{comment.comment}</Text>
@@ -63,6 +99,9 @@ const CommentsScreen = (props) => {
           );
         })
       )}
+      <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
+        {renderContent()}
+      </Modalize>
     </View>
   );
 };

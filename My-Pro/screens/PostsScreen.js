@@ -40,38 +40,17 @@ const defaultAvatar = require("./../assets/images/avatar.png");
 const PostsScreen = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [showablePostId, setShowablePostId] = useState(0);
-  const [showableContentTypeInPopup, setShowableContentTypeInPopup] = useState(
-    null
-  );
-  const [showablePostReactionsArray, setShowablePostReactionsArray] = useState(
-    []
-  );
-  const [showablePostCommentsArray, setShowablePostCommentsArray] = useState(
-    []
-  );
   const [isLoading, setIsLoading] = useState(true);
   const [imagesUrl, setImagesUrl] = useState(
     "http://192.168.43.22:8088/photo/"
   );
   const [posts, setPosts] = useState([]);
   const modalizeRef = useRef(null);
-  const reactionsModalizeRef = useRef(null);
   const [toggle, setToggle] = useState(true);
 
   const onContentHeightModalOpen = (postId) => {
     setShowablePostId(postId);
     modalizeRef.current?.open();
-  };
-
-  const onReactionsShowableModalOpen = (postId, contentType, contentArray) => {
-    setShowablePostId(postId);
-    setShowableContentTypeInPopup(contentType);
-    if (contentType === "reactions") {
-      setShowablePostReactionsArray(contentArray);
-    } else if (contentType === "comments") {
-      setShowablePostCommentsArray(contentArray);
-    }
-    reactionsModalizeRef.current?.open();
   };
 
   const handleClose = () => {
@@ -91,10 +70,6 @@ const PostsScreen = (props) => {
 
     tryLogOut();
     props.navigation.navigate("Login");
-  };
-
-  closeModals = () => {
-    setDisplayContentHeightModal(false);
   };
 
   useEffect(() => {
@@ -209,133 +184,6 @@ const PostsScreen = (props) => {
       </TouchableOpacity>
     </View>
   );
-
-  const renderReactionsModalizeContent = () => [
-    <View style={styles.content__header} key="0">
-      {showableContentTypeInPopup === "comments" ? (
-        <Text style={styles.content__heading}>
-          Total Comments - {showablePostCommentsArray.length}
-        </Text>
-      ) : (
-        <Text style={styles.content__heading}>
-          Total Reactions - {showablePostReactionsArray.length}
-        </Text>
-      )}
-    </View>,
-
-    <View style={styles.content__inside} key="1">
-      {/* <Text>
-        {showableContentTypeInPopup === "comments"
-          ? JSON.stringify(showablePostCommentsArray)
-          : JSON.stringify(showablePostReactionsArray)}
-      </Text> */}
-
-      {showableContentTypeInPopup === "comments" ? (
-        showablePostCommentsArray.length === 0 ? (
-          <Text>No comments</Text>
-        ) : (
-          showablePostCommentsArray.map((comment) => {
-            let commentedUserFullname = comment.commentedBy.fullName;
-
-            let commentUserImage;
-            if (comment.commentedBy.primaryDp) {
-              commentUserImage = (
-                <Image
-                  style={styles.postUserDp}
-                  source={{ uri: imagesUrl + comment.commentedBy.primaryDp }}
-                />
-              );
-            } else {
-              commentUserImage = (
-                <Image style={styles.postUserDp} source={defaultAvatar} />
-              );
-            }
-            return (
-              <View style={styles.singlePostContainer} key={comment._id}>
-                <View style={styles.postAndUserDetailsContainer}>
-                  <View style={styles.postDpContainer}>{commentUserImage}</View>
-                  <View style={styles.postUserNameTimeContainer}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                      {commentedUserFullname}
-                    </Text>
-                    <Text style={{ color: "#000" }}>
-                      5th Jan 2017 - 08:51:25 AM
-                    </Text>
-                  </View>
-                  <View style={styles.hrDots}>
-                    <Text>
-                      <Entypo
-                        name="dots-three-horizontal"
-                        size={24}
-                        color="black"
-                      />
-                    </Text>
-                  </View>
-                </View>
-                <Text>{comment.comment}</Text>
-              </View>
-            );
-          })
-        )
-      ) : showablePostReactionsArray.length === 0 ? (
-        <Text>No Reactions</Text>
-      ) : (
-        showablePostReactionsArray.map((reaction) => {
-          let reactedUserFullname = reaction.reactedBy.fullName;
-
-          let reactedUserImage;
-          if (reaction.reactedBy.primaryDp) {
-            reactedUserImage = (
-              <Image
-                style={styles.postUserDp}
-                source={{ uri: imagesUrl + reaction.reactedBy.primaryDp }}
-              />
-            );
-          } else {
-            reactedUserImage = (
-              <Image style={styles.postUserDp} source={defaultAvatar} />
-            );
-          }
-
-          let reactionEmoji;
-
-          if (reaction.reactionTypeId === 1) reactionEmoji = likeThumbEmoji;
-          else if (reaction.reactionTypeId === 2)
-            reactionEmoji = dislikeThumbEmoji;
-          else if (reaction.reactionTypeId === 3)
-            reactionEmoji = loveHeartsEyesEmoji;
-          else if (reaction.reactionTypeId === 4) reactionEmoji = wowEmoji;
-          else if (reaction.reactionTypeId === 5) reactionEmoji = laugherEmoji;
-          else if (reaction.reactionTypeId === 6) reactionEmoji = cryingEmoji;
-          else if (reaction.reactionTypeId === 7) reactionEmoji = angryEmoji;
-
-          return (
-            <View style={styles.singlePostContainer} key={reaction._id}>
-              <View style={styles.postAndUserDetailsContainer}>
-                <View style={styles.postDpContainer}>{reactedUserImage}</View>
-                <View style={styles.postUserNameTimeContainer}>
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    {reactedUserFullname} - {reaction.reactionTypeId}
-                  </Text>
-                </View>
-                <View style={styles.hrDots}>
-                  <Text>
-                    <Image source={reactionEmoji} style={styles.singleEmoji} />
-                  </Text>
-                </View>
-              </View>
-            </View>
-          );
-        })
-      )}
-
-      {/* <TextInput
-        style={styles.content__input}
-        placeholder="Type your comment"
-        clearButtonMode="while-editing"
-      /> */}
-    </View>,
-  ];
 
   let loopId = 1;
 
@@ -457,40 +305,25 @@ const PostsScreen = (props) => {
                       5th Jan 2017 - 08:51:25 AM
                     </Text>
                   </View>
-                  <View style={styles.hrDots}>
-                    <Text>
-                      <Entypo
-                        name="dots-three-horizontal"
-                        size={24}
-                        color="black"
-                        onPress={() =>
-                          onContentHeightModalOpen(itemData.item._id)
-                        }
-                      />
-                    </Text>
-                  </View>
+                  <TouchableOpacity style={styles.hrDots} activeOpacity={0.75}>
+                    <Entypo
+                      name="dots-three-horizontal"
+                      size={24}
+                      color="black"
+                      onPress={() =>
+                        onContentHeightModalOpen(itemData.item._id)
+                      }
+                    />
+                  </TouchableOpacity>
                 </View>
                 <View>{displayPage}</View>
-                <PostReactions
-                  postDetails={itemData.item}
-                  triggerParentFullModal={onReactionsShowableModalOpen}
-                />
+                <PostReactions postDetails={itemData.item} />
               </View>
             );
           }}
         />
         <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
           {renderContent()}
-        </Modalize>
-
-        <Modalize
-          ref={reactionsModalizeRef}
-          scrollViewProps={{
-            showsVerticalScrollIndicator: false,
-            stickyHeaderIndices: [0],
-          }}
-        >
-          {renderReactionsModalizeContent()}
         </Modalize>
       </View>
     );
