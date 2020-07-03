@@ -1,70 +1,87 @@
-// import React from "react";
-import { Platform } from "react-native";
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import Colors from "../constants/Colors";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  Dimensions,
+  ActivityIndicator,
+  AsyncStorage,
+} from "react-native";
 
-import PostsScreen from "./../screens/PostsScreen";
+import Constant from "expo-constants";
 import ProfileScreen from "./../screens/ProfileScreen";
-
-import RegisterScreen from "./../screens/RegisterScreen";
+import PostsScreen from "./../screens/PostsScreen";
 import LoginScreen from "./../screens/LoginScreen";
-import StartupScreen from "./../screens/StartupScreen";
-import ForgottenPasswordScreen from "./../screens/ForgottenPasswordScreen";
-import ReactionsScreen from "./../screens/ReactionsScreen";
-import CommentsScreen from "./../screens/CommentsScreen";
+import RegisterScreen from "./../screens/RegisterScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const defaultStackNavOptions = {
-  headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.siteColor : "",
-  },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
-  // headerTitle: "A Screen",
-};
+let authToken = false;
 
-const AuthNavigator = createStackNavigator(
-  {
-    Login: LoginScreen,
-    Register: {
-      screen: RegisterScreen,
-      headerTitle: "Register",
-    },
-    ForgottenPassword: {
-      screen: ForgottenPasswordScreen,
-      headerTitle: "Forgotten Account",
-    },
-  },
-  {
-    initialRouteName: "Login",
-    defaultNavigationOptions: defaultStackNavOptions,
+const AuthStack = createStackNavigator();
+const LoggedInStack = createStackNavigator();
+
+function AuthStackScreen() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="login" component={LoginScreen} />
+      <AuthStack.Screen name="register" component={RegisterScreen} />
+    </AuthStack.Navigator>
+  );
+}
+
+function LoggedInStackScreen() {
+  return (
+    <LoggedInStack.Navigator>
+      <LoggedInStack.Screen name="profile" component={ProfileScreen} />
+      <LoggedInStack.Screen name="posts" component={PostsScreen} />
+    </LoggedInStack.Navigator>
+  );
+}
+
+function RootNavigator() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const tryLogin = async () => {
+      authToken = await AsyncStorage.getItem("authToken");
+      console.log("authToken from StartUpScreen -->" + authToken);
+      setIsLoading(false);
+    };
+
+    tryLogin();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
-);
 
-const LoggedInNavigator = createStackNavigator(
-  {
-    Posts: {
-      screen: PostsScreen,
-    },
-    Profile: {
-      screen: ProfileScreen,
-    },
-    Reactions: {
-      screen: ReactionsScreen,
-    },
-    Comments: {
-      screen: CommentsScreen,
-    },
-  },
-  {
-    initialRouteName: "Posts",
-    defaultNavigationOptions: defaultStackNavOptions,
+  if (!authToken) {
+    return (
+      <NavigationContainer>
+        <AuthStack.Navigator>
+          <AuthStack.Screen name="auth" component={AuthStackScreen} />
+        </AuthStack.Navigator>
+      </NavigationContainer>
+    );
   }
-);
+  if (authToken) {
+    return (
+      <NavigationContainer>
+        <LoggedInStack.Navigator>
+          <LoggedInStack.Screen
+            name="LoggedIn"
+            component={LoggedInStackScreen}
+          />
+        </LoggedInStack.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
 
-const MainNavigator = createSwitchNavigator({
-  Startup: StartupScreen,
-  Auth: AuthNavigator,
-  LoggedIn: LoggedInNavigator,
-});
-
-export default createAppContainer(MainNavigator);
+export default RootNavigator;

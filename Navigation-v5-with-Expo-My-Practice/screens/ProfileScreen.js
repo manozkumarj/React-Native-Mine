@@ -10,6 +10,10 @@ const ProfileScreen = (props) => {
         title="Posts"
         onPress={() => props.navigation.navigate("posts")}
       />
+      <Button
+        title="Auth"
+        onPress={() => props.navigation.navigate("auth")}
+      />
       <InnerComponent />
       {/* <Button
         onPress={() => props.navigation.navigate("MyModal")}
