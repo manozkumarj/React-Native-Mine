@@ -50,7 +50,7 @@ const PostsScreen = (props) => {
 
   const onContentHeightModalOpen = (postId) => {
     setShowablePostId(postId);
-    modalizeRef.current?.open();
+    modalizeRef.current.open();
   };
 
   const handleClose = () => {

@@ -15,36 +15,33 @@ const CommentsScreen = (props) => {
   // console.log("commentsArray -> " + JSON.stringify(commentsArray));
 
   const showTinyModal = (postId) => {
-    modalizeRef.current?.open();
+    modalizeRef.current.open();
+  };
+
+  const deleteComment = () => {
+    console.log("Need to delete this comment");
+    modalizeRef.current.close();
   };
 
   const renderContent = () => (
-    <View style={styles.content}>
-      <Text style={styles.content__subheading}>
-        {"Last step".toUpperCase()}
-      </Text>
-      <Text style={styles.content__heading}>Send the message?</Text>
-      <Text style={styles.content__description}>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button
-        </Text>
-        <Text style={styles.text}>
-          So, here we have added one Button, and also, we have imported the
-          image file. Right now, we have not used it yet, but we will use it in
-          a minute. Our goal is when the user clicks the button
-        </Text>
-      </Text>
-
-      <TouchableOpacity
-        style={styles.content__description}
-        activeOpacity={0.75}
-      ></TouchableOpacity>
-
-      <TouchableOpacity style={styles.content__button} activeOpacity={0.75}>
-        <Text style={styles.content__buttonText}>{"Send".toUpperCase()}</Text>
-      </TouchableOpacity>
+    <View style={styles.modalContainer}>
+      {/* <Text style={{  backgroundColor: "#ddd" }}></Text> */}
+      <View style={styles.optionsContainer}>
+        <TouchableOpacity
+          onPress={deleteComment}
+          style={styles.deleteOptionContainer}
+          activeOpacity={0.75}
+        >
+          <Text style={styles.deleteOption}>Delete this comment</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => modalizeRef.current.close()}
+          style={styles.closeOptionContainer}
+          activeOpacity={0.75}
+        >
+          <Text style={styles.closeOption}>Close</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -166,6 +163,30 @@ const styles = StyleSheet.create({
   comment: {
     padding: 10,
     fontSize: 15,
+  },
+  modalContainer: {
+    paddingVertical: 25,
+  },
+  optionsContainer: {
+    height: 100,
+    flexDirection: "column",
+  },
+  deleteOptionContainer: {
+    backgroundColor: "red",
+  },
+  deleteOption: {
+    color: "#fff",
+    fontSize: 17,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  closeOptionContainer: {
+    backgroundColor: "#999",
+  },
+  closeOption: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    fontSize: 17,
   },
 });
 
