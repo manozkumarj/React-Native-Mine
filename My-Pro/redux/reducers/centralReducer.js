@@ -42,16 +42,17 @@ import {
 
 import validateToken from "./../validateToken";
 
-let token = AsyncStorage.getItem("authToken");
+let token;
 let tokenUserDetails;
 const doValidate = async () => {
+  token = await AsyncStorage.getItem("authToken");
   tokenUserDetails = await validateToken();
   console.log("tokenUserDetails is below");
   console.log(tokenUserDetails);
 };
 doValidate();
-let userId;
-let username;
+let userId = null;
+let username = null;
 if (tokenUserDetails) {
   userId = tokenUserDetails._id;
   username = tokenUserDetails.username;

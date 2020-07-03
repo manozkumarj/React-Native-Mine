@@ -79,7 +79,7 @@ const LoginScreen = (props) => {
     const storeToken = await AsyncStorage.setItem("notifyToken", getToken);
     if (getToken) {
       console.log("Notify token stored");
-      props.navigation.navigate("LoggedIn");
+      props.navigation.navigate("Register");
     } else {
       console.log("Notify token not stored");
       alert("Notify token not stored");
