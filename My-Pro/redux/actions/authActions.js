@@ -13,9 +13,11 @@ export const setToken = (token) => {
 };
 
 export const removeToken = () => {
-  AsyncStorage.removeItem("authToken");
-  return (dispatch) => {
+  console.log("Removing authToken...");
+  return async (dispatch) => {
+    let remover = await AsyncStorage.removeItem("authToken");
     dispatch({ type: REMOVE_TOKEN });
+    return { status: "success", msg: "Token removed" };
   };
 };
 

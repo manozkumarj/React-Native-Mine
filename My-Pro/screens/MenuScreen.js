@@ -6,15 +6,35 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import Toast from "react-native-tiny-toast";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "./../constants/Colors";
 import Constant from "expo-constants";
 const defaultAvatar = require("./../assets/images/avatar.png");
+import { useDispatch } from "react-redux";
+
+import { removeToken } from "./../redux/actionCreators";
 
 const MenuScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    console.log("User will be logged Out");
+    const toast = Toast.showLoading("Logging out, Please wait...");
+    try {
+      await dispatch(removeToken());
+      Toast.hide(toast);
+      console.log("User will logged Out, see you again...");
+    } catch (err) {
+      console.log("Something went wrong while logging out");
+      console.log(err);
+      Toast.hide(toast);
+    }
+  };
   return (
     <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
       <View style={styles.customHeader}>
@@ -63,7 +83,7 @@ const MenuScreen = (props) => {
           <Text style={styles.option}>Settings</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => console.log("Will be logged Out")}
+          onPress={handleLogout}
           style={styles.optionContainer}
           activeOpacity={0.75}
         >
@@ -90,7 +110,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   optionContainer: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
   },
   option: {
     paddingHorizontal: 15,
