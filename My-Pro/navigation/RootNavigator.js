@@ -2,15 +2,24 @@ import React, { useState, useEffect } from "react";
 import { View, ActivityIndicator, AsyncStorage } from "react-native";
 
 import Constant from "expo-constants";
-import ProfileScreen from "./../screens/ProfileScreen";
-import PostsScreen from "./../screens/PostsScreen";
-import LoginScreen from "./../screens/LoginScreen";
-import RegisterScreen from "./../screens/RegisterScreen";
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
+
+import LoginScreen from "./../screens/LoginScreen";
+import RegisterScreen from "./../screens/RegisterScreen";
+import ForgottenPasswordScreen from "./../screens/ForgottenPasswordScreen";
+
+import ProfileScreen from "./../screens/ProfileScreen";
+import PostsScreen from "./../screens/PostsScreen";
 import ReactionsScreen from "./../screens/ReactionsScreen";
 import CommentsScreen from "./../screens/CommentsScreen";
-import { useSelector } from "react-redux";
+import SettingsScreen from "./../screens/SettingsScreen";
+import FriendsScreen from "./../screens/FriendsScreen";
+import FriendRequestsScreen from "./../screens/FriendRequestsScreen";
+import SentRequestsScreen from "./../screens/SentRequestsScreen";
+import MenuScreen from "./../screens/MenuScreen";
 
 let authToken;
 
@@ -22,6 +31,10 @@ function AuthStackScreen() {
     <AuthStack.Navigator>
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="Register" component={RegisterScreen} />
+      <AuthStack.Screen
+        name="ForgottenPassword"
+        component={ForgottenPasswordScreen}
+      />
     </AuthStack.Navigator>
   );
 }
@@ -31,8 +44,19 @@ function LoggedInStackScreen() {
     <LoggedInStack.Navigator>
       <LoggedInStack.Screen name="Posts" component={PostsScreen} />
       <LoggedInStack.Screen name="Profile" component={ProfileScreen} />
+      <LoggedInStack.Screen name="Menu" component={MenuScreen} />
       <LoggedInStack.Screen name="Reactions" component={ReactionsScreen} />
       <LoggedInStack.Screen name="Comments" component={CommentsScreen} />
+      <LoggedInStack.Screen name="Settings" component={SettingsScreen} />
+      <LoggedInStack.Screen name="Friends" component={FriendsScreen} />
+      <LoggedInStack.Screen
+        name="FriendRequests"
+        component={FriendRequestsScreen}
+      />
+      <LoggedInStack.Screen
+        name="SentRequests"
+        component={SentRequestsScreen}
+      />
     </LoggedInStack.Navigator>
   );
 }
@@ -82,20 +106,44 @@ function RootNavigator() {
 
   if (!authToken) {
     return (
-      <NavigationContainer>
-        <AuthStack.Navigator headerMode="none">
-          <AuthStack.Screen name="auth" component={AuthStackScreen} />
+      <NavigationContainer headerMode="none">
+        <AuthStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <AuthStack.Screen name="Login" component={LoginScreen} />
+          <AuthStack.Screen name="Register" component={RegisterScreen} />
+          <AuthStack.Screen
+            name="ForgottenPassword"
+            component={ForgottenPasswordScreen}
+          />
         </AuthStack.Navigator>
       </NavigationContainer>
     );
   }
   if (authToken) {
     return (
-      <NavigationContainer>
-        <LoggedInStack.Navigator headerMode="none">
+      <NavigationContainer headerMode="none">
+        <LoggedInStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <LoggedInStack.Screen name="Posts" component={PostsScreen} />
+          <LoggedInStack.Screen name="Profile" component={ProfileScreen} />
+          <LoggedInStack.Screen name="Menu" component={MenuScreen} />
+          <LoggedInStack.Screen name="Reactions" component={ReactionsScreen} />
+          <LoggedInStack.Screen name="Comments" component={CommentsScreen} />
+          <LoggedInStack.Screen name="Settings" component={SettingsScreen} />
+          <LoggedInStack.Screen name="Friends" component={FriendsScreen} />
           <LoggedInStack.Screen
-            name="LoggedIn"
-            component={LoggedInStackScreen}
+            name="FriendRequests"
+            component={FriendRequestsScreen}
+          />
+          <LoggedInStack.Screen
+            name="SentRequests"
+            component={SentRequestsScreen}
           />
         </LoggedInStack.Navigator>
       </NavigationContainer>

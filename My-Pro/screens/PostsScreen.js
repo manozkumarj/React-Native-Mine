@@ -61,19 +61,19 @@ const PostsScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  const logOutHandler = () => {
-    const tryLogOut = async () => {
-      const remover = await AsyncStorage.removeItem("authToken");
-      props.navigation.navigate("Auth");
-      return;
-    };
+  // const logOutHandler = () => {
+  //   const tryLogOut = async () => {
+  //     const remover = await AsyncStorage.removeItem("authToken");
+  //     props.navigation.navigate("Auth");
+  //     return;
+  //   };
 
-    tryLogOut();
-    props.navigation.navigate("Login");
-  };
+  //   tryLogOut();
+  //   props.navigation.navigate("Login");
+  // };
 
   useEffect(() => {
-    props.navigation.setParams({ logout: logOutHandler });
+    // props.navigation.setParams({ logout: logOutHandler });
     fetchData();
     setImagesUrl("http://192.168.43.22:8088/photo/");
     let _notificationSubscription = Notifications.addListener(
@@ -142,7 +142,7 @@ const PostsScreen = (props) => {
     } else {
       console.log("Notify token not stored");
       alert("Notify token not stored");
-      props.navigation.navigate("LoggedIn");
+      // props.navigation.navigate("LoggedIn");
     }
   };
 
@@ -333,7 +333,7 @@ const PostsScreen = (props) => {
         <Text>This is Posts screen!</Text>
         <Button
           title="Profile"
-          onPress={() => props.navigation.navigate("Profile")}
+          // onPress={() => props.navigation.navigate("Profile")}
         />
         <Text>{posts.length}</Text>
       </View>
@@ -341,22 +341,11 @@ const PostsScreen = (props) => {
   }
 };
 
-PostsScreen.navigationOptions = (navData) => {
-  const logoutFn = navData.navigation.getParam("logout");
-  return {
-    headerTitle: "Posts",
-    headerRight: () => (
-      <Ionicons
-        name="md-log-out"
-        size={25}
-        color="#fff"
-        title="Logout"
-        onPress={logoutFn}
-        style={styles.logout}
-      />
-    ),
-  };
-};
+// PostsScreen.navigationOptions = (navData) => {
+//   return {
+//     headerTitle: "Posts",
+//   };
+// };
 
 const styles = StyleSheet.create({
   container: {

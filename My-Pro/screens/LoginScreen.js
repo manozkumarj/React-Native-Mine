@@ -148,9 +148,9 @@ const LoginScreen = (props) => {
   );
 };
 
-LoginScreen.navigationOptions = {
-  headerTitle: "Login",
-};
+// LoginScreen.navigationOptions = {
+//   headerTitle: "Login",
+// };
 
 const styles = StyleSheet.create({
   wholeBg: {
