@@ -30,13 +30,13 @@ function RootNavigator() {
   const [isLoading, setIsLoading] = useState(true);
 
   authToken = useSelector((state) => state.centralState.authToken);
-  console.log("authToken from Let variable -->" + authToken);
+  // console.log("authToken from Let variable -->" + authToken);
 
   useEffect(() => {
     setTimeout(async () => {
       try {
         authToken = await AsyncStorage.getItem("authToken");
-        console.log("authToken from RootNavigator -->" + authToken);
+        // console.log("authToken from RootNavigator -->" + authToken);
         setIsLoading(false);
       } catch (e) {
         console.log(e);

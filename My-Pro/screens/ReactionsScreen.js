@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import Colors from "./../constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const loveHeartsEyesEmoji = require("./../assets/emojis/love-hearts-eyes-emoji-50.png");
 const likeThumbEmoji = require("./../assets/emojis/like-thumb-emoji-50.png");
@@ -16,11 +18,21 @@ const defaultAvatar = require("./../assets/images/avatar.png");
 const ReactionsScreen = (props) => {
   const { postId, reactionsArray } = props.route.params;
   const imagesUrl = "http://192.168.43.22:8088/photo/";
+  const navigation = useNavigation();
   // console.log("postId -> " + postId);
   // console.log("reactionsArray -> " + JSON.stringify(reactionsArray));
 
   return (
     <View style={styles.container}>
+      <View style={styles.customHeader}>
+        <Ionicons
+          name="md-arrow-round-back"
+          size={25}
+          color="#fff"
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={styles.headerOptionText}>Reactions</Text>
+      </View>
       {reactionsArray.length === 0 ? (
         <View style={styles.screenContainer}>
           <Text style={styles.noReactions}>No Reactions yet</Text>
@@ -82,6 +94,20 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#ddd",
     marginTop: Constant.statusBarHeight,
+  },
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+    // zIndex: -1,
+  },
+  headerOptionText: {
+    color: "#fff",
+    fontSize: 18,
   },
   screenContainer: {
     flex: 1,

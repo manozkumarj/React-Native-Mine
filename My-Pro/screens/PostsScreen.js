@@ -16,6 +16,7 @@ import {
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Notifications } from "expo";
 import { Modalize } from "react-native-modalize";
+import { useNavigation } from "@react-navigation/native";
 
 import { getAllUsersPosts } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
@@ -48,6 +49,7 @@ const PostsScreen = (props) => {
   const [posts, setPosts] = useState([]);
   const modalizeRef = useRef(null);
   const [toggle, setToggle] = useState(true);
+  const navigation = useNavigation();
 
   const onContentHeightModalOpen = (postId) => {
     setShowablePostId(postId);
@@ -198,7 +200,7 @@ const PostsScreen = (props) => {
 
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <Text>Loading...</Text>
       </View>
     );
@@ -230,7 +232,12 @@ const PostsScreen = (props) => {
       <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
         <View style={styles.customHeader}>
           <Text style={styles.appTitle}>Mightyyy</Text>
-          <Entypo name="menu" size={25} color="#fff" />
+          <Entypo
+            name="menu"
+            size={25}
+            color="#fff"
+            onPress={() => navigation.navigate("Menu")}
+          />
         </View>
         <View style={styles.container}>
           <FlatList
@@ -360,6 +367,12 @@ const PostsScreen = (props) => {
 // };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   customHeader: {
     height: 45,
     flexDirection: "row",

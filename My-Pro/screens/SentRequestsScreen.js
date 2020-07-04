@@ -1,27 +1,51 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Colors from "./../constants/Colors";
+import Constant from "expo-constants";
 
 const SentRequestsScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <Text>This is SentRequests screen!</Text>
+    <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
+      <View style={styles.customHeader}>
+        <Ionicons
+          name="md-arrow-round-back"
+          size={25}
+          color="#fff"
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={styles.headerOptionText}>Sent Friend Requests</Text>
+      </View>
+      <ScrollView>
+        <Text>This is SentRequests screen!</Text>
+      </ScrollView>
     </View>
   );
 };
 
-SentRequestsScreen.navigationOptions = (navData) => {
-  return {
-    headerTitle: "SentRequests",
-  };
-};
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
+    // elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+    // zIndex: -1,
+  },
+  headerOptionText: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
 

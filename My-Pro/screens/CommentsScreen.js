@@ -1,15 +1,17 @@
 import React, { useState, useRef } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import Colors from "./../constants/Colors";
 import { Modalize } from "react-native-modalize";
 
+import { useNavigation } from "@react-navigation/native";
 import Constant from "expo-constants";
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const CommentsScreen = (props) => {
   const modalizeRef = useRef(null);
   const [toggle, setToggle] = useState(true);
+  const navigation = useNavigation();
   const { postId, commentsArray } = props.route.params;
   const imagesUrl = "http://192.168.43.22:8088/photo/";
   // console.log("postId -> " + postId);
@@ -48,6 +50,15 @@ const CommentsScreen = (props) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.customHeader}>
+        <Ionicons
+          name="md-arrow-round-back"
+          size={25}
+          color="#fff"
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={styles.headerOptionText}>Comments</Text>
+      </View>
       {commentsArray.length === 0 ? (
         <View style={styles.screenContainer}>
           <Text style={styles.noComments}>No comments yet</Text>
@@ -110,6 +121,20 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#ddd",
     marginTop: Constant.statusBarHeight,
+  },
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+    // zIndex: -1,
+  },
+  headerOptionText: {
+    color: "#fff",
+    fontSize: 18,
   },
   screenContainer: {
     flex: 1,
