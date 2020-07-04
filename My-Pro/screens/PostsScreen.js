@@ -26,6 +26,7 @@ import CustomBgAndTextAndCornerPost from "./../components/UI/CustomBgAndTextAndC
 import PostReactions from "./../components/UI/PostReactions";
 import PhotosPost from "./../components/UI/PhotosPost";
 import Colors from "./../constants/Colors";
+import Constant from "expo-constants";
 
 const loveHeartsEyesEmoji = require("./../assets/emojis/love-hearts-eyes-emoji-50.png");
 const likeThumbEmoji = require("./../assets/emojis/like-thumb-emoji-50.png");
@@ -226,102 +227,113 @@ const PostsScreen = (props) => {
 
   if (posts.length > 0) {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={posts}
-          refreshControl={
-            <RefreshControl
-              refreshing={isFetching}
-              onRefresh={() => onRefresh()}
-              tintColor="red"
-              colors={["red", "green", "blue"]}
-              title="Refreshing..."
-            />
-          }
-          keyExtractor={(item) => item._id + loopId}
-          renderItem={(itemData) => {
-            let displayPage;
-            let userPrimaryDp = itemData.item.postedBy.primaryDp
-              ? imagesUrl + itemData.item.postedBy.primaryDp
-              : defaultAvatar;
-
-            // console.log("userPrimaryDp --> " + userPrimaryDp);
-
-            if (
-              itemData.item.postTypeId === 1 ||
-              itemData.item.postTypeId === 3
-            )
-              displayPage = (
-                <DefaultAndCustomBgAndTextColorPost
-                  key={loopId++}
-                  postData={itemData.item.postProperties}
-                  postTypeId={itemData.item.postTypeId}
-                />
-              );
-            else if (itemData.item.postTypeId === 4)
-              displayPage = (
-                <CustomBgAndTextAndBorderColorPost
-                  postData={itemData.item.postProperties}
-                  postTypeId={itemData.item.postTypeId}
-                />
-              );
-            else if (itemData.item.postTypeId === 2)
-              displayPage = (
-                <PhotosPost
-                  postData={itemData.item.postProperties}
-                  postTypeId={itemData.item.postTypeId}
-                />
-              );
-            else if (itemData.item.postTypeId === 5)
-              displayPage = (
-                <CustomBgAndTextAndCornerPost
-                  postData={itemData.item.postProperties}
-                  postTypeId={itemData.item.postTypeId}
-                />
-              );
-
-            let postUserImage;
-            if (itemData.item.postedBy.primaryDp) {
-              postUserImage = (
-                <Image
-                  style={styles.postUserDp}
-                  source={{ uri: imagesUrl + itemData.item.postedBy.primaryDp }}
-                />
-              );
-            } else {
-              postUserImage = (
-                <Image style={styles.postUserDp} source={defaultAvatar} />
-              );
+      <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
+        <View style={styles.customHeader}>
+          <Text style={styles.appTitle}>Mightyyy</Text>
+          <Entypo name="menu" size={25} color="#fff" />
+        </View>
+        <View style={styles.container}>
+          <FlatList
+            data={posts}
+            refreshControl={
+              <RefreshControl
+                refreshing={isFetching}
+                onRefresh={() => onRefresh()}
+                tintColor="red"
+                colors={["red", "green", "blue"]}
+                title="Refreshing..."
+              />
             }
-            return (
-              <View style={styles.singlePostContainer}>
-                <View style={styles.postAndUserDetailsContainer}>
-                  <View style={styles.postDpContainer}>{postUserImage}</View>
-                  <View style={styles.postUserNameTimeContainer}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                      {itemData.item.postedBy.fullName}
-                    </Text>
-                    <Text style={{ color: "#000" }}>
-                      5th Jan 2017 - 08:51:25 AM
-                    </Text>
+            keyExtractor={(item) => item._id + loopId}
+            renderItem={(itemData) => {
+              let displayPage;
+              let userPrimaryDp = itemData.item.postedBy.primaryDp
+                ? imagesUrl + itemData.item.postedBy.primaryDp
+                : defaultAvatar;
+
+              // console.log("userPrimaryDp --> " + userPrimaryDp);
+
+              if (
+                itemData.item.postTypeId === 1 ||
+                itemData.item.postTypeId === 3
+              )
+                displayPage = (
+                  <DefaultAndCustomBgAndTextColorPost
+                    key={loopId++}
+                    postData={itemData.item.postProperties}
+                    postTypeId={itemData.item.postTypeId}
+                  />
+                );
+              else if (itemData.item.postTypeId === 4)
+                displayPage = (
+                  <CustomBgAndTextAndBorderColorPost
+                    postData={itemData.item.postProperties}
+                    postTypeId={itemData.item.postTypeId}
+                  />
+                );
+              else if (itemData.item.postTypeId === 2)
+                displayPage = (
+                  <PhotosPost
+                    postData={itemData.item.postProperties}
+                    postTypeId={itemData.item.postTypeId}
+                  />
+                );
+              else if (itemData.item.postTypeId === 5)
+                displayPage = (
+                  <CustomBgAndTextAndCornerPost
+                    postData={itemData.item.postProperties}
+                    postTypeId={itemData.item.postTypeId}
+                  />
+                );
+
+              let postUserImage;
+              if (itemData.item.postedBy.primaryDp) {
+                postUserImage = (
+                  <Image
+                    style={styles.postUserDp}
+                    source={{
+                      uri: imagesUrl + itemData.item.postedBy.primaryDp,
+                    }}
+                  />
+                );
+              } else {
+                postUserImage = (
+                  <Image style={styles.postUserDp} source={defaultAvatar} />
+                );
+              }
+              return (
+                <View style={styles.singlePostContainer}>
+                  <View style={styles.postAndUserDetailsContainer}>
+                    <View style={styles.postDpContainer}>{postUserImage}</View>
+                    <View style={styles.postUserNameTimeContainer}>
+                      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                        {itemData.item.postedBy.fullName}
+                      </Text>
+                      <Text style={{ color: "#000" }}>
+                        5th Jan 2017 - 08:51:25 AM
+                      </Text>
+                    </View>
+                    <TouchableOpacity
+                      style={styles.hrDots}
+                      activeOpacity={0.75}
+                    >
+                      <Entypo
+                        name="dots-three-horizontal"
+                        size={24}
+                        color="black"
+                        onPress={() =>
+                          onContentHeightModalOpen(itemData.item._id)
+                        }
+                      />
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity style={styles.hrDots} activeOpacity={0.75}>
-                    <Entypo
-                      name="dots-three-horizontal"
-                      size={24}
-                      color="black"
-                      onPress={() =>
-                        onContentHeightModalOpen(itemData.item._id)
-                      }
-                    />
-                  </TouchableOpacity>
+                  <View>{displayPage}</View>
+                  <PostReactions postDetails={itemData.item} />
                 </View>
-                <View>{displayPage}</View>
-                <PostReactions postDetails={itemData.item} />
-              </View>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        </View>
         <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
           {renderContent()}
         </Modalize>
@@ -348,6 +360,21 @@ const PostsScreen = (props) => {
 // };
 
 const styles = StyleSheet.create({
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+    // zIndex: -1,
+  },
+  appTitle: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   container: {
     flex: 1,
     width: "100%",

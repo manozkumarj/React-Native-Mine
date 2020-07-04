@@ -10,6 +10,7 @@ const angryEmoji = require("./../assets/emojis/angry-emoji-50.png");
 const wowEmoji = require("./../assets/emojis/wow-emoji-50.png");
 const cryingEmoji = require("./../assets/emojis/crying-emoji-50.png");
 
+import Constant from "expo-constants";
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const ReactionsScreen = (props) => {
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "#ddd",
+    marginTop: Constant.statusBarHeight,
   },
   screenContainer: {
     flex: 1,

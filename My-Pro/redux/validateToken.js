@@ -7,7 +7,7 @@ const jwtSecret =
 const validateToken = async () => {
   // Get the token from header
   const tempToken = await AsyncStorage.getItem("authToken");
-  console.log("tempToken -->" + tempToken);
+  // console.log("tempToken -->" + tempToken);
   // console.log(JSON.stringify(tempToken));
 
   // Check if not token

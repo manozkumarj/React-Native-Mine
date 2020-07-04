@@ -14,11 +14,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import Colors from "./../constants/Colors";
 import Card from "./../components/UI/Card";
+import Constant from "expo-constants";
 
 import { loginUser } from "./../redux/actionCreators";
 import { useDispatch } from "react-redux";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
+import { Entypo } from "@expo/vector-icons";
 
 const LoginScreen = (props) => {
   const navigation = useNavigation();
@@ -90,63 +92,68 @@ const LoginScreen = (props) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.wholeBg}>
-      <LinearGradient
-        colors={["transparent", "transparent"]}
-        style={styles.gradient}
-      >
-        <Card style={styles.loginContainer}>
-          <Text style={styles.pageTitle}>Log In to Existing Account</Text>
-          <View style={styles.dividableHr} />
-          <TextInput
-            placeholder="Enter Email"
-            email
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-            placeholderTextColor="#9a73ef"
-          />
-          <TextInput
-            placeholder="Enter Password"
-            password={true}
-            value={password}
-            secureTextEntry
-            placeholderTextColor="#9a73ef"
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-          />
-          <View style={styles.buttonContainer}>
-            {isLoading ? (
-              <ActivityIndicator size="small" color={{ color: "white" }} />
-            ) : (
+    <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
+      <View style={styles.customHeader}>
+        <Text style={styles.appTitle}>Mightyyy</Text>
+      </View>
+      <ScrollView contentContainerStyle={styles.wholeBg}>
+        <LinearGradient
+          colors={["transparent", "transparent"]}
+          style={styles.gradient}
+        >
+          <Card style={styles.loginContainer}>
+            <Text style={styles.pageTitle}>Log In to Existing Account</Text>
+            <View style={styles.dividableHr} />
+            <TextInput
+              placeholder="Enter Email"
+              email
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              style={styles.input}
+              placeholderTextColor="#9a73ef"
+            />
+            <TextInput
+              placeholder="Enter Password"
+              password={true}
+              value={password}
+              secureTextEntry
+              placeholderTextColor="#9a73ef"
+              onChangeText={(text) => setPassword(text)}
+              style={styles.input}
+            />
+            <View style={styles.buttonContainer}>
+              {isLoading ? (
+                <ActivityIndicator size="small" color={{ color: "white" }} />
+              ) : (
+                <Button
+                  title="Login"
+                  color={Colors.siteColor}
+                  onPress={authHandler}
+                  disabled={disableButtons}
+                />
+              )}
+            </View>
+            <View style={styles.dividableHr} />
+            <View style={styles.buttonContainer}>
               <Button
-                title="Login"
+                title="Register"
                 color={Colors.siteColor}
-                onPress={authHandler}
+                onPress={() => props.navigation.navigate("Register")}
                 disabled={disableButtons}
               />
-            )}
-          </View>
-          <View style={styles.dividableHr} />
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Register"
-              color={Colors.siteColor}
-              onPress={() => props.navigation.navigate("Register")}
-              disabled={disableButtons}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Forgotten password?"
-              color={Colors.siteColor}
-              onPress={() => props.navigation.navigate("ForgottenPassword")}
-              disabled={disableButtons}
-            />
-          </View>
-        </Card>
-      </LinearGradient>
-    </ScrollView>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Forgotten password?"
+                color={Colors.siteColor}
+                onPress={() => props.navigation.navigate("ForgottenPassword")}
+                disabled={disableButtons}
+              />
+            </View>
+          </Card>
+        </LinearGradient>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -155,6 +162,20 @@ const LoginScreen = (props) => {
 // };
 
 const styles = StyleSheet.create({
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+  },
+  appTitle: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   wholeBg: {
     // backgroundColor: Colors.bgColor,
     flex: 1,

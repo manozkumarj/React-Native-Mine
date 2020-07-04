@@ -4,6 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 import Colors from "./../constants/Colors";
 import { Modalize } from "react-native-modalize";
 
+import Constant from "expo-constants";
 const defaultAvatar = require("./../assets/images/avatar.png");
 
 const CommentsScreen = (props) => {
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "#ddd",
+    marginTop: Constant.statusBarHeight,
   },
   screenContainer: {
     flex: 1,

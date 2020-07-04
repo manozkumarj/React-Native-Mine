@@ -52,7 +52,7 @@ const PostReactions = (props) => {
         (user) => user.reactedBy._id === loggedInUserId
       );
       // console.log("loggedInUserId --> " + loggedInUserId);
-      console.log("getIndex --> " + getIndex);
+      // console.log("getIndex --> " + getIndex);
 
       if (getIndex > -1) {
         setIsReactedToThisPost(true);
