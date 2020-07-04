@@ -44,8 +44,8 @@ const PostReactions = (props) => {
     setPostComments(props.postDetails.comments);
     // console.log("currentLoggedInUserId --> " + currentLoggedInUserId);
     // setLoggedInUserId(currentLoggedInUserId);
-    console.log("postReactions are showing below");
-    console.log(postReactions);
+    // console.log("postReactions are showing below");
+    // console.log(postReactions);
 
     if (postReactions && postReactions.length > 0) {
       let getIndex = postReactions.findIndex(

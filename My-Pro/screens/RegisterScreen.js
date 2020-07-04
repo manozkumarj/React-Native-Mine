@@ -117,9 +117,9 @@ const RegisterScreen = (props) => {
   );
 };
 
-RegisterScreen.navigationOptions = {
-  headerTitle: "Register",
-};
+// RegisterScreen.navigationOptions = {
+//   headerTitle: "Register",
+// };
 
 const styles = StyleSheet.create({
   wholeBg: {

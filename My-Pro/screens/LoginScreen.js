@@ -10,6 +10,7 @@ import {
   AsyncStorage,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 
 import Colors from "./../constants/Colors";
 import Card from "./../components/UI/Card";
@@ -20,6 +21,7 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 
 const LoginScreen = (props) => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("manoj@gmail.com");
   const [password, setPassword] = useState("manoj123");
   const [disableButtons, setDisableButtons] = useState(false);
@@ -79,11 +81,11 @@ const LoginScreen = (props) => {
     const storeToken = await AsyncStorage.setItem("notifyToken", getToken);
     if (getToken) {
       console.log("Notify token stored");
-      props.navigation.navigate("Register");
+      // navigation.navigate("Register");
     } else {
       console.log("Notify token not stored");
       alert("Notify token not stored");
-      props.navigation.navigate("LoggedIn");
+      // navigation.navigate("LoggedIn");
     }
   };
 

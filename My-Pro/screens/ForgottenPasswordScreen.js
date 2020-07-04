@@ -82,9 +82,9 @@ const ForgottenPasswordScreen = (props) => {
   );
 };
 
-ForgottenPasswordScreen.navigationOptions = {
-  headerTitle: "Forgotten Account",
-};
+// ForgottenPasswordScreen.navigationOptions = {
+//   headerTitle: "Forgotten Account",
+// };
 
 const styles = StyleSheet.create({
   wholeBg: {

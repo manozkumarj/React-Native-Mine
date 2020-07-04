@@ -26,59 +26,14 @@ let authToken;
 const AuthStack = createStackNavigator();
 const LoggedInStack = createStackNavigator();
 
-function AuthStackScreen() {
-  return (
-    <AuthStack.Navigator>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen name="Register" component={RegisterScreen} />
-      <AuthStack.Screen
-        name="ForgottenPassword"
-        component={ForgottenPasswordScreen}
-      />
-    </AuthStack.Navigator>
-  );
-}
-
-function LoggedInStackScreen() {
-  return (
-    <LoggedInStack.Navigator>
-      <LoggedInStack.Screen name="Posts" component={PostsScreen} />
-      <LoggedInStack.Screen name="Profile" component={ProfileScreen} />
-      <LoggedInStack.Screen name="Menu" component={MenuScreen} />
-      <LoggedInStack.Screen name="Reactions" component={ReactionsScreen} />
-      <LoggedInStack.Screen name="Comments" component={CommentsScreen} />
-      <LoggedInStack.Screen name="Settings" component={SettingsScreen} />
-      <LoggedInStack.Screen name="Friends" component={FriendsScreen} />
-      <LoggedInStack.Screen
-        name="FriendRequests"
-        component={FriendRequestsScreen}
-      />
-      <LoggedInStack.Screen
-        name="SentRequests"
-        component={SentRequestsScreen}
-      />
-    </LoggedInStack.Navigator>
-  );
-}
-
 function RootNavigator() {
   const [isLoading, setIsLoading] = useState(true);
 
   authToken = useSelector((state) => state.centralState.authToken);
   console.log("authToken from Let variable -->" + authToken);
+
   useEffect(() => {
-    // const tryLogin = async () => {
-    //   authToken = await AsyncStorage.getItem("authToken");
-    //   console.log("authToken from StartUpScreen -->" + authToken);
-    //   setIsLoading(false);
-    // };
-
-    // tryLogin();
-
     setTimeout(async () => {
-      // setIsLoading(false);
-      let userToken;
-      userToken = null;
       try {
         authToken = await AsyncStorage.getItem("authToken");
         console.log("authToken from RootNavigator -->" + authToken);
@@ -121,8 +76,7 @@ function RootNavigator() {
         </AuthStack.Navigator>
       </NavigationContainer>
     );
-  }
-  if (authToken) {
+  } else if (authToken) {
     return (
       <NavigationContainer headerMode="none">
         <LoggedInStack.Navigator
