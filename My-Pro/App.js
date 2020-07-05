@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 
 import RootNavigator from "./navigation/RootNavigator";
 
@@ -13,6 +14,9 @@ const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    Roboto: require("native-base/Fonts/Roboto.ttf"),
+    Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+    ...Ionicons.font,
   });
 };
 
