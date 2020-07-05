@@ -12,13 +12,17 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "./../constants/Colors";
 import Constant from "expo-constants";
 const defaultAvatar = require("./../assets/images/avatar.png");
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { removeToken } from "./../redux/actionCreators";
 
 const MenuScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
+  let loggedInUserUsername;
+  loggedInUserUsername = useSelector(
+    (state) => state.centralState.loggedInUserDetails.username
+  );
 
   const dispatch = useDispatch();
 
@@ -48,7 +52,9 @@ const MenuScreen = (props) => {
       </View>
       <ScrollView>
         <TouchableOpacity
-          onPress={() => navigation.push("Profile")}
+          onPress={() =>
+            navigation.push("Profile", { username: loggedInUserUsername })
+          }
           style={styles.optionContainer}
           activeOpacity={0.75}
         >

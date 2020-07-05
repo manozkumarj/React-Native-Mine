@@ -241,22 +241,27 @@ export const getSinglePost = (postId) => {
 // Fetching profilePageUserDetails & posts with username handler -- Starts
 export const getProfileUserDetailsAndPosts = (username) => {
   // console.log("username --> " + username);
-  let authToken = AsyncStorage.getItem("authToken");
-  const tokenUserDetails = validateToken();
+  return async (dispatch) => {
+    let authToken = await AsyncStorage.getItem("authToken");
+    const tokenUserDetails = validateToken();
 
-  apiEndPoint = `users/by-username/${username}`;
-  headers["x-auth-token"] = authToken;
+    apiEndPoint = `users/by-username/${username}`;
+    headers["x-auth-token"] = authToken;
 
-  if (tokenUserDetails) {
-    return (dispatch) => {
-      dispatch({ type: IS_LOADING_POSTS });
-      API.get(apiEndPoint, { headers })
+    if (tokenUserDetails) {
+      // dispatch({ type: IS_LOADING_POSTS });
+      return API.get(apiEndPoint, { headers })
         .then((res) => {
           console.log(res.data);
           dispatch({
             type: PROFILE_PAGE_USER_DETAILS_AND_POSTS,
             payload: res.data,
           });
+          return {
+            status: "success",
+            msg: "posts received",
+            details: res.data,
+          };
         })
         .catch((err) => {
           console.log(err.response);
@@ -264,9 +269,12 @@ export const getProfileUserDetailsAndPosts = (username) => {
             type: PROFILE_PAGE_USER_DETAILS_AND_POSTS_ERROR,
             payload: err.response,
           });
+          return new Error(err.response);
         });
-    };
-  }
+    } else {
+      return new Error("Something went wrong");
+    }
+  };
 };
 // Fetching profilePageUserDetails & posts with username handler -- Ends
 

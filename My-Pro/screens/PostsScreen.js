@@ -313,7 +313,14 @@ const PostsScreen = (props) => {
                   <View style={styles.postAndUserDetailsContainer}>
                     <View style={styles.postDpContainer}>{postUserImage}</View>
                     <View style={styles.postUserNameTimeContainer}>
-                      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                      <Text
+                        style={{ fontSize: 18, fontWeight: "bold" }}
+                        onPress={() =>
+                          navigation.push("Profile", {
+                            username: itemData.item.postedBy.username,
+                          })
+                        }
+                      >
                         {itemData.item.postedBy.fullName}
                       </Text>
                       <Text style={{ color: "#000" }}>
