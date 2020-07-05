@@ -83,8 +83,12 @@ const ProfileScreen = (props) => {
   const secondaryDpUrl = profilePageUserDetails
     ? profilePageUserDetails.secondaryDp
     : null;
+  const coverPhotoUrl = profilePageUserDetails
+    ? profilePageUserDetails.profileCoverPhoto
+    : null;
   let primaryDpImage = null;
   let secondaryDpImage = null;
+  let coverPhoto = null;
 
   if (primaryDpUrl) {
     primaryDpImage = (
@@ -116,19 +120,33 @@ const ProfileScreen = (props) => {
     );
   }
 
-  let coverPhoto = profilePageUserDetails
-    ? profilePageUserDetails.profileCoverPhoto
-    : defaultCoverPic;
+  if (coverPhotoUrl) {
+    coverPhoto = (
+      <Image
+        style={{ width: imgWidth, height: imgHeight }}
+        source={{
+          uri: imagesUrl + coverPhotoUrl,
+        }}
+      />
+    );
+  } else {
+    coverPhoto = (
+      <Image style={{ width: "100%", height: 204 }} source={defaultCoverPic} />
+    );
+  }
 
   useEffect(() => {
-    Image.getSize(imagesUrl + coverPhoto, (width, height) => {
-      // calculate image width and height
-      const screenWidth = Dimensions.get("window").width;
-      const scaleFactor = width / screenWidth;
-      const imageHeight = height / scaleFactor;
-      setImgWidth(screenWidth);
-      setImgHeight(imageHeight);
-    });
+    console.log("defaultCoverPic -> " + coverPhotoUrl);
+    if (coverPhotoUrl) {
+      Image.getSize(imagesUrl + coverPhotoUrl, (width, height) => {
+        // calculate image width and height
+        const screenWidth = Dimensions.get("window").width;
+        const scaleFactor = width / screenWidth;
+        const imageHeight = height / scaleFactor;
+        setImgWidth(screenWidth);
+        setImgHeight(imageHeight);
+      });
+    }
   }, [profilePageUserDetails]);
 
   if (isLoading) {
@@ -154,12 +172,7 @@ const ProfileScreen = (props) => {
           </Text>
         </View>
         <ScrollView>
-          <View>
-            <Image
-              source={{ uri: imagesUrl + coverPhoto }}
-              style={{ width: imgWidth, height: imgHeight }}
-            />
-          </View>
+          <View>{coverPhoto}</View>
           <View style={styles.dpsContainer}>
             {primaryDpImage}
             {secondaryDpImage}
