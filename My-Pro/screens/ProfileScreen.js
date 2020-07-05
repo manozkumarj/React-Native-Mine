@@ -167,19 +167,18 @@ const ProfileScreen = (props) => {
                 width: "100%",
                 position: "absolute",
                 bottom: headerTitleBottom,
-                backgroundColor: "yellow",
-                // marginTop: 500,
+                backgroundColor: "#ddd",
+                display: "flex",
+                flexDirection: "row",
+                // height: 50,
+                alignItems: "center",
+                // marginTop: 50,
               }}
             >
-              <Text
-                style={{
-                  color: "red",
-                  fontSize: 14,
-                  fontWeight: "bold",
-                }}
-              >
-                Varun Nath
-              </Text>
+              <Text style={styles.menuItem}>Timeline</Text>
+              <Text style={styles.menuItem}>Friends</Text>
+              <Text style={styles.menuItem}>About</Text>
+              <Text style={styles.menuItem}>Photos</Text>
             </Animated.View>
           </Animated.View>
 
@@ -298,6 +297,14 @@ const styles = StyleSheet.create({
   },
   userDetailsContainer: {
     marginVertical: 30,
+  },
+  menuItem: {
+    flex: 1,
+    alignSelf: "center",
+    textAlign: "center",
+    padding: 10,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
