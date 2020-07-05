@@ -396,9 +396,6 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
   },
-  logout: {
-    paddingHorizontal: 10,
-  },
   singlePostContainer: {
     flex: 1,
     width: "100%",

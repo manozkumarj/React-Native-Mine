@@ -178,19 +178,21 @@ export const getAllUsersPosts = () => {
 // Fetching individual user's posts handler -- Starts
 export const getIndividualUserPosts = (userId) => {
   // console.log("userId --> " + userId);
-  let authToken = AsyncStorage.getItem("authToken");
-  const tokenUserDetails = validateToken();
 
-  apiEndPoint = `posts/postedTo/${userId}`;
-  headers["x-auth-token"] = authToken;
+  return async (dispatch) => {
+    let authToken = await AsyncStorage.getItem("authToken");
+    const tokenUserDetails = await validateToken();
+    // console.log(tokenUserDetails);
+    if (tokenUserDetails) {
+      apiEndPoint = `posts/postedTo/${userId}`;
+      headers["x-auth-token"] = authToken;
 
-  if (tokenUserDetails) {
-    return (dispatch) => {
-      dispatch({ type: IS_LOADING_POSTS });
-      API.get(apiEndPoint, { headers })
+      // dispatch({ type: IS_LOADING_POSTS });
+      return API.get(apiEndPoint, { headers })
         .then((res) => {
           console.log(res.data);
           dispatch({ type: FETCHED_POSTS, payload: res.data });
+          return { status: "success", msg: "posts received", posts: res.data };
         })
         .catch((err) => {
           console.log(err.response);
@@ -198,9 +200,12 @@ export const getIndividualUserPosts = (userId) => {
             type: FETCHING_POSTS_ERROR,
             payload: err.response,
           });
+          return new Error(err.response);
         });
-    };
-  }
+    } else {
+      return new Error("Something went wrong");
+    }
+  };
 };
 // Fetching individual user's posts handler -- Ends
 
