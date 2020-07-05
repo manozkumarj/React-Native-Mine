@@ -53,7 +53,7 @@ const TwitterStyleAnimatedHeader = () => {
       HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT,
       HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT + 50,
     ],
-    outputRange: [-20, -20, -20, -18],
+    outputRange: [-70, -70, -70, -18],
     extrapolate: "clamp",
   });
 
@@ -110,7 +110,24 @@ const TwitterStyleAnimatedHeader = () => {
             { nativeEvent: { contentOffset: { y: scrollY } } },
           ])}
         >
-          <View style={{ marginTop: 200 }}>
+          <Animated.View
+            style={{
+              height: profileImageHeight,
+              width: profileImageHeight,
+              borderRadius: PROFILE_IMAGE_MAX_HEIGHT / 2,
+              borderColor: "white",
+              borderWidth: 3,
+              overflow: "hidden",
+              marginTop: profileImageMarginTop,
+              marginLeft: 10,
+            }}
+          >
+            <Image
+              source={require("./../assets/images/avatar.png")}
+              style={{ flex: 1, width: null, height: null }}
+            />
+          </Animated.View>
+          <View style={{ marginTop: 40 }}>
             <Text style={{ fontWeight: "bold", fontSize: 26, paddingLeft: 10 }}>
               <Text style={styles.text}>
                 So, here we have added one Button, and also, we have imported
