@@ -7,62 +7,67 @@ import {
   Image,
   Animated,
 } from "react-native";
+import Constant from "expo-constants";
+import Colors from "./../constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-HEADER_MAX_HEIGHT = 120;
+HEADER_MAX_HEIGHT = 180;
 HEADER_MIN_HEIGHT = 70;
 PROFILE_IMAGE_MAX_HEIGHT = 80;
 PROFILE_IMAGE_MIN_HEIGHT = 40;
 
-class TwitterStyleAnimatedHeader extends Component {
-  constructor(props) {
-    super(props);
+const TwitterStyleAnimatedHeader = () => {
+  let scrollY = new Animated.Value(0);
 
-    this.state = {
-      scrollY: new Animated.Value(0),
-    };
-  }
-  render() {
-    const headerHeight = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-      extrapolate: "clamp",
-    });
-    const profileImageHeight = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-      outputRange: [PROFILE_IMAGE_MAX_HEIGHT, PROFILE_IMAGE_MIN_HEIGHT],
-      extrapolate: "clamp",
-    });
+  const navigation = useNavigation();
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: [HEADER_MAX_HEIGHT, 0],
+    extrapolate: "clamp",
+  });
+  const profileImageHeight = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: [PROFILE_IMAGE_MAX_HEIGHT, PROFILE_IMAGE_MIN_HEIGHT],
+    extrapolate: "clamp",
+  });
 
-    const profileImageMarginTop = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-      outputRange: [
-        HEADER_MAX_HEIGHT - PROFILE_IMAGE_MAX_HEIGHT / 2,
-        HEADER_MAX_HEIGHT + 5,
-      ],
-      extrapolate: "clamp",
-    });
-    const headerZindex = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 120],
-      outputRange: [0, 0, 1000],
-      extrapolate: "clamp",
-    });
+  const profileImageMarginTop = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: [
+      HEADER_MAX_HEIGHT - PROFILE_IMAGE_MAX_HEIGHT / 2,
+      HEADER_MAX_HEIGHT + 5,
+    ],
+    extrapolate: "clamp",
+  });
+  const headerZindex = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 120],
+    outputRange: [0, 0, 1000],
+    extrapolate: "clamp",
+  });
 
-    const headerTitleBottom = this.state.scrollY.interpolate({
-      inputRange: [
-        0,
-        HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-        HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT,
-        HEADER_MAX_HEIGHT -
-          HEADER_MIN_HEIGHT +
-          5 +
-          PROFILE_IMAGE_MIN_HEIGHT +
-          26,
-      ],
-      outputRange: [-70, -70, -70, -18],
-      extrapolate: "clamp",
-    });
+  const headerTitleBottom = scrollY.interpolate({
+    inputRange: [
+      0,
+      HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
+      HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT,
+      HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT + 26,
+    ],
+    outputRange: [-70, -70, -70, -18],
+    extrapolate: "clamp",
+  });
 
-    return (
+  return (
+    <View style={{ flex: 1, marginTop: Constant.statusBarHeight }}>
+      <View style={styles.customHeader}>
+        <Ionicons
+          name="md-arrow-round-back"
+          size={25}
+          color="#fff"
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={styles.headerOptionText}>Twitter</Text>
+      </View>
       <View style={{ flex: 1 }}>
         <Animated.View
           style={{
@@ -102,7 +107,7 @@ class TwitterStyleAnimatedHeader extends Component {
           style={{ flex: 1 }}
           scrollEventThrottle={16}
           onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: this.state.scrollY } } },
+            { nativeEvent: { contentOffset: { y: scrollY } } },
           ])}
         >
           <Animated.View
@@ -150,9 +155,9 @@ class TwitterStyleAnimatedHeader extends Component {
           <View style={{ height: 1000 }} />
         </ScrollView>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 export default TwitterStyleAnimatedHeader;
 
 const styles = StyleSheet.create({
@@ -160,5 +165,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  customHeader: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    elevation: 4,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.siteColor,
+  },
+  headerOptionText: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
