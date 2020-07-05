@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import LoginScreen from "./../screens/LoginScreen";
 import RegisterScreen from "./../screens/RegisterScreen";
 import ForgottenPasswordScreen from "./../screens/ForgottenPasswordScreen";
+import TwitterStyleAnimatedHeader from "./../screens/TwitterStyleAnimatedHeader";
 
 import ProfileScreen from "./../screens/ProfileScreen";
 import PostsScreen from "./../screens/PostsScreen";
@@ -69,6 +70,10 @@ function RootNavigator() {
         >
           <AuthStack.Screen name="Login" component={LoginScreen} />
           <AuthStack.Screen name="Register" component={RegisterScreen} />
+          <AuthStack.Screen
+            name="Twitter"
+            component={TwitterStyleAnimatedHeader}
+          />
           <AuthStack.Screen
             name="ForgottenPassword"
             component={ForgottenPasswordScreen}

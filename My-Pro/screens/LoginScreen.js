@@ -150,6 +150,15 @@ const LoginScreen = (props) => {
                 disabled={disableButtons}
               />
             </View>
+
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Twitter Header"
+                color={Colors.siteColor}
+                onPress={() => props.navigation.navigate("Twitter")}
+                disabled={disableButtons}
+              />
+            </View>
           </Card>
         </LinearGradient>
       </ScrollView>

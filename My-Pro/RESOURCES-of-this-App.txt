@@ -4,6 +4,7 @@
 
 
 * Local Notifications --> https://www.youtube.com/watch?v=-2zoM_QWGY0 && https://www.youtube.com/watch?v=XCk31D5vY0U && https://medium.com/@Laurens_Lang/local-notifications-in-expo-867e2af1ca97 
+* Twitter style Animated header --> https://github.com/nathvarun/Twitter-Header-Scroll-Animation-React-Native
 * 
 
 *************************** Ways to run the App after Node-Modules deletion ********************************
@@ -20,6 +21,7 @@
 * https://stackoverflow.com/questions/46765896/react-redux-actions-must-be-plain-objects-use-custom-middleware-for-async-acti
 * https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state
 * https://stackoverflow.com/questions/60402632/switchnavigator-with-react-navigation-5
+* https://stackoverflow.com/questions/57066075/console-error-fontfamily-roboto-medium-is-not-a-system-font-and-has-not-been
 * 
 
 
@@ -38,4 +40,6 @@
 * https://www.youtube.com/watch?v=o8nXw_E6hlY -> https://www.youtube.com/watch?v=o8nXw_E6hlY
 * https://stackoverflow.com/questions/29363671/can-i-make-dynamic-styles-in-react-native
 * https://codepen.io/manozkumarj/pen/xxZqzjO
+* https://codeburst.io/react-native-parallax-scroll-with-tabs-721feec463c5
+* https://reactnativeexample.com/a-flexible-tourguide-for-your-react-native-app/
 * 
