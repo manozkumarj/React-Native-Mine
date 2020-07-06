@@ -82,7 +82,11 @@ const FriendsScreen = (props) => {
       console.log("Response received...");
       // console.log(receivedResponse);
       setProfilePageUserDetails(receivedResponse.details.userProfileDetails);
-      setFriendsArray(receivedResponse.details.userProfileDetails.friends);
+      let getFriendsArray = receivedResponse.details.userProfileDetails.friends;
+      let getFriends = getFriendsArray.filter(
+        (friend) => friend.status === "friend"
+      );
+      setFriendsArray(getFriends);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
@@ -168,7 +172,7 @@ const FriendsScreen = (props) => {
           }
           keyExtractor={(item) => item._id + loopId}
           renderItem={(itemData) => {
-            console.log(itemData.item);
+            // console.log(itemData.item);
             const primaryDpUrl = itemData.item.friendId.primaryDp;
             const secondaryDpUrl = itemData.item.friendId.secondaryDp;
             let primaryDpImage = null;

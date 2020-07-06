@@ -70,14 +70,20 @@ const MenuScreen = (props) => {
           <Text style={styles.option}>Friends List</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.push("FriendRequests")}
+          onPress={() =>
+            navigation.push("FriendRequests", {
+              username: loggedInUserUsername,
+            })
+          }
           style={styles.optionContainer}
           activeOpacity={0.75}
         >
           <Text style={styles.option}>Friend Requests</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.push("SentRequests")}
+          onPress={() =>
+            navigation.push("SentRequests", { username: loggedInUserUsername })
+          }
           style={styles.optionContainer}
           activeOpacity={0.75}
         >
