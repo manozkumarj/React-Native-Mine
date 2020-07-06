@@ -21,6 +21,7 @@ import FriendsScreen from "./../screens/FriendsScreen";
 import FriendRequestsScreen from "./../screens/FriendRequestsScreen";
 import SentRequestsScreen from "./../screens/SentRequestsScreen";
 import MenuScreen from "./../screens/MenuScreen";
+import AboutScreen from "./../screens/AboutScreen";
 
 let authToken;
 
@@ -91,6 +92,7 @@ function RootNavigator() {
         >
           <LoggedInStack.Screen name="Posts" component={PostsScreen} />
           <LoggedInStack.Screen name="Profile" component={ProfileScreen} />
+          <LoggedInStack.Screen name="About" component={AboutScreen} />
           <LoggedInStack.Screen name="Menu" component={MenuScreen} />
           <LoggedInStack.Screen name="Reactions" component={ReactionsScreen} />
           <LoggedInStack.Screen name="Comments" component={CommentsScreen} />
