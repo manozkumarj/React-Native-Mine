@@ -252,7 +252,7 @@ export const getProfileUserDetailsAndPosts = (username) => {
       // dispatch({ type: IS_LOADING_POSTS });
       return API.get(apiEndPoint, { headers })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           dispatch({
             type: PROFILE_PAGE_USER_DETAILS_AND_POSTS,
             payload: res.data,

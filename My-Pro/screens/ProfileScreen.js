@@ -46,7 +46,7 @@ const ProfileScreen = (props) => {
     (state) => state.centralState.loggedInUserDetails.username
   );
 
-  let getStatus = getLoggedInUserUsername === username ? true : false;
+  let getStatus = getLoggedInUserUsername === username ? "true" : "false";
 
   const [imgWidth, setImgWidth] = useState(0);
   const [imgHeight, setImgHeight] = useState(0);
@@ -216,8 +216,8 @@ const ProfileScreen = (props) => {
       <Text style={styles.content__subheading}>
         {"Last step".toUpperCase()}
       </Text>
-      <Text style={styles.content__heading}>
-        Send the message? - {showablePostId}
+      <Text>
+        Send the message? - {showablePostId} - {isSessionAndProfileUserSame}
       </Text>
       <Text style={styles.content__description}>
         <Text style={styles.text}>
