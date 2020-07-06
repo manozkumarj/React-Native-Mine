@@ -11,11 +11,10 @@ import {
   RefreshControl,
 } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "./../constants/Colors";
 import Constant from "expo-constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProfileUserDetailsAndPosts } from "./../redux/actionCreators";
 import { Modalize } from "react-native-modalize";
 

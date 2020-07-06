@@ -61,7 +61,9 @@ const MenuScreen = (props) => {
           <Text style={styles.option}>View Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.push("Friends")}
+          onPress={() =>
+            navigation.push("Friends", { username: loggedInUserUsername })
+          }
           style={styles.optionContainer}
           activeOpacity={0.75}
         >
