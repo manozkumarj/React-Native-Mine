@@ -32,6 +32,7 @@ const ProfileScreen = (props) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
+  const [activeTab, setActiveTab] = useState(1);
   const [showablePostId, setShowablePostId] = useState(0);
   let getLoggedInUserDetails = useSelector(
     (state) => state.centralState.loggedInUserDetails
@@ -86,18 +87,22 @@ const ProfileScreen = (props) => {
 
   const getProfileUserPosts = () => {
     console.log("Make an API call to fetch profile user Posts");
+    setActiveTab(1);
   };
 
   const getProfileUserInfo = () => {
     console.log("Make an API call to fetch profile user Info");
+    setActiveTab(2);
   };
 
   const getProfileUserPhotos = () => {
     console.log("Make an API call to fetch profile user Photos");
+    setActiveTab(3);
   };
 
   const getProfileUserFriends = () => {
     console.log("Make an API call to fetch profile user Friends");
+    setActiveTab(4);
   };
 
   const onRefresh = () => {
@@ -255,9 +260,13 @@ const ProfileScreen = (props) => {
         <Text>Fetching...</Text>
       </View>
     );
-  } else if (posts.length === 0) {
-    output = <Text> No posts to show </Text>;
-  } else if (posts.length > 0) {
+  } else if (activeTab === 1 && posts.length === 0) {
+    output = (
+      <View style={styles.loadingContainer}>
+        <Text>No posts to show</Text>
+      </View>
+    );
+  } else if (activeTab === 1 && posts.length > 0) {
     output = (
       <FlatList
         data={posts}
@@ -352,6 +361,24 @@ const ProfileScreen = (props) => {
         }}
       />
     );
+  } else if (activeTab === 2) {
+    output = (
+      <View style={styles.loadingContainer}>
+        <Text>Need to show User Info</Text>
+      </View>
+    );
+  } else if (activeTab === 3) {
+    output = (
+      <View style={styles.loadingContainer}>
+        <Text>Need to show User Photos</Text>
+      </View>
+    );
+  } else if (activeTab === 4) {
+    output = (
+      <View style={styles.loadingContainer}>
+        <Text>Need to show Friends list</Text>
+      </View>
+    );
   }
 
   if (!isLoading && profilePageUserDetails) {
@@ -375,17 +402,45 @@ const ProfileScreen = (props) => {
             {secondaryDpImage}
           </View>
           <View style={styles.profileMenu}>
-            <Text style={styles.menuItem} onPress={getProfileUserPosts}>
+            <Text
+              style={{
+                ...styles.menuItem,
+                backgroundColor: activeTab === 1 ? Colors.siteColor : null,
+                color: activeTab === 1 ? "#fff" : null,
+              }}
+              onPress={getProfileUserPosts}
+            >
               Timeline
             </Text>
-            <Text style={styles.menuItem} onPress={getProfileUserFriends}>
-              Friends
-            </Text>
-            <Text style={styles.menuItem} onPress={getProfileUserInfo}>
+            <Text
+              style={{
+                ...styles.menuItem,
+                backgroundColor: activeTab === 2 ? Colors.siteColor : null,
+                color: activeTab === 2 ? "#fff" : null,
+              }}
+              onPress={getProfileUserInfo}
+            >
               About
             </Text>
-            <Text style={styles.menuItem} onPress={getProfileUserPhotos}>
+            <Text
+              style={{
+                ...styles.menuItem,
+                backgroundColor: activeTab === 3 ? Colors.siteColor : null,
+                color: activeTab === 3 ? "#fff" : null,
+              }}
+              onPress={getProfileUserPhotos}
+            >
               Photos
+            </Text>
+            <Text
+              style={{
+                ...styles.menuItem,
+                backgroundColor: activeTab === 4 ? Colors.siteColor : null,
+                color: activeTab === 4 ? "#fff" : null,
+              }}
+              onPress={getProfileUserFriends}
+            >
+              Friends
             </Text>
           </View>
           <View style={styles.userDetailsContainer}>{output}</View>
@@ -393,6 +448,12 @@ const ProfileScreen = (props) => {
         <Modalize ref={modalizeRef} adjustToContentHeight={toggle}>
           {renderContent()}
         </Modalize>
+      </View>
+    );
+  } else {
+    output = (
+      <View style={styles.loadingContainer}>
+        <Text>No User found</Text>
       </View>
     );
   }
@@ -451,6 +512,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 30,
+    paddingHorizontal: 5,
   },
   menuItem: {
     flex: 1,
@@ -459,6 +521,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     fontWeight: "bold",
+    borderRadius: 5,
   },
   singlePostContainer: {
     flex: 1,
