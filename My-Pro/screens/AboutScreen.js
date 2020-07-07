@@ -143,7 +143,7 @@ const AboutScreen = (props) => {
         </View>
       ) : profilePageUserDetails === null ? (
         <View
-          style={styles.screenContainer}
+          style={styles.loadingContainer}
           refreshControl={
             <RefreshControl
               refreshing={isFetching}
@@ -228,9 +228,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
   },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   aboutMainContainer: {
     flexDirection: "column",
-    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 50,
     paddingHorizontal: 10,
   },
   singleSection: {

@@ -363,9 +363,54 @@ const ProfileScreen = (props) => {
     );
   } else if (activeTab === 2) {
     output = (
-      <View style={styles.loadingContainer}>
-        <Text>Need to show User Info</Text>
-      </View>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching}
+            onRefresh={() => onRefresh()}
+            tintColor="red"
+            colors={["red", "green", "blue"]}
+            title="Refreshing..."
+          />
+        }
+      >
+        <View style={styles.aboutMainContainer}>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Full name</Text>
+            <Text style={styles.info}>{profilePageUserDetails.fullName}</Text>
+          </View>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Gender</Text>
+            <Text style={styles.info}>
+              {profilePageUserDetails.genderId
+                ? profilePageUserDetails.genderId
+                : "--N/A--"}
+            </Text>
+          </View>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.info}>{profilePageUserDetails.email}</Text>
+          </View>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Password</Text>
+            <Text style={styles.info}>{profilePageUserDetails.password}</Text>
+          </View>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Phone Number</Text>
+            <Text style={styles.info}>
+              {profilePageUserDetails.phoneNumber
+                ? profilePageUserDetails.phoneNumber
+                : "--N/A--"}
+            </Text>
+          </View>
+          <View style={styles.singleSection}>
+            <Text style={styles.label}>Joined on</Text>
+            <Text style={styles.info}>
+              {profilePageUserDetails.milliseconds}
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
     );
   } else if (activeTab === 3) {
     output = (
@@ -611,6 +656,26 @@ const styles = StyleSheet.create({
   singleEmoji: {
     height: 30,
     width: 30,
+  },
+  aboutMainContainer: {
+    flexDirection: "column",
+    paddingTop: 10,
+    marginBottom: 50,
+  },
+  singleSection: {
+    flexDirection: "column",
+    paddingVertical: 8,
+    borderBottomColor: "#999",
+    borderBottomWidth: 1,
+  },
+  label: {
+    color: "#999",
+    fontSize: 15,
+  },
+  info: {
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
