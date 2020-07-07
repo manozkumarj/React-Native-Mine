@@ -60,13 +60,34 @@ const PostReactions = (props) => {
         // console.log("reactedTypeId --> " + reactedTypeId);
         // console.log(postReactions[getIndex]["reactionTypeId"]);
 
-        if (reactedTypeId === 1) setReactedTypeInText("Like");
-        else if (reactedTypeId === 2) setReactedTypeInText("Dislike");
-        else if (reactedTypeId === 3) setReactedTypeInText("Love");
-        else if (reactedTypeId === 4) setReactedTypeInText("Wow");
-        else if (reactedTypeId === 5) setReactedTypeInText("Laugh");
-        else if (reactedTypeId === 6) setReactedTypeInText("Cry");
-        else if (reactedTypeId === 7) setReactedTypeInText("Angry");
+        if (reactedTypeId === 1)
+          setReactedTypeInText(
+            <Image source={likeThumbEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 2)
+          setReactedTypeInText(
+            <Image source={dislikeThumbEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 3)
+          setReactedTypeInText(
+            <Image source={loveHeartsEyesEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 4)
+          setReactedTypeInText(
+            <Image source={wowEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 5)
+          setReactedTypeInText(
+            <Image source={laugherEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 6)
+          setReactedTypeInText(
+            <Image source={cryingEmoji} style={styles.singleEmoji} />
+          );
+        else if (reactedTypeId === 7)
+          setReactedTypeInText(
+            <Image source={angryEmoji} style={styles.singleEmoji} />
+          );
         else setReactedTypeInText("Like");
 
         // console.log("reactedTypeInText --> " + reactedTypeInText);
@@ -89,7 +110,9 @@ const PostReactions = (props) => {
 
   const handleLikeReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Like");
+    setReactedTypeInText(
+      <Image source={likeThumbEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 1);
@@ -97,7 +120,9 @@ const PostReactions = (props) => {
 
   const handleDislikeReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Dislike");
+    setReactedTypeInText(
+      <Image source={dislikeThumbEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 2);
@@ -105,7 +130,9 @@ const PostReactions = (props) => {
 
   const handleLoveReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Love");
+    setReactedTypeInText(
+      <Image source={loveHeartsEyesEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 3);
@@ -113,7 +140,9 @@ const PostReactions = (props) => {
 
   const handleWowReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Wow");
+    setReactedTypeInText(
+      <Image source={wowEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 4);
@@ -121,7 +150,9 @@ const PostReactions = (props) => {
 
   const handleLaughReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Laugh");
+    setReactedTypeInText(
+      <Image source={laugherEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 5);
@@ -129,7 +160,9 @@ const PostReactions = (props) => {
 
   const handleCryReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Cry");
+    setReactedTypeInText(
+      <Image source={cryingEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 6);
@@ -137,7 +170,9 @@ const PostReactions = (props) => {
 
   const handleAngerReaction = () => {
     setShowReactions(false);
-    setReactedTypeInText("Anger");
+    setReactedTypeInText(
+      <Image source={angryEmoji} style={styles.singleEmoji} />
+    );
     setIsReactedToThisPost(true);
     console.log("handleLongPress --> " + post._id + " -- " + showReactions);
     doUpsertReaction("add", 7);
@@ -146,12 +181,14 @@ const PostReactions = (props) => {
   const doUpsertReaction = (actionType, reactionTypeId) => {
     if (actionType === "add") {
       let filterPostReactions = postReactions.filter(
-        (reaction) => reaction.reactedBy !== loggedInUserId
+        (reaction) => reaction.reactedBy._id !== loggedInUserId
       );
       // setPostReactions(filterPostReactions);
 
       let addUserToReactions = {
-        reactedBy: loggedInUserId,
+        reactedBy: {
+          _id: loggedInUserId,
+        },
         reactionTypeId,
       };
       // let addd = postReactions.push(addUserToReactions);
@@ -160,8 +197,9 @@ const PostReactions = (props) => {
       setPostReactions([...filterPostReactions, addUserToReactions]);
       setIsReactedToThisPost(true);
     } else if (actionType === "delete") {
+      setReactedTypeInText("Like");
       let filterPostReactions = postReactions.filter(
-        (reaction) => reaction.reactedBy !== loggedInUserId
+        (reaction) => reaction.reactedBy._id !== loggedInUserId
       );
       setPostReactions(filterPostReactions);
       setIsReactedToThisPost(false);
