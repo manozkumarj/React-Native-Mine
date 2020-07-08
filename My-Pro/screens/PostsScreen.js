@@ -151,12 +151,8 @@ const PostsScreen = (props) => {
 
   const renderContent = () => (
     <View style={styles.content}>
-      <Text style={styles.content__subheading}>
-        {"Last step".toUpperCase()}
-      </Text>
-      <Text style={styles.content__heading}>
-        Send the message? - {showablePostId}
-      </Text>
+      <Text>{"Last step".toUpperCase()}</Text>
+      <Text>Send the message? - {showablePostId}</Text>
       <Text style={styles.content__description}>
         <Text style={styles.text}>
           So, here we have added one Button, and also, we have imported the

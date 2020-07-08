@@ -226,6 +226,7 @@ const centralReducer = (state = initialState, action) => {
         postsFetchingError: null,
         fetchedPosts: null,
         isLoading: true,
+        profilePageUserDetails: null,
       };
 
     case IS_COMMENT_INSERTED:
